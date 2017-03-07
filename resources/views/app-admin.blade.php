@@ -48,13 +48,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <img alt="" class="img-circle" src="/assets/admin/images/avatar3_small.jpg"/>
 					<span class="username username-hide-on-mobile">
-					Admink </span>
+					Admin </span>
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
 
                         <li>
-                            <a href="login.html">
+                            <a href="{{action('AdminController@getLogout')}}">
                                 <i class="icon-key"></i> Log Out </a>
                         </li>
                     </ul>
@@ -76,7 +76,7 @@
         <div class="page-sidebar navbar-collapse collapse">
 
             <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                @if(isset($activeworkshop) || isset($activiinyourspace) || isset($activephototour) || isset($activeaboutartist) || isset($activeconnect))
+                @if(isset($activeworkshop) || isset($activiinyourspace) || isset($activephototour) || isset($activeaboutartist) || isset($activeconnect) || isset($activeHome))
                 <li class="start active open">
                 @else
                 <li class="start">
@@ -88,13 +88,23 @@
                         <span class="arrow open"></span>
                     </a>
                     <ul class="sub-menu">
+                        @if(isset($activeHome))
+                            <li class="active">
+                        @else
+                            <li>
+                        @endif
+                            <a href="{{action('AdminController@getHome')}}">
+
+                                Home
+                            </a>
+                        </li>
                         @if(isset($activeworkshop))
                         <li class="active">
                         @else
                         <li>
                         @endif
                             <a href="{{action('AdminController@getWorkShop')}}">
-                                <i class="icon-bar-chart"></i>
+
                                 Work Shop
                             </a>
                         </li>
@@ -104,7 +114,7 @@
                         <li>
                         @endif
                             <a href="{{action('AdminController@getInYourSpace')}}">
-                                <i class="icon-bar-chart"></i>
+
                                 In Your Space
                             </a>
                         </li>
@@ -114,7 +124,7 @@
                         <li>
                         @endif
                             <a href="{{action('AdminController@getPhotoTour')}}">
-                                <i class="icon-bar-chart"></i>
+
                                 Photo Tour
                             </a>
                         </li>
@@ -124,7 +134,7 @@
                         <li>
                         @endif
                             <a href="{{action('AdminController@getAboutArtist')}}">
-                                <i class="icon-bar-chart"></i>
+
                                 About Artist
                             </a>
                         </li>
@@ -134,7 +144,6 @@
                         <li>
                         @endif
                             <a href="{{action('AdminController@getConnect')}}">
-                                <i class="icon-bar-chart"></i>
                                 Connect
                             </a>
                         </li>
@@ -158,8 +167,8 @@
                             <li>
                             @endif
                                 <a href="{{action('AdminController@getAddGalleryPage')}}">
-                                    <i class="icon-home"></i>
-                                    Add Gallery</a>
+                                    Add Gallery
+                                </a>
                             </li>
                     </ul>
                 </li>
