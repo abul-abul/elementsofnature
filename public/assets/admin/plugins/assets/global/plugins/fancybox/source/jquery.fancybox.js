@@ -158,13 +158,13 @@
 			closeOpacity : true,
 			closeMethod  : 'zoomOut',
 
-			// Changing next gallery item
+			// Changing next gallery-images item
 			nextEffect : 'elastic', // 'elastic', 'fade' or 'none'
 			nextSpeed  : 250,
 			nextEasing : 'swing',
 			nextMethod : 'changeIn',
 
-			// Changing previous gallery item
+			// Changing previous gallery-images item
 			prevEffect : 'elastic', // 'elastic', 'fade' or 'none'
 			prevSpeed  : 250,
 			prevEasing : 'swing',
@@ -182,7 +182,7 @@
 			afterLoad    : $.noop, // After loading
 			beforeShow   : $.noop, // Before changing in current item
 			afterShow    : $.noop, // After opening
-			beforeChange : $.noop, // Before changing gallery item
+			beforeChange : $.noop, // Before changing gallery-images item
 			beforeClose  : $.noop, // Before closing
 			afterClose   : $.noop  // After closing
 		},
@@ -466,7 +466,7 @@
 			}
 		},
 
-		// Navigate to next gallery item
+		// Navigate to next gallery-images item
 		next: function ( direction ) {
 			var current = F.current;
 
@@ -479,7 +479,7 @@
 			}
 		},
 
-		// Navigate to previous gallery item
+		// Navigate to previous gallery-images item
 		prev: function ( direction ) {
 			var current = F.current;
 
@@ -492,7 +492,7 @@
 			}
 		},
 
-		// Navigate to gallery item by index
+		// Navigate to gallery-images item by index
 		jumpto: function ( index, direction, router ) {
 			var current = F.current;
 
@@ -855,7 +855,7 @@
 			if (!type) {
 				F.coming = null;
 
-				//If we can not determine content type then drop silently or display next/prev item if looping through gallery
+				//If we can not determine content type then drop silently or display next/prev item if looping through gallery-images
 				if (F.current && F.router && F.router !== 'jumpto') {
 					F.current.index = index;
 

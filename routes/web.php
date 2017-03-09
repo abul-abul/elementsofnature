@@ -2,9 +2,9 @@
 
 //User
 Route::get('/','UsersController@getHome');
-Route::get('gallery-category','UsersController@getGalleryCategory');
-Route::get('gallery','UsersController@getGallery');
-Route::get('gallery-inner','UsersController@getGalleryInner');
+Route::get('gallery-images-category','UsersController@getGalleryCategory');
+Route::get('gallery-images','UsersController@getGallery');
+Route::get('gallery-images-inner','UsersController@getGalleryInner');
 
 
 Route::get('work-shop','UsersController@getWorkShop');
@@ -24,6 +24,7 @@ Route::get('connect','UsersController@getConnect');
 
 
 //Admin
+
 Route::get('admin/login','AdminController@getLogin');
 Route::post('admin/login','AdminController@postLogin');
 Route::get('admin/dashboard','AdminController@getDashboard');
@@ -32,11 +33,16 @@ Route::get('admin/in-your-space','AdminController@getInYourSpace');
 Route::get('admin/photo-tour','AdminController@getPhotoTour');
 Route::get('admin/about-artist','AdminController@getAboutArtist');
 Route::get('admin/connect','AdminController@getConnect');
-Route::get('admin/add-gallery-page','AdminController@getAddGalleryPage');
-Route::post('admin/add-gallery','AdminController@postAddGallery');
+Route::get('admin/add-gallery-images-page','AdminController@getAddGalleryPage');
+Route::post('admin/add-gallery-images','AdminController@postAddGallery');
 Route::get('admin/logout','AdminController@getLogout');
 Route::get('admin/home','AdminController@getHome');
 Route::post('admin/add-partners','AdminController@postAddPartners');
 Route::get('admin/partners-delete/{id}','AdminController@getPartnersDelete');
 Route::post('admin/home-bg','AdminController@postHomeBg');
 Route::get('admin/delete-home-bg/{id}','AdminController@getDeleteHomeBg');
+Route::post('admin/add-home-gallery-images','AdminController@postAddHomeGallery');
+Route::get('admin/edit-home-gallery/{id}','AdminController@getEditHomeGallery');
+Route::post('admin/edit-home-gallery','AdminController@postEditHomeGallery');
+Route::get('admin/delete-home-gallery/{id}','AdminController@getDeleteHomeGallery');
+Route::post('admin/update-favourite','AdminController@postUpdateFavourite');

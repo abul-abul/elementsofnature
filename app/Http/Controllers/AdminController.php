@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AdminLoginRequest;
 use App\Contracts\PartnersInterface;
 use App\Contracts\HomeBgInterface;
+use App\Contracts\GalleryInterface;
 use View;
 use Session;
 use Validator;
@@ -67,13 +68,15 @@ class AdminController extends BaseController
         return view('admin.dashboard.dashboard');
     }
     
-    public function getHome(PartnersInterface $partnersRepo,HomeBgInterface $homeBgRepo)
+    public function getHome(PartnersInterface $partnersRepo,HomeBgInterface $homeBgRepo,GalleryInterface $galleryRepo)
     {
         $parners = $partnersRepo->getAll();
         $homeBackground = $homeBgRepo->getAll();
+        $gallery = $galleryRepo->getHomeRoleGallery();
         $data = [
             'partners' => $parners,
             'homeBackgrounds' => $homeBackground,
+            'homeGallerys' => $gallery,
             'activeHome' => 1
         ];
         return view('admin.pages.home.home',$data);
@@ -179,7 +182,105 @@ class AdminController extends BaseController
         $homeBgRepo->deleteData($id);
         return redirect()->back()->with('message','Delete Succesfully');
     }
-    
+
+    /**
+     * @param Request $request
+     * @param GalleryInterface $galleryRepo
+     * @return mixed
+     */
+    public function postAddHomeGallery(request $request,GalleryInterface $galleryRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images' => 'required',
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            unset($result['_token']);
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/gallery-images';
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images'] = $gallery_images;
+            $result['role'] = 'home';
+            $galleryRepo->createData($result);
+            return redirect()->back()->with('message','Add One Gallery');
+        }
+    }
+
+    /**
+     * @param $id
+     * @param GalleryInterface $galleryRepo
+     * @return View
+     */
+    public function getEditHomeGallery($id,GalleryInterface $galleryRepo)
+    {
+        $result = $galleryRepo->getOne($id);
+        $data = [
+            'gallerys' => $result
+        ];
+        return view('admin.pages.home.home-gallery-edit',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param GalleryInterface $galleryRepo
+     * @return mixed
+     */
+    public function postEditHomeGallery(request $request,GalleryInterface $galleryRepo)
+    {
+        $result = $request->all();
+        if(isset($result['images'])){
+            $row = $galleryRepo->getOne($result['id']);
+            $path = public_path() . '/assets/gallery-images/' . $row['images'];
+            File::delete($path);
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/gallery-images';
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images'] = $gallery_images;
+            $galleryRepo->getUpdateData($result['id'],$result);
+        }else{
+            $galleryRepo->getUpdateData($result['id'],$result);
+        }
+        return redirect()->action('AdminController@getHome')->with('message','Update Succesfully');
+    }
+
+    /**
+     * @param $id
+     * @param GalleryInterface $galleryRepo
+     * @return mixed
+     */
+    public function getDeleteHomeGallery($id,GalleryInterface $galleryRepo)
+    {
+        $result = $galleryRepo->getOne($id);
+        $path = public_path() . '/assets/gallery-images/' . $result['images'];
+        File::delete($path);
+        $galleryRepo->deleteData($id);
+        return redirect()->back()->with('message','File Deleted');
+    }
+
+    /**
+     * @param Request $request
+     * @param GalleryInterface $galleryRepo
+     * @return mixed
+     */
+    public function postUpdateFavourite(request $request,GalleryInterface $galleryRepo)
+    {
+        $result = $request->all();
+        //dd($result['favourite']);
+        $data = [
+            'favourite' => $result['favourite']
+        ];
+        $galleryRepo->getUpdateData($result['id'],$data);
+        return redirect()->back();
+    }
+
     public function getWorkShop()
     {
         $data = [
@@ -225,7 +326,7 @@ class AdminController extends BaseController
         $data = [
             'activeAddGalleryPage' => 1
         ];
-        return view('admin.gallery.add-gallery-page',$data);
+        return view('admin.gallery-images.add-gallery-images-page',$data);
     }
 
     public function postAddGallery(request $request)

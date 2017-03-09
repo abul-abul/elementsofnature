@@ -31,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\HomeBgInterface',
             'App\Services\HomeBgService'
         );
+        $this->app->bind(
+            'App\Contracts\GalleryInterface',
+            'App\Services\GalleryService'
+        );
     }
 }

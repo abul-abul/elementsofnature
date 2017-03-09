@@ -115,7 +115,7 @@
 		},
 
 		beforeLoad: function (opts, obj) {
-			//Remove self if gallery do not have at least two items
+			//Remove self if gallery-images do not have at least two items
 			if (obj.group.length < 2) {
 				obj.helpers.thumbs = false;
 

@@ -8,35 +8,20 @@
             @include('message')
             <div class="tabbable tabbable-custom boxless tabbable-reversed">
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <li class="active tab_url">
                         <a href="#tab_0" data-toggle="tab">
                             Home Background
                         </a>
                     </li>
-                    <li>
+                    <li class="tab_url">
                         <a href="#tab_1" data-toggle="tab">
                             Partner Images
                         </a>
                     </li>
-                    <li>
+                    <li class="tab_url">
                         <a href="#tab_2" data-toggle="tab">
-                            2 Columns Horizontal </a>
-                    </li>
-                    <li>
-                        <a href="#tab_3" data-toggle="tab">
-                            2 Columns View Only </a>
-                    </li>
-                    <li>
-                        <a href="#tab_4" data-toggle="tab">
-                            Row Seperated </a>
-                    </li>
-                    <li>
-                        <a href="#tab_5" data-toggle="tab">
-                            Bordered </a>
-                    </li>
-                    <li>
-                        <a href="#tab_6" data-toggle="tab">
-                            Row Stripped </a>
+                            Home Gallery
+                        </a>
                     </li>
 
                 </ul>
@@ -144,7 +129,7 @@
 
 
 
-                                        <div class="col-md-12">
+                                    <div class="col-md-12">
                                         @if(count($partners) != "")
                                         <h1>Partners List</h1>
                                         <div class="portlet-body" style="display: block;">
@@ -192,16 +177,119 @@
                         </div>
                     </div>
 
+
+                    {{--Home Gallery--}}
                     <div class="tab-pane" id="tab_2">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="portlet box yellow">
-                                    tab 2
+                                <div class="portlet box green">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-gift"></i>Add Home Gallery Images
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="portlet-body form">
+                                    <div class="col-md-12">
+
+                                        {!! Form::open(['action' => ['AdminController@postAddHomeGallery'],'files' => 'true',  ]) !!}
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::text('title', null, ['placeholder' => 'Title' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::textarea('description', null, ['placeholder' => 'Description' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::text('alt', null, ['placeholder' => 'Alt' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
+                                            <label class="input-group-btn">
+                                                    <span class="btn btn-primary">
+                                                        Browse Gallery Image… <input name="images" type="file" style="display: none;" multiple="">
+                                                    </span>
+                                            </label>
+                                            <input type="text" class="form-control" readonly="">
+                                        </div>
+
+
+                                        <div style="float: right;margin-right: 31px;">
+                                            <button type="submit" class="btn green">Submit</button>
+                                        </div>
+                                        {!! Form::close() !!}
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        @if(count($homeGallerys) != "")
+                                            <h1>Gallery List</h1>
+                                            <div class="portlet-body" style="display: block;">
+                                                <div class="table-scrollable">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Title</th>
+                                                            <th>Description</th>
+                                                            <th>Image Alt</th>
+                                                            <th>Images</th>
+                                                            <th>Date</th>
+                                                            <th>
+
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($homeGallerys as $homeGallery)
+                                                            <tr>
+                                                                <td>{{$homeGallery->title}}</td>
+                                                                <td>{{$homeGallery->description}}</td>
+                                                                <td>{{$homeGallery->alt}}</td>
+                                                                <td><img style="width:100px;height:47px;" src="/assets/gallery-images/{{$homeGallery->images}}"></td>
+                                                                <td>{{date('d/m/Y', strtotime($homeGallery->created_at))}}</td>
+
+                                                                <td>
+                                                                    {!! Form::open(['action' => ['AdminController@postUpdateFavourite'],'style'=>'float:left']) !!}
+                                                                    <button type="submit" class="btn btn-info">
+                                                                        <input type="hidden" name="id" value="{{$homeGallery->id}}">
+                                                                        @if($homeGallery->favourite == "" || $homeGallery->favourite == 0)
+                                                                            <input type="hidden" name="favourite" value="1">
+                                                                            <i class="glyphicon glyphicon-star-empty"></i>
+                                                                        @else
+                                                                            <input type="hidden" name="favourite" value="0">
+                                                                            <i class="glyphicon glyphicon-star"></i>
+                                                                        @endif
+                                                                    </button>
+                                                                    {!!Form::close()!!}
+                                                                    <a href="{{action('AdminController@getEditHomeGallery',$homeGallery->id)}}">
+                                                                        <button class="btn green">
+                                                                            <i class="glyphicon glyphicon-pencil"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                    <button data-href="{{action('AdminController@getDeleteHomeGallery',$homeGallery->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                                        <i class="fa fa-trash-o bigger-120"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <h1>Not Home Gallery</h1>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    {{--end Home Gallery--}}
 
 
               </div>
@@ -233,4 +321,5 @@
 
 @section('script')
     {!! HTML::script( asset('assets/admin/js/delete.js') ) !!}
+    {!! HTML::script( asset('assets/admin/js/tab-url.js') ) !!}
 @endsection
