@@ -38,3 +38,5 @@ Route::get('admin/logout','AdminController@getLogout');
 Route::get('admin/home','AdminController@getHome');
 Route::post('admin/add-partners','AdminController@postAddPartners');
 Route::get('admin/partners-delete/{id}','AdminController@getPartnersDelete');
+Route::post('admin/home-bg','AdminController@postHomeBg');
+Route::get('admin/delete-home-bg/{id}','AdminController@getDeleteHomeBg');

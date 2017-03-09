@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\PartnersInterface',
             'App\Services\PartnersService'
         );
+        $this->app->bind(
+            'App\Contracts\HomeBgInterface',
+            'App\Services\HomeBgService'
+        );
     }
 }

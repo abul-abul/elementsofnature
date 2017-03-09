@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminLoginRequest;
 use App\Contracts\PartnersInterface;
+use App\Contracts\HomeBgInterface;
 use View;
 use Session;
 use Validator;
@@ -66,11 +67,13 @@ class AdminController extends BaseController
         return view('admin.dashboard.dashboard');
     }
     
-    public function getHome(PartnersInterface $partnersRepo)
+    public function getHome(PartnersInterface $partnersRepo,HomeBgInterface $homeBgRepo)
     {
         $parners = $partnersRepo->getAll();
+        $homeBackground = $homeBgRepo->getAll();
         $data = [
             'partners' => $parners,
+            'homeBackgrounds' => $homeBackground,
             'activeHome' => 1
         ];
         return view('admin.pages.home.home',$data);
@@ -119,6 +122,62 @@ class AdminController extends BaseController
         }else{
             abort(404);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param HomeBgInterface $homeBgRepo
+     * @return mixed
+     */
+    public function postHomeBg(request $request,HomeBgInterface $homeBgRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+              $row = $homeBgRepo->getAll();
+              if(count($row) == ""){
+                    unset($result['_token']);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/home-background';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $bg_images = $name.'.'.$logoFile;
+                    $result['images'] = $bg_images;
+                    $homeBgRepo->createData($result);
+                    return redirect()->back()->with('message','uploade Succesfully');
+              }else{
+                  $oneRow = $homeBgRepo->getFirstRow();
+                  $oldImage = $oneRow['images'];
+                  $oldPath = public_path() . '/assets/home-background/' . $oldImage;
+                  File::delete($oldPath);
+                  $logoFile = $result['images']->getClientOriginalExtension();
+                  $name = str_random(12);
+                  $path = public_path() . '/assets/home-background';
+                  $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                  $bg_images = $name.'.'.$logoFile;
+                  $result['images'] = $bg_images;
+                  $homeBgRepo->getUpdateData($oneRow['id'],$result);
+                  return redirect()->back()->with('message','Update Images Succesfully');
+              }
+        }
+    }
+
+    /**
+     * @param $id
+     * @param HomeBgInterface $homeBgRepo
+     * @return mixed
+     */
+    public function getDeleteHomeBg($id,HomeBgInterface $homeBgRepo)
+    {
+        $row = $homeBgRepo->getOne($id);
+        $path = public_path() . '/assets/home-background/' . $row['images'];
+        File::delete($path);
+        $homeBgRepo->deleteData($id);
+        return redirect()->back()->with('message','Delete Succesfully');
     }
     
     public function getWorkShop()

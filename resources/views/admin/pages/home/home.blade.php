@@ -54,56 +54,51 @@
                                 </div>
                                 <div class="portlet-body form">
                                     <div class="col-md-12">
+                                        {!! Form::open(['action' => ['AdminController@postHomeBg'],'files' => 'true',  ]) !!}
 
                                         <div class="input-group">
                                             <label class="input-group-btn">
                                                 <span class="btn btn-primary">
-                                                    Browse… <input type="file" style="display: none;" multiple="">
+                                                    Browse… <input name="images" type="file" style="display: none;" multiple="">
                                                 </span>
                                             </label>
                                             <input type="text" class="form-control" readonly="">
                                         </div>
+                                        <div style="float: right; margin: 14px 0 18px 0;">
+                                            <button type="submit" class="btn green">Submit</button>
+                                        </div>
+                                        {!! Form::close() !!}
 
-
+                                        @if(count($homeBackgrounds) != "")
                                         <div class="portlet-body" style="display: block;">
                                             <div class="table-scrollable">
                                                 <table class="table table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th>
-                                                            #
-                                                        </th>
-                                                       <th>
-                                                           Images
-                                                       </th>
-                                                        <th>
-                                                            edit/delete
-                                                        </th>
+                                                       <th>#</th>
+                                                       <th>Images</th>
+                                                       <th>Date</th>
+                                                       <th>delete</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @foreach($homeBackgrounds as $homeBackground)
                                                         <tr>
+                                                            <td>{{$homeBackground->id}}</td>
+                                                            <td><img style="width:149px;height: 78px;" src="/assets/home-background/{{$homeBackground->images}}"></td>
+                                                            <td>{{date('d/m/Y', strtotime($homeBackground->created_at))}}</td>
                                                             <td>
-                                                                1
-                                                            </td>
-                                                            <td>
-
-                                                            </td>
-                                                            <td>
-                                                                <a href="#">
-                                                                    <button class="btn btn-info">
-                                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                                    </button>
-                                                                </a>
-                                                                <button data-href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                                <button data-href="{{action('AdminController@getDeleteHomeBg',$homeBackground->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
                                                                     <i class="fa fa-trash-o bigger-120"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
