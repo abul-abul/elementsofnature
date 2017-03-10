@@ -41,49 +41,79 @@
                                     <div class="col-md-12">
                                         {!! Form::open(['action' => ['AdminController@postHomeBg'],'files' => 'true',  ]) !!}
 
-                                        <div class="input-group">
+                                        <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
                                             <label class="input-group-btn">
-                                                <span class="btn btn-primary">
-                                                    Browse… <input name="images" type="file" style="display: none;" multiple="">
-                                                </span>
+                                            <span class="btn btn-primary">
+                                                Browse Top Backgount Image… <input name="images" type="file" style="display: none;" multiple="">
+                                            </span>
                                             </label>
                                             <input type="text" class="form-control" readonly="">
                                         </div>
-                                        <div style="float: right; margin: 14px 0 18px 0;">
+
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::text('title', null, ['placeholder' => 'background title' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::textarea('description', null, ['placeholder' => 'background description' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::text('alt', null, ['placeholder' => 'background alt' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div style="float: right;margin-right: 31px;">
                                             <button type="submit" class="btn green">Submit</button>
                                         </div>
                                         {!! Form::close() !!}
 
-                                        @if(count($homeBackgrounds) != "")
-                                        <div class="portlet-body" style="display: block;">
-                                            <div class="table-scrollable">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                       <th>#</th>
-                                                       <th>Images</th>
-                                                       <th>Date</th>
-                                                       <th>delete</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($homeBackgrounds as $homeBackground)
-                                                        <tr>
-                                                            <td>{{$homeBackground->id}}</td>
-                                                            <td><img style="width:149px;height: 78px;" src="/assets/home-background/{{$homeBackground->images}}"></td>
-                                                            <td>{{date('d/m/Y', strtotime($homeBackground->created_at))}}</td>
-                                                            <td>
-                                                                <button data-href="{{action('AdminController@getDeleteHomeBg',$homeBackground->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
-                                                                    <i class="fa fa-trash-o bigger-120"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                        <div class="col-md-12">
+
+                                            @if(isset($backgrounds) && count($backgrounds) != "")
+                                                <h1>Background Top Image</h1>
+                                                <div class="portlet-body" style="display: block;">
+                                                    <div class="table-scrollable">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Background Title</th>
+                                                                <th>Background Description</th>
+                                                                <th>Background Alt</th>
+                                                                <th>Background Images</th>
+                                                                <th>
+                                                                    Delete
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>{{$backgrounds['title']}}</td>
+                                                                <td>{{$backgrounds['description']}}</td>
+                                                                <td>{{$backgrounds['alt']}}</td>
+                                                                <td><img style="width:100px;height:47px;" src="/assets/background-images/{{$backgrounds['images']}}"></td>
+                                                                <td>
+                                                                    <a href="{{action('AdminController@getEditInYourSpace',$backgrounds['id'])}}">
+                                                                        <button class="btn green">
+                                                                            <i class="glyphicon glyphicon-pencil"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                    <button data-href="{{action('AdminController@getDeleteInYourSpace',$backgrounds['id'])}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                                        <i class="fa fa-trash-o bigger-120"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <h1>Not Partners</h1>
+                                            @endif
                                         </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -201,6 +231,11 @@
                                         </div>
                                         <div class="col-md-12 form-group">
                                             <div class="col-md-12">
+                                                {!! Form::text('name', null, ['placeholder' => 'Gallery Name' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
                                                 {!! Form::textarea('description', null, ['placeholder' => 'Description' , 'class' => 'form-control']) !!}
                                             </div>
                                         </div>
@@ -235,6 +270,7 @@
                                                         <thead>
                                                         <tr>
                                                             <th>Title</th>
+                                                            <th>Gallery Name</th>
                                                             <th>Description</th>
                                                             <th>Image Alt</th>
                                                             <th>Images</th>
@@ -248,7 +284,8 @@
                                                         @foreach($homeGallerys as $homeGallery)
                                                             <tr>
                                                                 <td>{{$homeGallery->title}}</td>
-                                                                <td>{{$homeGallery->description}}</td>
+                                                                <td>{{$homeGallery->name}}</td>
+                                                                <td>{{substr($homeGallery->description,0,7)}}...</td>
                                                                 <td>{{$homeGallery->alt}}</td>
                                                                 <td><img style="width:100px;height:47px;" src="/assets/gallery-images/{{$homeGallery->images}}"></td>
                                                                 <td>{{date('d/m/Y', strtotime($homeGallery->created_at))}}</td>

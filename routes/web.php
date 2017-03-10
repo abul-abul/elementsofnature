@@ -11,7 +11,7 @@ Route::get('work-shop','UsersController@getWorkShop');
 
 Route::get('work-shop-inner','UsersController@getWorkShopInner');
 
-Route::get('work-shop-inner','UsersController@getInYourSpace');
+Route::get('in-your-space','UsersController@getInYourSpace');
 Route::get('photo-tour','UsersController@gerPhotoTour');
 Route::get('about-artist','UsersController@getAboutArtist');
 Route::get('connect','UsersController@getConnect');
@@ -46,3 +46,11 @@ Route::get('admin/edit-home-gallery/{id}','AdminController@getEditHomeGallery');
 Route::post('admin/edit-home-gallery','AdminController@postEditHomeGallery');
 Route::get('admin/delete-home-gallery/{id}','AdminController@getDeleteHomeGallery');
 Route::post('admin/update-favourite','AdminController@postUpdateFavourite');
+Route::post('admin/add-in-your-space-background','AdminController@postAddInYourSpaceBackground');
+Route::get('admin/edit-in-your-space/{id}','AdminController@getEditInYourSpace');
+Route::post('admin/edit-background','AdminController@postEditBackground');
+Route::get('admin/Deletein-your-space/{id}','AdminController@getDeleteInYourSpace');
+Route::post('admin/in-your-space-images','AdminController@postInYourSpaceImages');
+Route::get('admin/delete-in-your-space-images/{id}','AdminController@getDeleteInYourSpaceImages');
+Route::get('admin/edit-in-your-space-images/{id}','AdminController@getEditInYourSpaceImages');
+Route::post('admin/edit-in-your-space-images','AdminController@postEditInYourSpaceImages');

@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\HomeBgInterface;
-use App\HomeBg;
+use App\Contracts\InYOurSpaceInterface;
+use App\InYourSpace;
 
-class HomeBgService implements HomeBgInterface
+class InYOurSpaceService implements InYOurSpaceInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class HomeBgService implements HomeBgInterface
      */
     public function __construct()
     {
-        $this->homebg = new HomeBg();
+        $this->inyourspace = new InYourSpace();
     }
 
     /**
@@ -21,7 +21,7 @@ class HomeBgService implements HomeBgInterface
      */
     public function getAll()
     {
-        return $this->homebg->get();
+        return $this->inyourspace->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class HomeBgService implements HomeBgInterface
      */
     public function getAllPaginate()
     {
-        return $this->homebg->paginate(5);
+        return $this->inyourspace->paginate(5);
     }
 
 
@@ -39,7 +39,7 @@ class HomeBgService implements HomeBgInterface
      */
     public function createData($data)
     {
-        return $this->homebg->create($data);
+        return $this->inyourspace->create($data);
     }
 
 
@@ -49,7 +49,7 @@ class HomeBgService implements HomeBgInterface
      */
     public function getOne($id)
     {
-        return $this->homebg->find($id);
+        return $this->inyourspace->find($id);
     }
 
     /**
@@ -76,7 +76,7 @@ class HomeBgService implements HomeBgInterface
      */
     public function getFirstRow()
     {
-        return $this->homebg->first();
+        return $this->inyourspace->first();
     }
 
 

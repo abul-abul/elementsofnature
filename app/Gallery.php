@@ -8,5 +8,5 @@ class Gallery extends Model
 {
     protected $table = 'gallery';
 
-    protected $fillable = ['images','alt','title','description','favourite','alt','role'];
+    protected $fillable = ['images','alt','title','name','description','favourite','alt','role'];
 }

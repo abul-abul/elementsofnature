@@ -23,17 +23,17 @@ class UsersController extends BaseController
 
     public function getGalleryCategory()
     {
-        return view('users.pages.gallery-images.gallery-images-category');
+        return view('users.pages.gallery.gallery-category');
     }
 
     public function getGallery()
     {
-        return view('users.pages.gallery-images.gallery-images');
+        return view('users.pages.gallery.gallery');
     }
 
     public function getGalleryInner()
     {
-        return view('users.pages.gallery-images.gallery-images-inner');
+        return view('users.pages.gallery.gallery-inner');
     }
 
     public function getWorkShop($slug = 'work')

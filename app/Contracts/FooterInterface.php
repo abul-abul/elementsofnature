@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface HomeBgInterface
+interface FooterInterface
 {
     /**
      * @return mixed

@@ -28,12 +28,20 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\PartnersService'
         );
         $this->app->bind(
-            'App\Contracts\HomeBgInterface',
-            'App\Services\HomeBgService'
+            'App\Contracts\BackgroundInterface',
+            'App\Services\BackgroundService'
         );
         $this->app->bind(
             'App\Contracts\GalleryInterface',
             'App\Services\GalleryService'
+        );
+        $this->app->bind(
+            'App\Contracts\InYOurSpaceInterface',
+            'App\Services\InYOurSpaceService'
+        );
+        $this->app->bind(
+            'App\Contracts\FooterInterface',
+            'App\Services\FooterService'
         );
     }
 }

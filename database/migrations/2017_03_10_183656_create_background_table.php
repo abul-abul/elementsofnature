@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHomeBgTable extends Migration
+class CreateBackgroundTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateHomeBgTable extends Migration
      */
     public function up()
     {
-        Schema::create('homebg', function (Blueprint $table) {
+        Schema::create('background', function (Blueprint $table) {
             $table->increments('id');
             $table->string('images')->nullable();
+            $table->string('title')->nullable();
+            $table->string('alt')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateHomeBgTable extends Migration
      */
     public function down()
     {
-        Schema::drop('homebg');
+        Schema::drop('background');
     }
 }
