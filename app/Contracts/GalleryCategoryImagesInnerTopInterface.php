@@ -45,6 +45,10 @@ interface GalleryCategoryImagesInnerTopInterface
      */
     public function getFirstRow();
 
-
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getOneGalleryCatInnerTopBg($id);
 
 }

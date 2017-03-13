@@ -1,5 +1,6 @@
 @extends('app-admin')
 @section('admin-content')
+
     <div class="row">
         <div class="col-md-12">
             @include('message')
@@ -25,7 +26,7 @@
                     <div class="tab-pane active" id="tab_0">
                         <div class="col-md-12">
                            <div class="row">
-                               @include('message')
+
                                 <div class="col-md-6">
                                 <!-- BEGIN PORTLET-->
                                         <div class="portlet box yellow-crusta">
@@ -321,10 +322,154 @@
                         </div>
 
                      <div class="tab-pane" id="tab_1">
-1
+
+                             <div class="col-md-12">
+                                 {!! Form::open(['action' => ['AdminController@postAddGalleryCategoryImagesBackground'],'files' => 'true',  ]) !!}
+                                 <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
+                                     <label class="input-group-btn">
+                                    <span class="btn btn-primary">
+                                        Browse Top Backgount Image… <input name="images" type="file" style="display: none;" multiple="">
+                                    </span>
+                                     </label>
+                                     <input type="text" class="form-control" readonly="">
+                                 </div>
+
+                                 <div class="col-md-12 form-group">
+                                     <div class="col-md-12">
+                                         {!! Form::text('title', null, ['placeholder' => 'background title' , 'class' => 'form-control']) !!}
+                                     </div>
+                                 </div>
+
+                                 <div class="col-md-12 form-group">
+                                     <div class="col-md-12">
+                                         {!! Form::textarea('description', null, ['placeholder' => 'background description' , 'class' => 'form-control']) !!}
+                                     </div>
+                                 </div>
+                                 <div class="col-md-12 form-group">
+                                     <div class="col-md-12">
+                                         {!! Form::text('alt', null, ['placeholder' => 'background alt' , 'class' => 'form-control']) !!}
+                                     </div>
+                                 </div>
+                                 <div style="float: right;margin-right: 31px;">
+                                     <button type="submit" class="btn green">Submit</button>
+                                 </div>
+                                 {!! Form::close() !!}
+                             </div>
+
+                             <div class="col-md-12">
+
+                                 @if(isset($backgrounds) && count($backgrounds) != "")
+                                     <h1>Background Top Image</h1>
+                                     <div class="portlet-body" style="display: block;">
+                                         <div class="table-scrollable">
+                                             <table class="table table-hover">
+                                                 <thead>
+                                                 <tr>
+                                                     <th>Background Title</th>
+                                                     <th>Background Description</th>
+                                                     <th>Background Alt</th>
+                                                     <th>Background Images</th>
+                                                     <th>
+                                                         Delete
+                                                     </th>
+                                                 </tr>
+                                                 </thead>
+                                                 <tbody>
+                                                 <tr>
+                                                     <td>{{$backgrounds['title']}}</td>
+                                                     <td>{{$backgrounds['description']}}</td>
+                                                     <td>{{$backgrounds['alt']}}</td>
+                                                     <td><img style="width:100px;height:47px;" src="/assets/background-images/{{$backgrounds['images']}}"></td>
+                                                     <td>
+                                                         <a href="{{action('AdminController@getEditInYourSpace',$backgrounds['id'])}}">
+                                                             <button class="btn green">
+                                                                 <i class="glyphicon glyphicon-pencil"></i>
+                                                             </button>
+                                                         </a>
+                                                         <button data-href="{{action('AdminController@getDeleteHomeBg',$backgrounds['id'])}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                             <i class="fa fa-trash-o bigger-120"></i>
+                                                         </button>
+                                                     </td>
+                                                 </tr>
+                                                 </tbody>
+                                             </table>
+                                         </div>
+                                     </div>
+                                 @else
+                                     <h1>Not Backgrount top Image</h1>
+                                 @endif
+                             </div>
+
                       </div>
                     <div class="tab-pane" id="tab_2">
-2
+
+                            <div class="col-md-12">
+                                {!! Form::open(['action' => ['AdminController@postAddFooterBackground'],'files' => 'true',  ]) !!}
+                                <input type="hidden" name="role" value="gallery_category_images">
+                                <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
+                                    <label class="input-group-btn">
+                                    <span class="btn btn-primary">
+                                        Browse Top Backgount Image… <input name="images" type="file" style="display: none;" multiple="">
+                                    </span>
+                                    </label>
+                                    <input type="text" class="form-control" readonly="">
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-12">
+                                        {!! Form::text('title', null, ['placeholder' => 'background title' , 'class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-12">
+                                        {!! Form::text('alt', null, ['placeholder' => 'background alt' , 'class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div style="float: right;margin-right: 31px;">
+                                    <button type="submit" class="btn green">Submit</button>
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+
+                            <div class="col-md-12">
+
+                                @if(count($footer) != "")
+                                    <h1>Footer Backgound</h1>
+                                    <div class="portlet-body" style="display: block;">
+                                        <div class="table-scrollable">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Text</th>
+                                                    <th>Images</th>
+                                                    <th>Date</th>
+                                                    <th>
+
+                                                    </th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                <tr>
+                                                    <td>{{$footer->title}}</td>
+                                                    <td><img style="width: 100px;height: 56px;" src="/assets/footer-images/{{$footer->images}}" ></td>
+
+                                                    <td>{{date('d/m/Y', strtotime($footer->created_at))}}</td>
+                                                    <td>
+                                                        <button data-href="{{action('AdminController@getDeleteFooterBacground',$footer->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                            <i class="fa fa-trash-o bigger-120"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @else
+                                    <h1>Not footer Images</h1>
+                                @endif
+                            </div>
+
                     </div>
                 </div>
         </div>

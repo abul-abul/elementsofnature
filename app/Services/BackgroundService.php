@@ -95,4 +95,12 @@ class BackgroundService implements BackgroundInterface
         return $this->background->where('role','home')->first();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getGalleryCategoryImages()
+    {
+        return $this->background->where('role','gallery_category_images')->first();
+    }
+
 }

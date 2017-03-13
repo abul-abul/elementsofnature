@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                             @else
-                                <h1>Not Partners</h1>
+                                <h1>Not Background top Images</h1>
                             @endif
                         </div>
                     </div>
@@ -237,7 +237,7 @@
                                     </div>
                                 </div>
                             @else
-                                <h1>Not Images</h1>
+                                <h1>Not Text</h1>
                             @endif
                         </div>
                     </div>

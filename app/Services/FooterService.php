@@ -95,6 +95,20 @@ class FooterService implements FooterInterface
         return $this->footer->where('role','gallery_category')->first();
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getOneRowGalleryCategoryImages()
+    {
+        return $this->footer->where('role','gallery_category_images')->first();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOneRowGalleryCategoryImagesInner()
+    {
+        return $this->footer->where('role','gallery_category_images_inner')->first();
+    }
 
 }

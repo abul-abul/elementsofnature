@@ -79,5 +79,14 @@ class GalleryCategoryImagesInnerTopService implements GalleryCategoryImagesInner
         return $this->gallerycategoryimagesinnertop->first();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getOneGalleryCatInnerTopBg($id)
+    {
+        return $this->gallerycategoryimagesinnertop->where('gallery_category_images_inner_id',$id)->first();
+    }
+
 
 }

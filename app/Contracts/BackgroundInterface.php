@@ -55,4 +55,9 @@ interface BackgroundInterface
      */
     public function getHomeBg();
 
+    /**
+     * @return mixed
+     */
+    public function getGalleryCategoryImages();
+
 }

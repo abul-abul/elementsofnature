@@ -604,6 +604,57 @@ class AdminController extends BaseController
                 return redirect()->intended('/admin/gallery-category#tab_1')->with('message','Footer Background Update');
             }
 
+
+            if($result['role'] == 'gallery_category_images'){
+                $row = $footerRepo->getOneRowGalleryCategory();
+                if(count($row) == ""){
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->createData($result);
+                    return redirect()->back()->with('message','Footer Background Added');
+                }else{
+                    $oldpath = public_path() . '/assets/footer-images/' . $row['images'];
+                    File::delete($oldpath);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->getUpdateData($row['id'],$result);
+                }
+                return redirect()->back()->with('message','Footer Background Update');
+            }
+
+
+            if($result['role'] == 'gallery_category_images_inner'){
+                $row = $footerRepo->getOneRowGalleryCategoryImagesInner();
+                if(count($row) == ""){
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->createData($result);
+                    return redirect()->back()->with('message','Footer Background Added');
+                }else{
+                    $oldpath = public_path() . '/assets/footer-images/' . $row['images'];
+                    File::delete($oldpath);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->getUpdateData($row['id'],$result);
+                }
+                return redirect()->back()->with('message','Footer Background Update');
+            }
         }
     }
 
@@ -627,9 +678,19 @@ class AdminController extends BaseController
         if($row['role'] == 'galleryCategory'){
             return redirect()->intended('/admin/gallery-category#tab_1')->with('message','Footer Background Deleted');
         }
+        if($row['role'] == 'gallery_category_images'){
+            return redirect()->back()->with('message','Footer Background Deleted');
+        }
+        if($row['role'] == 'gallery_category_images_inner'){
+            return redirect()->back()->with('message','Footer Background Deleted');
+        }
     }
 
-
+    /**
+     * @param GalleryCategoryInterface $galleryCategoryRepo
+     * @param FooterInterface $footerRepo
+     * @return View
+     */
     public function getGalleryCategory(GalleryCategoryInterface $galleryCategoryRepo,FooterInterface $footerRepo)
     {
         $gallery_Category = $galleryCategoryRepo->getAll();
@@ -710,13 +771,19 @@ class AdminController extends BaseController
 
     public function getGalleryCategoryImages($id,
                                              GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
-                                             GalleryCategoryImagesInterface $GalleryCategoryImagesRepo
+                                             GalleryCategoryImagesInterface $GalleryCategoryImagesRepo,
+                                             BackgroundInterface $backgroundRepo,
+                                             FooterInterface $footerRepo
                                             )
     {
         $galleryCategoryImages = $galleryCategoryImagesRepo->getSelectGalleryCatImages($id);
+        $background = $backgroundRepo->getGalleryCategoryImages();
+        $footer = $footerRepo->getOneRowGalleryCategoryImages();
         $data = [
             'gallery_category_actiove' => 1,
             'id' => $id,
+            'footer' => $footer,
+            'backgrounds' => $background,
             'galleryCategoryImages' => $galleryCategoryImages
         ];
         return view('admin.pages.gallery-category-images.gallery-category-images',$data);
@@ -837,12 +904,20 @@ class AdminController extends BaseController
      * @return View
      */
     public function getViewGalleryCategoryImgInner($id,
-                                                   GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
+                                                   GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                                   GalleryCategoryImagesInnerTopInterface $galCatImg,
+                                                   FooterInterface $footerRepo
                                                     )
     {
-       $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
+        $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
+        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
+
        $data = [
+           'id' => $id,
            'imageFrames' => $result,
+           'imgTop' => $imgTop,
+           'footer' => $footer
        ];
         return view('admin.pages.gallery-category-images.view-image-inner',$data);
     }
@@ -903,6 +978,13 @@ class AdminController extends BaseController
         return redirect()->back()->with('message','File Deleted');
     }
 
+    /**
+     * @param $id
+     * @param GalleryCategoryInterface $catRepo
+     * @param GalleryCategoryImagesInterface $catImgRepo
+     * @param GalleryCategoryImagesInnerInterface $catImgInnerRepo
+     * @return mixed
+     */
     public function getDeleteGalleryCategory($id,
                                                     GalleryCategoryInterface $catRepo,
                                                     GalleryCategoryImagesInterface $catImgRepo,
@@ -963,10 +1045,89 @@ class AdminController extends BaseController
         return redirect()->back()->with('message','You  Deleted Gallery Category Images');
     }
 
+    /**
+     * @param Request $request
+     * @param BackgroundInterface $bgRepo
+     * @return mixed
+     */
+    public function postAddGalleryCategoryImagesBackground(request $request,BackgroundInterface $bgRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $row = $bgRepo->getInYourSpaceBg();
+            if(count($row) == ""){
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $result['role'] = 'gallery_category_images';
+                $bgRepo->createData($result);
+            }else{
+                $oldPath = public_path() . '/assets/background-images/' . $row['images'];
+                File::delete($oldPath);
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $bgRepo->getUpdateData($row['id'],$result);
+            }
+            return redirect()->intended('/admin/gallery-category#tab_1')->with('message','You added In Your space Background');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param GalleryCategoryImagesInnerTopInterface $galCatImg
+     * @return mixed
+     */
+    public function postAddCatImagesInnerTop(request $request,GalleryCategoryImagesInnerTopInterface $galCatImg)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images1' => 'required',
+            'description' => 'required',
+            'images2' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            unset($result['_token']);
+            $row = $galCatImg->getOneGalleryCatInnerTopBg($result['gallery_category_images_inner_id']);
+            if(count($row) == ''){
+                $path = public_path() . '/assets/gallery-category-images';
+                $logoFile = $result['images1']->getClientOriginalExtension();
+                $name = str_random(12);
+                $result_move = $result['images1']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images1'] = $gallery_images;
+
+                $path1 = public_path() . '/assets/gallery-category-images';
+                $logoFile1 = $result['images2']->getClientOriginalExtension();
+                $name1 = str_random(12);
+                $result_move1 = $result['images2']->move($path1, $name1.'.'.$logoFile1);
+                $gallery_images1 = $name1.'.'.$logoFile1;
+                $result['images2'] = $gallery_images1;
+                $galCatImg->createData($result);
+                return redirect()->back()->with('message','Gallery Top Images Added');
+            }else{
+                return redirect()->back()->with('error','error  delete first row');
+            }
+
+        }
 
 
-
-
+    }
 
 
 

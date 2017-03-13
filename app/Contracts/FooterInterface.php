@@ -55,4 +55,14 @@ interface FooterInterface
      */
     public function getOneRowGalleryCategory();
 
+    /**
+     * @return mixed
+     */
+    public function getOneRowGalleryCategoryImages();
+
+    /**
+     * @return mixed
+     */
+    public function getOneRowGalleryCategoryImagesInner();
+
 }

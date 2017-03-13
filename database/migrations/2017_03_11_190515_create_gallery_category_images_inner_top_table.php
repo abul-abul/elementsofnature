@@ -15,11 +15,12 @@ class CreateGalleryCategoryImagesInnerTopTable extends Migration
     {
         Schema::create('gallery_category_images_inner_top', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('gallery_category_images_id')->nullable();
-            $table->string('title')->nullable();
+            $table->string('gallery_category_images_inner_id')->nullable();
             $table->string('description')->nullable();
-            $table->string('images')->nullable();
-            $table->string('alt')->nullable();
+            $table->string('images1')->nullable();
+            $table->string('images2')->nullable();
+            $table->string('alt1')->nullable();
+            $table->string('alt2')->nullable();
             $table->timestamps();
         });
     }
