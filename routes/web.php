@@ -54,3 +54,33 @@ Route::post('admin/in-your-space-images','AdminController@postInYourSpaceImages'
 Route::get('admin/delete-in-your-space-images/{id}','AdminController@getDeleteInYourSpaceImages');
 Route::get('admin/edit-in-your-space-images/{id}','AdminController@getEditInYourSpaceImages');
 Route::post('admin/edit-in-your-space-images','AdminController@postEditInYourSpaceImages');
+Route::post('admin/in-your-space-text','AdminController@postInYourSpaceText');
+Route::get('admin/delete-in-your-space-text/{id}','AdminController@getDeleteInYourSpaceText');
+
+
+Route::post('admin/add-footer-background','AdminController@postAddFooterBackground');
+Route::get('admin/delete-footer-bacground/{id}','AdminController@getDeleteFooterBacground');
+
+
+//Gallery Categorys
+Route::get('admin/gallery-category','AdminController@getGalleryCategory');
+Route::post('admin/gallery-category','AdminController@postAddGalleryCategory');
+Route::get('admin/edit-gallery-category/{id}','AdminController@getEditGalleryCategory');
+Route::post('admin/edit-gallery-category','AdminController@postEditGalleryCategory');
+Route::get('admin/delete-gallery-category/{id}','AdminController@getDeleteGalleryCategory');
+
+
+//Gallery Categorys Images
+Route::get('admin/gallery-category-images/{id}','AdminController@getGalleryCategoryImages');
+Route::post('admin/gallery-category-images','AdminController@postAddGalleryCategoryImages');
+Route::post('admin/gallery-category-inner-images','AdminController@postAddGalleryCategoryInner');
+Route::post('admin/update-gallery-category-images-favourite/{id}','AdminController@getUpdateGalleryCategoryImagesFavourite');
+Route::get('admin/edit-gallery-category-images/{id}','AdminController@getEditGalleryCategoryImages');
+Route::post('admin/edit-gallery-category-images','AdminController@postEditGalleryCategoryImages');
+Route::get('admin/view-gallery-category-img-inner/{id}','AdminController@getViewGalleryCategoryImgInner');
+Route::get('admin/edit-gallery-category-images-inner/{id}','AdminController@getEditGalleryCategoryImagesInner');
+Route::post('admin/edit-gallery-category-images-inner','AdminController@postEditGalleryCategoryImagesInner');
+Route::get('admin/delete-gallery-category-images-inner/{id}','AdminController@getDeleteGalleryCategoryImagesInner');
+
+Route::get('admin/delete-gallery-category-images/{id}','AdminController@getDeleteGalleryCategoryImages');
+

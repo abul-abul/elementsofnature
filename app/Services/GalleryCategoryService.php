@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\FooterInterface;
-use App\Footer;
+use App\Contracts\GalleryCategoryInterface;
+use App\GalleryCategory;
 
-class FooterService implements FooterInterface
+class GalleryCategoryService implements GalleryCategoryInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class FooterService implements FooterInterface
      */
     public function __construct()
     {
-        $this->footer = new Footer();
+        $this->gallerycategory = new GalleryCategory();
     }
 
     /**
@@ -21,7 +21,7 @@ class FooterService implements FooterInterface
      */
     public function getAll()
     {
-        return $this->footer->get();
+        return $this->gallerycategory->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class FooterService implements FooterInterface
      */
     public function getAllPaginate()
     {
-        return $this->footer->paginate(5);
+        return $this->gallerycategory->paginate(5);
     }
 
 
@@ -39,7 +39,7 @@ class FooterService implements FooterInterface
      */
     public function createData($data)
     {
-        return $this->footer->create($data);
+        return $this->gallerycategory->create($data);
     }
 
 
@@ -49,7 +49,7 @@ class FooterService implements FooterInterface
      */
     public function getOne($id)
     {
-        return $this->footer->find($id);
+        return $this->gallerycategory->find($id);
     }
 
     /**
@@ -76,25 +76,8 @@ class FooterService implements FooterInterface
      */
     public function getFirstRow()
     {
-        return $this->footer->first();
+        return $this->gallerycategory->first();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOneRowInYourSpace()
-    {
-        return $this->footer->where('role','inyourspace')->first();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOneRowGalleryCategory()
-    {
-        return $this->footer->where('role','gallery_category')->first();
-    }
-
-    
 
 }

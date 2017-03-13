@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\FooterInterface;
-use App\Footer;
+use App\Contracts\GalleryCategoryImagesInterface;
+use App\GalleryCategoryImages;
 
-class FooterService implements FooterInterface
+class GalleryCategoryImagesService implements GalleryCategoryImagesInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class FooterService implements FooterInterface
      */
     public function __construct()
     {
-        $this->footer = new Footer();
+        $this->gallerycategoryimages = new GalleryCategoryImages();
     }
 
     /**
@@ -21,7 +21,7 @@ class FooterService implements FooterInterface
      */
     public function getAll()
     {
-        return $this->footer->get();
+        return $this->gallerycategoryimages->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class FooterService implements FooterInterface
      */
     public function getAllPaginate()
     {
-        return $this->footer->paginate(5);
+        return $this->gallerycategoryimages->paginate(5);
     }
 
 
@@ -39,7 +39,7 @@ class FooterService implements FooterInterface
      */
     public function createData($data)
     {
-        return $this->footer->create($data);
+        return $this->gallerycategoryimages->create($data);
     }
 
 
@@ -49,7 +49,7 @@ class FooterService implements FooterInterface
      */
     public function getOne($id)
     {
-        return $this->footer->find($id);
+        return $this->gallerycategoryimages->find($id);
     }
 
     /**
@@ -76,25 +76,17 @@ class FooterService implements FooterInterface
      */
     public function getFirstRow()
     {
-        return $this->footer->first();
+        return $this->gallerycategoryimages->first();
     }
 
     /**
+     * @param $id
      * @return mixed
      */
-    public function getOneRowInYourSpace()
+    public function getSelectGalleryCatImages($id)
     {
-        return $this->footer->where('role','inyourspace')->first();
+        return $this->gallerycategoryimages->where('gallery_category_id',$id)->get();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getOneRowGalleryCategory()
-    {
-        return $this->footer->where('role','gallery_category')->first();
-    }
-
-    
 
 }

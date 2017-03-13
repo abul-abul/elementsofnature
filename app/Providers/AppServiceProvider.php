@@ -43,5 +43,29 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\FooterInterface',
             'App\Services\FooterService'
         );
+        $this->app->bind(
+            'App\Contracts\InYourSpaceTextInterface',
+            'App\Services\InYourSpaceTextService'
+        );
+        $this->app->bind(
+            'App\Contracts\GalleryCategoryInterface',
+            'App\Services\GalleryCategoryService'
+        );
+        $this->app->bind(
+            'App\Contracts\GalleryCategoryInterface',
+            'App\Services\GalleryCategoryService'
+        );
+        $this->app->bind(
+            'App\Contracts\GalleryCategoryImagesInterface',
+            'App\Services\GalleryCategoryImagesService'
+        );
+        $this->app->bind(
+            'App\Contracts\GalleryCategoryImagesInnerInterface',
+            'App\Services\GalleryCategoryImagesInnerService'
+        );
+        $this->app->bind(
+            'App\Contracts\GalleryCategoryImagesInnerTopInterface',
+            'App\Services\GalleryCategoryImagesInnerTopService'
+        );
     }
 }

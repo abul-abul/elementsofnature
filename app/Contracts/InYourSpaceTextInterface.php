@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface FooterInterface
+interface InYourSpaceTextInterface
 {
     /**
      * @return mixed
@@ -44,15 +44,5 @@ interface FooterInterface
      * @return mixed
      */
     public function getFirstRow();
-
-    /**
-     * @return mixed
-     */
-    public function getOneRowInYourSpace();
-
-    /**
-     * @return mixed
-     */
-    public function getOneRowGalleryCategory();
 
 }

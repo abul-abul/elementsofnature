@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface FooterInterface
+interface GalleryCategoryImagesInterface
 {
     /**
      * @return mixed
@@ -46,13 +46,9 @@ interface FooterInterface
     public function getFirstRow();
 
     /**
+     * @param $id
      * @return mixed
      */
-    public function getOneRowInYourSpace();
-
-    /**
-     * @return mixed
-     */
-    public function getOneRowGalleryCategory();
+    public function getSelectGalleryCatImages($id);
 
 }

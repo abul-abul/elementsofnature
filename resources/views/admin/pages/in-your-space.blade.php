@@ -191,11 +191,124 @@
 
 
                     <div class="tab-pane" id="tab_2">
-                        2
+                        <div class="col-md-12">
+                            {!! Form::open(['action' => ['AdminController@postInYourSpaceText'],'files' => 'true',  ]) !!}
+
+                            <div class="col-md-12 form-group">
+                                <div class="col-md-12">
+                                    {!! Form::text('text', null, ['placeholder' => 'In Your Space Text' , 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div style="float: right;margin-right: 31px;">
+                                <button type="submit" class="btn green">Submit</button>
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+
+                        <div class="col-md-12">
+
+                            @if(count($inYourSpaceTexts) != "")
+                                <h1>Background Top Image</h1>
+                                <div class="portlet-body" style="display: block;">
+                                    <div class="table-scrollable">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Text</th>
+                                                <th>Date</th>
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{$inYourSpaceTexts->text}}</td>
+                                                    <td>{{date('d/m/Y', strtotime($inYourSpaceTexts->created_at))}}</td>
+                                                    <td>
+                                                        <button data-href="{{action('AdminController@getDeleteInYourSpaceText',$inYourSpaceTexts->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                            <i class="fa fa-trash-o bigger-120"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            @else
+                                <h1>Not Images</h1>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="tab-pane" id="tab_3">
-                        3
+                        <div class="col-md-12">
+                            {!! Form::open(['action' => ['AdminController@postAddFooterBackground'],'files' => 'true',  ]) !!}
+                            <input type="hidden" name="role" value="inyourspace">
+                            <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
+                                <label class="input-group-btn">
+                                    <span class="btn btn-primary">
+                                        Browse Top Backgount Image… <input name="images" type="file" style="display: none;" multiple="">
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control" readonly="">
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <div class="col-md-12">
+                                    {!! Form::text('title', null, ['placeholder' => 'background title' , 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="col-md-12">
+                                    {!! Form::text('alt', null, ['placeholder' => 'background alt' , 'class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div style="float: right;margin-right: 31px;">
+                                <button type="submit" class="btn green">Submit</button>
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+
+                        <div class="col-md-12">
+
+                            @if(count($inYourSpaceFooters) != "")
+                                <h1>Footer Backgound</h1>
+                                <div class="portlet-body" style="display: block;">
+                                    <div class="table-scrollable">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Text</th>
+                                                <th>Images</th>
+                                                <th>Date</th>
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+                                                <td>{{$inYourSpaceFooters->title}}</td>
+                                                <td><img style="width: 100px;height: 56px;" src="/assets/footer-images/{{$inYourSpaceFooters->images}}" ></td>
+
+                                                <td>{{date('d/m/Y', strtotime($inYourSpaceFooters->created_at))}}</td>
+                                                <td>
+                                                    <button data-href="{{action('AdminController@getDeleteFooterBacground',$inYourSpaceFooters->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                        <i class="fa fa-trash-o bigger-120"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            @else
+                                <h1>Not Images</h1>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

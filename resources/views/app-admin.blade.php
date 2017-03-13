@@ -76,7 +76,7 @@
         <div class="page-sidebar navbar-collapse collapse">
 
             <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                @if(isset($activeworkshop) || isset($activiinyourspace) || isset($activephototour) || isset($activeaboutartist) || isset($activeconnect) || isset($activeHome))
+                @if(isset($activeworkshop) || isset($activiinyourspace) || isset($activephototour) || isset($activeaboutartist) || isset($activeconnect) || isset($activeHome) || isset($gallery_category_actiove))
                 <li class="start active open">
                 @else
                 <li class="start">
@@ -147,6 +147,15 @@
                                 Connect
                             </a>
                         </li>
+                        @if(isset($gallery_category_actiove))
+                        <li class="active">
+                        @else
+                        <li>
+                        @endif
+                            <a href="{{action('AdminController@getGalleryCategory')}}">
+                                Gallery Category
+                            </a>
+                        </li>
 
                     </ul>
                 </li>
@@ -202,9 +211,7 @@
                 <!-- /.modal-dialog -->
             </div>
 
-            <h3 class="page-title">
-                Dashboard
-            </h3>
+
 
             <div class="row">
                 <div class="col-md-12">
