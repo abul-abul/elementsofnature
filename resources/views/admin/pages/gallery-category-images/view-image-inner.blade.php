@@ -170,12 +170,7 @@
                                         <td><img style="width: 100px;height: 56px;" src="/assets/gallery-category-images/{{$imgTop->images2}}"></td>
 
                                         <td>
-                                            <a href="">
-                                                <button class="btn green">
-                                                    <i class="glyphicon glyphicon-pencil"></i>
-                                                </button>
-                                            </a>
-                                            <button data-href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                            <button data-href="{{action('AdminController@getDeleteGalCatImgInnerTop',$imgTop->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
                                                 <i class="fa fa-trash-o bigger-120"></i>
                                             </button>
                                         </td>

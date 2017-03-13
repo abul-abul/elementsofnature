@@ -1125,10 +1125,23 @@ class AdminController extends BaseController
             }
 
         }
-
-
     }
 
+    /**
+     * @param $id
+     * @param GalleryCategoryImagesInnerTopInterface $galCatImg
+     * @return mixed
+     */
+    public function getDeleteGalCatImgInnerTop($id,GalleryCategoryImagesInnerTopInterface $galCatImg)
+    {
+        $row = $galCatImg->getOne($id);
+        $path1 =  public_path() . '/assets/gallery-category-images/' . $row['images1'];
+        $path2 =  public_path() . '/assets/gallery-category-images/' . $row['images2'];
+        File::delete($path1);
+        File::delete($path2);
+        $galCatImg->deleteData($id);
+        return redirect()->back()->with('message','file deleted');
+    }
 
 
 

@@ -86,4 +86,5 @@ Route::get('admin/delete-gallery-category-images/{id}','AdminController@getDelet
 Route::post('admin/add-gallery-category-images-background','AdminController@postAddGalleryCategoryImagesBackground');
 
 Route::post('admin/add-cat-images-inner-top','AdminController@postAddCatImagesInnerTop');
+Route::get('admin/delete-gallery-category-images-inner-top/{id}','AdminController@getDeleteGalCatImgInnerTop');
 
