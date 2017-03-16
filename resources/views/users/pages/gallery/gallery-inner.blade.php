@@ -2,41 +2,42 @@
 @section('users-content')
 
         <!-- big small images place -->
+@if($imgTop != '')
 <div class="big_small_img_place">
     <div class="bs_img_center">
         <div class="bs_img_child">
             <div class="bs_img_small_place">
-                <img src="/assets/users/plugins/images/bs_img_small.jpg" class="bs_img" alt="" />
+                <img src="/assets/gallery-category-images/{{$imgTop->images1}}" class="bs_img" alt="" />
             </div>
             <p class="bs_img_desc">
-                Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                {{$imgTop->description}}
             </p>
         </div>
         <div class="bs_img_child">
             <div class="bs_img_big_place">
-                <img src="/assets/users/plugins/images/bs_img_big.jpg" class="bs_img" alt="" />
+                <img src="/assets/gallery-category-images/{{$imgTop->images2}}" class="bs_img" alt="" />
             </div>
         </div>
     </div>
 </div>
+@endif
 <!-- big small images place -->
 
 
 <!-- image zoom place -->
+@if($categoryImagee != '')
 <div class="zoom_img_place">
     <div class="zoom_img">
-        <img id="img_02" src="/assets/users/plugins/images/zoom_image.jpg" />
+        <img id="img_02" src="/assets/gallery-category-images/{{$categoryImagee->images}}" />
     </div>
     <div class="zoom_img_desc_place">
         <h1 class="zoom_desc_title">
-            Name of Picture
+            {{$categoryImagee->title}}
         </h1>
         <p class="zoom_desc">
-            is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            {{$categoryImagee->description}}
         </p>
-        <p class="zoom_desc">
-            is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
-        </p>
+
         <div class="zoom_soc_place">
             <a href="#" class="event_soc_link">
                 <img src="/assets/users/plugins/images/face_link.png" />
@@ -64,6 +65,7 @@
         </div>
     </div>
 </div>
+@endif
 <!-- image zoom place -->
 
 <!-- product place -->
@@ -78,67 +80,23 @@
 </div>
 
 <div class="product_place">
+    @if(count($imageFrames) != '')
     <div class="product_place_center">
+        @foreach($imageFrames as $imageFrame)
         <div class="product_images_place">
             <i class="fa fa-caret-down" aria-hidden="true"></i>
             <div class="product_img_child">
-                <img src="/assets/users/plugins/images/product_img1.png" class="product_image" alt="" />
+                <img src="/assets/gallery-category-images/{{$imageFrame->images}}" class="product_image" alt="{{$imageFrame->alt}}" />
                 <div class="product_img_abs"></div>
             </div>
-            <p class="product_text">Framed Photograph</p>
+            <p class="product_text">{{$imageFrame->title}}</p>
             <p class="product_text_hide">
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                {{$imageFrame->description}}
             </p>
         </div>
-        <div class="product_images_place">
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <div class="product_img_child">
-                <img src="/assets/users/plugins/images/product_img2.png" class="product_image" alt="" />
-                <div class="product_img_abs"></div>
-            </div>
-            <p class="product_text">Framed Canvas</p>
-            <p class="product_text_hide">
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
-            </p>
-        </div>
-        <div class="product_images_place">
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <div class="product_img_child">
-                <img src="/assets/users/plugins/images/product_img3.png" class="product_image" alt="" />
-                <div class="product_img_abs"></div>
-            </div>
-            <p class="product_text">Museum Mount</p>
-            <p class="product_text_hide">
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
-        </div>
-        <div class="product_images_place">
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <div class="product_img_child">
-                <img src="/assets/users/plugins/images/product_img4.png" class="product_image" alt="" />
-                <div class="product_img_abs"></div>
-            </div>
-            <p class="product_text">Wrapes Canvas</p>
-            <p class="product_text_hide">
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
-            </p>
-        </div>
-        <div class="product_images_place">
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <div class="product_img_child">
-                <img src="/assets/users/plugins/images/product_img5.png" class="product_image" alt="" />
-                <div class="product_img_abs"></div>
-            </div>
-            <p class="product_text">Multi-Panel Prints</p>
-            <p class="product_text_hide">
-                is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p>
-        </div>
+        @endforeach
     </div>
+    @endif
 </div>
 <div class="product_yellow_place">
     <div class="product_yellow_center">
@@ -210,8 +168,9 @@
 <!-- product place -->
 
 <!-- footer place -->
+@if($footer != '')
 <footer class="product_footer">
-    <img src="/assets/users/plugins/images/product_footer_img.jpg" class="footer_img" />
+    <img src="/assets/footer-images/{{$footer->images}}" class="footer_img" />
     <div class="category_footer_footer">
         <div class="cfooter_menu_place">
             <ul class="cfooter_menu">
@@ -280,7 +239,7 @@
         </div>
     </div>
 </footer>
-
+@endif
 
 @endsection
 

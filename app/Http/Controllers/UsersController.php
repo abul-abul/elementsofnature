@@ -1,7 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Contracts\PartnersInterface;
+use App\Contracts\BackgroundInterface;
+use App\Contracts\FooterInterface;
+use App\Contracts\GalleryInterface;
+use App\Contracts\InYOurSpaceInterface;
+use App\Contracts\GalleryCategoryInterface;
+use App\Contracts\GalleryCategoryImagesInterface;
+use App\Contracts\GalleryCategoryImagesInnerInterface;
+use App\Contracts\GalleryCategoryImagesInnerTopInterface;
 use Illuminate\Http\Request;
 
 class UsersController extends BaseController
@@ -21,19 +29,69 @@ class UsersController extends BaseController
         return view('users.home',$data);
     }
 
-    public function getGalleryCategory()
+    /**
+     * @param GalleryCategoryInterface $galleryCategoryRepo
+     * @param FooterInterface $footerRepo
+     * @return mixed
+     */
+    public function getGalleryCategory(GalleryCategoryInterface $galleryCategoryRepo,FooterInterface $footerRepo)
     {
-        return view('users.pages.gallery.gallery-category');
+        $result = $galleryCategoryRepo->getAll();
+        $footer = $footerRepo->getOneRowGalleryCategory();
+        $data = [
+            'footer' => $footer,
+            'gallerys' => $result
+        ];
+
+        return view('users.pages.gallery.gallery-category',$data);
     }
 
-    public function getGallery()
+    public function getGalleryCategoryImages($id,
+                                             GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
+                                             BackgroundInterface $backgroundRepo,
+                                             FooterInterface $footerRepo
+                                            )
     {
-        return view('users.pages.gallery.gallery');
+        $galleryCategoryImages = $galleryCategoryImagesRepo->getSelectGalleryCatImages($id);
+        $background = $backgroundRepo->getGalleryCategoryImages();
+        $footer = $footerRepo->getOneRowGalleryCategoryImages();
+        $data = [
+            'id' => $id,
+            'footer' => $footer,
+            'backgrounds' => $background,
+            'galleryCategoryImages' => $galleryCategoryImages
+        ];
+
+        return view('users.pages.gallery.gallery',$data);
     }
 
-    public function getGalleryInner()
+    /**
+     * @param $id
+     * @param GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
+     * @param GalleryCategoryImagesInnerTopInterface $galCatImg
+     * @param FooterInterface $footerRepo
+     * @return mixed
+     */
+    public function getGalleryInner($id,
+                                    GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
+                                    GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                    GalleryCategoryImagesInnerTopInterface $galCatImg,
+                                    FooterInterface $footerRepo
+                                    )
+
     {
-        return view('users.pages.gallery.gallery-inner');
+        $categoryImagee = $galleryCategoryImagesRepo->getOne($id);
+        $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
+        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
+        $data = [
+            'id' => $id,
+            'categoryImagee' => $categoryImagee,
+            'imageFrames' => $result,
+            'imgTop' => $imgTop,
+            'footer' => $footer
+        ];
+        return view('users.pages.gallery.gallery-inner',$data);
     }
 
     public function getWorkShop($slug = 'work')

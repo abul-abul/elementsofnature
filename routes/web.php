@@ -3,8 +3,8 @@
 //User
 Route::get('/','UsersController@getHome');
 Route::get('gallery-images-category','UsersController@getGalleryCategory');
-Route::get('gallery-images','UsersController@getGallery');
-Route::get('gallery-images-inner','UsersController@getGalleryInner');
+Route::get('gallery-images/{id}','UsersController@getGalleryCategoryImages');
+Route::get('gallery-images-inner/{id}','UsersController@getGalleryInner');
 
 
 Route::get('work-shop','UsersController@getWorkShop');
@@ -72,6 +72,8 @@ Route::get('admin/delete-gallery-category/{id}','AdminController@getDeleteGaller
 
 //Gallery Categorys Images
 Route::get('admin/gallery-category-images/{id}','AdminController@getGalleryCategoryImages');
+Route::get('admin/add-gallery-category-images/{id}','AdminController@getAddGalleryCategoryImages');
+
 Route::post('admin/gallery-category-images','AdminController@postAddGalleryCategoryImages');
 Route::post('admin/gallery-category-inner-images','AdminController@postAddGalleryCategoryInner');
 Route::post('admin/update-gallery-category-images-favourite/{id}','AdminController@getUpdateGalleryCategoryImagesFavourite');

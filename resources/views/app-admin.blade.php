@@ -275,8 +275,10 @@
 {!! HTML::script( asset('assets/admin/plugins/assets/admin/pages/scripts/index.js') ) !!}
 {!! HTML::script( asset('assets/admin/plugins/assets/admin/pages/scripts/tasks.js') ) !!}
 
+
 @yield('script')
 
+{!! HTML::script( asset('assets/admin/js/main.js') ) !!}
 
 
 

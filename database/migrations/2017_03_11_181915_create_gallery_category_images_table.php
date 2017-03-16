@@ -19,7 +19,7 @@ class CreateGalleryCategoryImagesTable extends Migration
             $table->string('favourite')->nullable();
             $table->string('images')->nullable();
             $table->string('title')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('alt')->nullable();
             $table->timestamps();
         });

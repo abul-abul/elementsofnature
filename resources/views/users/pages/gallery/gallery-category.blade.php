@@ -1,93 +1,37 @@
 @extends('app-users')
 @section('users-content')
         <!-- page slider -->
+@if(count($gallerys) != '')
 <div class="big_slider_place smallslider">
     <ul id="example">
+        @foreach($gallerys as $gallerys)
         <li class="example_child">
-            <img src="/assets/users/plugins/images/slidesmall1.jpg" width="100%" height="100%" alt="" />
+            <img src="/assets/gallery-category-images/{{$gallerys->images}}" width="100%" height="100%" alt="{{$gallerys->alt}}" />
             <div class="slide_img_abs2">
                 <h2 class="slide_img_title2">
 							<span class="slide_title_border">
-							predators
+							{{$gallerys->title}}
 							</span>
                 </h2>
-                <a href="{{action('UsersController@getGallery')}}" class="small_order_link">
+                <a href="{{action('UsersController@getGalleryCategoryImages',$gallerys->id)}}" class="small_order_link">
                     <button class="smallslider_order_btn">
                         look gallery
                     </button>
                 </a>
             </div>
         </li>
-        <li class="example_child">
-            <img src="/assets/users/plugins/images/slidesmall2.jpg" width="100%" height="100%" alt="" />
-            <div class="slide_img_abs2">
-                <h2 class="slide_img_title2">
-							<span class="slide_title_border">
-							flight
-							</span>
-                </h2>
-                <a href="Gallery.html" class="small_order_link">
-                    <button class="smallslider_order_btn">
-                        look gallery
-                    </button>
-                </a>
-            </div>
-        </li>
-        <li class="example_child">
-            <img src="/assets/users/plugins/images/slidesmall3.jpg" width="100%" height="100%" alt="" />
-            <div class="slide_img_abs2">
-                <h2 class="slide_img_title2">
-							<span class="slide_title_border">
-								portrait art
-							</span>
-                </h2>
-                <a href="Gallery.html" class="small_order_link">
-                    <button class="smallslider_order_btn">
-                        look gallery
-                    </button>
-                </a>
-            </div>
-        </li>
-        <li class="example_child">
-            <img src="/assets/users/plugins/images/slidesmall4.jpg" width="100%" height="100%" alt="" />
-            <div class="slide_img_abs2">
-                <h2 class="slide_img_title2">
-							<span class="slide_title_border">
-								wilderness
-							</span>
-                </h2>
-                <a href="Gallery.html" class="small_order_link">
-                    <button class="smallslider_order_btn">
-                        look gallery
-                    </button>
-                </a>
-            </div>
-        </li>
-        <li class="example_child">
-            <img src="/assets/users/plugins/images/slidesmall5.jpg" width="100%" height="100%" alt="" />
-            <div class="slide_img_abs2">
-                <h2 class="slide_img_title2">
-							<span class="slide_title_border">
-								fine art
-							</span>
-                </h2>
-                <a href="Gallery.html" class="small_order_link">
-                    <button class="smallslider_order_btn">
-                        look gallery
-                    </button>
-                </a>
-            </div>
-        </li>
+        @endforeach
     </ul>
 </div>
+@endif
 <!-- page slider -->
 
 <!-- footer place -->
-
+@if($footer != '')
 <footer class="category_footer">
-    <img src="/assets/users/plugins/images/category_footer.jpg" class="footer_img" />
+    <img src="/assets/footer-images/{{$footer->images}}" class="footer_img" alt="{{$footer->alt}}"/>
     <h1 class="big_title_place_footer">
-        Bringing images of Nature from Outside your Windows and into your home
+        {{$footer->title}}
     </h1>
     <div class="category_footer_footer">
         <div class="cfooter_menu_place">
@@ -157,6 +101,7 @@
         </div>
     </div>
 </footer>
+@endif
 @endsection
 
 

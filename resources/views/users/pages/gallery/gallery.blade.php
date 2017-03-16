@@ -1,18 +1,20 @@
 @extends('app-users')
 @section('users-content')
         <!-- small bg place -->
+@if($backgrounds != '')
 <section class="small_bg_place">
-    <img src="/assets/users/plugins/images/small_bg1.jpg" class="small_bg" alt="" />
+    <img src="/assets/background-images/{{$backgrounds->images}}" class="small_bg" alt="" />
     <div class="small_bg_place_center">
         <h1 class="small_bg_title">
-            predators
+            {{$backgrounds->title}}
             <span class="small_bg_title_underline"></span>
         </h1>
         <p class="small_bg_text">
-            simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+            {{$backgrounds->description}}
         </p>
     </div>
 </section>
+@endif
 <!-- small bg place -->
 
 <!-- small menu -->
@@ -54,8 +56,9 @@
 
 <!-- standart images place -->
 <div class="standart_img_place">
+    @foreach($galleryCategoryImages as $galleryCategoryImage)
     <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
+        <img src="/assets/gallery-category-images/{{$galleryCategoryImage->images}}" class="standert_img" alt="{{$galleryCategoryImage->alt}}" />
         <div class="art_fav_place">
       				<span class="art_fav_star">
       					<img src="/assets/users/plugins/images/fav_star.png" id="fav_star" />
@@ -65,309 +68,31 @@
       				</span>
         </div>
         <div class="standart_order_place">
-            <a href="{{action('UsersController@getGalleryInner')}}" class="standart_order_link">
+            <a href="{{action('UsersController@getGalleryInner',$galleryCategoryImage->id)}}" class="standart_order_link">
                 <button class="standart_order_btn">
                     order
                 </button>
             </a>
         </div>
         <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
+            <p class="mixed_img_title">{{$galleryCategoryImage->title}}</p>
             <p class="mixed_img_date">
       					<span class="mix_img_desc_title">
       						date:
       					</span>
-                18 november 2016
+                {{date('d/M/Y', strtotime($galleryCategoryImage->created_at))}}
             </p>
             <p class="mixed_img_desc">
       					<span class="mix_img_desc_title">
       						place:
       					</span>
-                About place or description About
+                {{substr($galleryCategoryImage->description, 0, 8)}}...
             </p>
         </div>
     </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="star_abs">
-            <img src="/assets/users/plugins/images/fav_star2.png" id="fav_star" />
-        </div>
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="star_abs">
-            <img src="/assets/users/plugins/images/fav_star2.png" id="fav_star" />
-        </div>
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About place or description About
-            </p>
-        </div>
-    </div>
-    <div class="standart_img_parent">
-        <img src="/assets/users/plugins/images/standart_img.jpg" class="standert_img" alt="" />
-        <div class="standart_order_place">
-            <a href="Gallery-inner.html" class="standart_order_link">
-                <button class="standart_order_btn">
-                    order
-                </button>
-            </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">Picture name</p>
-            <p class="mixed_img_date">
-      					<span class="mix_img_desc_title">
-      						date:
-      					</span>
-                18 november 2016
-            </p>
-            <p class="mixed_img_desc">
-      					<span class="mix_img_desc_title">
-      						place:
-      					</span>
-                About place or description About
-            </p>
-        </div>
-    </div>
+    @endforeach
+
+
     <div class="look_more_place">
 				<span>
 					<a href="#" class="look_more_link">look more</a>
@@ -412,8 +137,9 @@
 <!-- yellow place 3 photos-->
 
 <!-- footer place -->
+@if($footer != '')
 <footer class="product_footer">
-    <img src="/assets/users/plugins/images/product_footer_img.jpg" class="footer_img" />
+    <img src="/assets/footer-images/{{$footer->images}}" class="footer_img" />
     <div class="category_footer_footer2">
         <div class="cfooter_menu_place">
             <ul class="cfooter_menu">
@@ -482,6 +208,7 @@
         </div>
     </div>
 </footer>
+@endif
 @endsection
 
 

@@ -67,5 +67,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\GalleryCategoryImagesInnerTopInterface',
             'App\Services\GalleryCategoryImagesInnerTopService'
         );
+        $this->app->bind(
+            'App\Contracts\SizePriceInterface',
+            'App\Services\SizePriceService'
+        );
     }
 }

@@ -17,6 +17,7 @@ use App\Contracts\GalleryCategoryInterface;
 use App\Contracts\GalleryCategoryImagesInterface;
 use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryImagesInnerTopInterface;
+use App\Contracts\SizePriceInterface;
 use View;
 use Session;
 use Validator;
@@ -703,6 +704,8 @@ class AdminController extends BaseController
         return view('admin.pages.gallery-category.gallery-category',$data);
     }
 
+
+
     /**
      * @param Request $request
      * @param GalleryCategoryInterface $galleryCategoryRepo
@@ -711,6 +714,7 @@ class AdminController extends BaseController
     public function postAddGalleryCategory(request $request,GalleryCategoryInterface $galleryCategoryRepo)
     {
         $result = $request->all();
+
         $validator = Validator::make($result, [
             'images' => 'required',
         ]);
@@ -771,7 +775,6 @@ class AdminController extends BaseController
 
     public function getGalleryCategoryImages($id,
                                              GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
-                                             GalleryCategoryImagesInterface $GalleryCategoryImagesRepo,
                                              BackgroundInterface $backgroundRepo,
                                              FooterInterface $footerRepo
                                             )
@@ -786,7 +789,23 @@ class AdminController extends BaseController
             'backgrounds' => $background,
             'galleryCategoryImages' => $galleryCategoryImages
         ];
+   
         return view('admin.pages.gallery-category-images.gallery-category-images',$data);
+    }
+
+
+    /**
+     * @param $id
+     * @return View
+     */
+    public function getAddGalleryCategoryImages($id)
+
+    {
+        $data = [
+            'gallery_category_actiove' => 1,
+            'id' => $id
+        ];
+        return view('admin.pages.gallery-category-images.add-gallery-category-images',$data);
     }
 
     /**
@@ -794,54 +813,120 @@ class AdminController extends BaseController
      * @param GalleryCategoryImagesInterface $GalleryCategoryImagesRepo
      * @return mixed
      */
-    public function postAddGalleryCategoryImages(request $request,GalleryCategoryImagesInterface $GalleryCategoryImagesRepo)
+    public function postAddGalleryCategoryImages(request $request,
+                                                 GalleryCategoryImagesInterface $GalleryCategoryImagesRepo,
+                                                 GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                                 SizePriceInterface $sizePriceRepo
+                                                 )
     {
         $result = $request->all();
-        $validator = Validator::make($result, [
-            'images' => 'required',
-            'title' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
-        $logoFile = $result['images']->getClientOriginalExtension();
-        $name = str_random(12);
-        $path = public_path() . '/assets/gallery-category-images';
-        $result_move = $result['images']->move($path, $name.'.'.$logoFile);
-        $gallery_images = $name.'.'.$logoFile;
-        $result['images'] = $gallery_images;
-        $GalleryCategoryImagesRepo->createData($result);
-        return redirect()->back()->with('message','You have Added Gallery Category Images');
-    }
 
-    /**
-     * @param Request $request
-     * @param GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
-     * @return mixed
-     */
-    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
-    {
-        $result =$request->all();
         $validator = Validator::make($result, [
             'images' => 'required',
-            'title' => 'required',
+            'images_inner' => 'required',
             'size' => 'required',
-            'frame_canvas' => 'required',
-            'frame' => 'required',
             'price' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
+        }else{
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/gallery-category-images';
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+
+            $data_images = [
+                'gallery_category_id' => $result['gallery_category_id'],
+                'title' => $result['title'],
+                'description' => $result['description'],
+                'alt' => $result['alt'],
+                'images' => $gallery_images
+            ];
+
+            $gallery_images_create = $GalleryCategoryImagesRepo->createData($data_images);
+
+            $logoFile1 = $result['images_inner']->getClientOriginalExtension();
+            $name1 = str_random(12);
+            $path1 = public_path() . '/assets/gallery-category-images';
+            $result_move1 = $result['images_inner']->move($path1, $name1.'.'.$logoFile1);
+            $gallery_images1 = $name1.'.'.$logoFile1;
+
+            $data_images_inner = [
+                'gallery_category_images_id' => $gallery_images_create['id'],
+                'title' => $result['title1'],
+                'description' => $result['description1'],
+                'frame_canvas' => $result['frame_canvas'],
+                'alt' => $result['alt1'],
+                'images' => $gallery_images1
+            ];
+           $catImagesInner =  $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
+
+            $dara_first_size_pruce = [
+                'size' => $result['size'],
+                 'price' => $result['price'],
+                'gallery_category_images_inner_id' => $catImagesInner['id']
+            ];
+            $sizePriceRepo->createData($dara_first_size_pruce);
+
+
+            $arr_size_price = [];
+
+            foreach($result as $key=>$value){
+                if(count(explode('size_',$key)) > 1){
+                    array_push($arr_size_price,$key);
+                }
+                if(count(explode('price_',$key)) > 1){
+                    array_push($arr_size_price,$key);
+                }
+            }
+            $size_price_array = [
+                'size' => [],
+                'price' => []
+            ];
+            foreach ($arr_size_price as $key=>$value){
+                if ($key % 2 == 0) {
+                    array_push($size_price_array['size'],$result[$value]);
+                }else{
+                    array_push($size_price_array['price'],$result[$value]);
+                }
+            }
+            foreach(array_combine($size_price_array['size'],$size_price_array['price']) as $key=>$value){
+                $data_size= [
+                    'size' => $key,
+                    'price' => $value,
+                    'gallery_category_images_inner_id' => $catImagesInner['id']
+                ];
+                $sizePriceRepo->createData($data_size);
+            };
         }
-        $logoFile = $result['images']->getClientOriginalExtension();
-        $name = str_random(12);
-        $path = public_path() . '/assets/gallery-category-images';
-        $result_move = $result['images']->move($path, $name.'.'.$logoFile);
-        $gallery_images = $name.'.'.$logoFile;
-        $result['images'] = $gallery_images;
-        $GalleryCategoryImagesInnerRepo->createData($result);
-        return redirect()->back()->with('message','You have Added  Gallery Category Images Frame Images');
+        return redirect()->back()->with('message','You have Added Gallery Category Images');
     }
+
+    
+//    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
+//    {
+//        $result =$request->all();
+//        $validator = Validator::make($result, [
+//            'images' => 'required',
+//            'title' => 'required',
+//            'size' => 'required',
+//            'frame_canvas' => 'required',
+//            'frame' => 'required',
+//            'price' => 'required'
+//        ]);
+//        if ($validator->fails()) {
+//            return redirect()->back()->withErrors($validator);
+//        }
+//        $logoFile = $result['images']->getClientOriginalExtension();
+//        $name = str_random(12);
+//        $path = public_path() . '/assets/gallery-category-images';
+//        $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+//        $gallery_images = $name.'.'.$logoFile;
+//        $result['images'] = $gallery_images;
+//        $GalleryCategoryImagesInnerRepo->createData($result);
+//        return redirect()->back()->with('message','You have Added  Gallery Category Images Frame Images');
+//    }
 
     /**
      * @param $id

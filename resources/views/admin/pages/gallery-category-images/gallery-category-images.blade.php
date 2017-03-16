@@ -8,7 +8,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active tab_url">
                         <a href="#tab_0" data-toggle="tab">
-                            Gallery Images
+                            Gallery Images List
                         </a>
                     </li>
                     <li class="tab_url">
@@ -21,217 +21,16 @@
                             Gallery Images Footer Background
                         </a>
                     </li>
+                    <li style="margin-left: 294px;">
+                        <a style="padding: 0" href="{{action('AdminController@getAddGalleryCategoryImages',$id)}}">
+                            <button class="btn btn-info">Add</button>
+                        </a>
+                    </li>
                 </ul>
+
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab_0">
                         <div class="col-md-12">
-                           <div class="row">
-
-                                <div class="col-md-6">
-                                <!-- BEGIN PORTLET-->
-                                        <div class="portlet box yellow-crusta">
-                                            <div class="portlet-title">
-                                                <div class="caption">
-                                                    <i class="fa fa-gift"></i>Add Gallery Category Images
-                                                </div>
-                                                <div class="tools">
-                                                    <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="portlet-body form">
-                                                {!! Form::open(['action' => ['AdminController@postAddGalleryCategoryImages'],'files' => 'true', 'id' => 'form-username', 'class'=>'form-horizontal form-bordered' ]) !!}
-                                                    <input type="hidden" name="gallery_category_id" value="{{$id}}">
-                                                    <div class="form-group">
-                                                        <label class="col-sm-3 control-label">Title</label>
-                                                        <div class="col-sm-4">
-                                                            <div class="input-group">
-                                                                <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                    {!! Form::text('title', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_1']) !!}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-3 control-label">Description</label>
-                                                        <div class="col-sm-4">
-                                                            <div class="input-group">
-                                                                <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
-                                                                    {!! Form::textarea('description', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_2','style' => 'width: 340px;height:100px']) !!}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-3 control-label">Alt</label>
-                                                        <div class="col-sm-4">
-                                                            <div class="input-group">
-                                                                <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                    {!! Form::text('alt', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_3']) !!}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group ">
-                                                        <label class="col-sm-3 control-label">Add Images</label>
-                                                        <div class="col-sm-4">
-                                                            <div class="input-group">
-                                                                <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
-                                                                     {!! Form::file('images', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_4']) !!}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-actions">
-                                                        <div class="row">
-                                                            <div class="col-md-offset-3 col-md-9">
-                                                                <button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {!! Form::close() !!}
-                                            </div>
-                                        </div>
-
-                                </div>
-
-
-
-
-
-                               <div class="col-md-6">
-                                   <!-- BEGIN PORTLET-->
-                                   <div class="portlet box green">
-                                       <div class="portlet-title">
-                                           <div class="caption">
-                                               <i class="fa fa-gift"></i>Add Gallery Category Images Frame
-                                           </div>
-                                           <div class="tools">
-                                               <a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-                                           </div>
-                                       </div>
-                                       <div class="portlet-body form">
-                                           {!! Form::open(['action' => ['AdminController@postAddGalleryCategoryInner'],'files' => 'true', 'id' => 'form-username', 'class'=>'form-horizontal form-bordered' ]) !!}
-                                           <div class="form-group">
-                                                   <label class="col-sm-3 control-label">Category Images</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                <select name="gallery_category_images_id" class="form-control input-lg">
-                                                                    @foreach($galleryCategoryImages as $galleryCategoryImage)
-                                                                        <option value="{{$galleryCategoryImage->id}}">{{$galleryCategoryImage->title}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group">
-                                                   <label class="col-sm-3 control-label">Title</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                {!! Form::text('title', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_1']) !!}
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group">
-                                                   <label class="col-sm-3 control-label">Description</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
-                                                                {!! Form::textarea('description', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_2','style' => 'width: 340px;height:100px']) !!}
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group">
-                                                   <label class="col-sm-3 control-label">Select Farm or Canvas</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                <select name="frame_canvas" class="form-control input-lg">
-                                                                    <option value="frame">Frame</option>
-                                                                    <option value="canvas">Canvas</option>
-                                                                </select>
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group ">
-                                                   <label class="col-sm-3 control-label">Size</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                <select name="size" class="form-control input-lg">
-                                                                    <option value="196/86 sm">196/86 sm</option>
-                                                                    <option value="180/90 sm">180/90 sm</option>
-                                                                    <option value="176/86 sm">176/86 sm</option>
-                                                                    <option value="200/100 sm">200/100 sm</option>
-                                                                </select>
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group ">
-                                                   <label class="col-sm-3 control-label">Choose Frame</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                <select name="frame" class="form-control input-lg">
-                                                                    <option name="ash">Ash</option>
-                                                                    <option name="noca">Noca</option>
-                                                                    <option name="tobaco">Tobaco</option>
-                                                                </select>
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group ">
-                                                   <label class="col-sm-3 control-label">Price</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                           {!! Form::text('price', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_1','style'=>'width: 336px;']) !!}
-
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group ">
-                                                   <label class="col-sm-3 control-label">Add Images</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                            <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
-                                                                <input type="file" name="images">
-                                                            </span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-group ">
-                                                   <label class="col-sm-3 control-label">Images Alt</label>
-                                                   <div class="col-sm-4">
-                                                       <div class="input-group">
-                                                           {!! Form::text('alt', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_1','style'=>'width: 336px;']) !!}
-
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="form-actions">
-                                                   <div class="row">
-                                                       <div class="col-md-offset-3 col-md-9">
-                                                           <button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           {!! Form::close() !!}
-                                       </div>
-                                   </div>
-
-                               </div>
-                           </div>
-
-
-
-
                             <h1>Gallery Categoryis Images List and Frame list</h1>
 
                             {{-- Items list --}}
@@ -267,7 +66,7 @@
                                                     @foreach($galleryCategoryImages as $galleryCategoryImage)
                                                     <tr>
                                                         <td>{{$galleryCategoryImage->title}}</td>
-                                                        <td>{{$galleryCategoryImage->description}}</td>
+                                                        <td>{{substr($galleryCategoryImage->description, 0, 8)}}...</td>
                                                         <td>{{$galleryCategoryImage->alt}}</td>
                                                         <td>
                                                             <img style="width: 114px;height: 56px" src="/assets/gallery-category-images/{{$galleryCategoryImage->images}}" alt="">
@@ -377,7 +176,7 @@
                                                  <tbody>
                                                  <tr>
                                                      <td>{{$backgrounds['title']}}</td>
-                                                     <td>{{$backgrounds['description']}}</td>
+                                                     <td>{{substr($backgrounds['description'], 0, 8)}}...</td>
                                                      <td>{{$backgrounds['alt']}}</td>
                                                      <td><img style="width:100px;height:47px;" src="/assets/background-images/{{$backgrounds['images']}}"></td>
                                                      <td>
@@ -432,7 +231,6 @@
                             </div>
 
                             <div class="col-md-12">
-
                                 @if(count($footer) != "")
                                     <h1>Footer Backgound</h1>
                                     <div class="portlet-body" style="display: block;">
