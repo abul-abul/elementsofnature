@@ -24,27 +24,11 @@
             <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Size</label>
                 <div class="col-md-12">
-                    <select class="form-control input-lg" name="size">
-                        <option  selected="{{$imageFrame->size}}" value="{{$imageFrame->size}}">{{$imageFrame->size}}</option>
-                        <option value="196/86 sm">196/86 sm</option>
-                        <option value="180/90 sm">180/90 sm</option>
-                        <option value="176/86 sm">176/86 sm</option>
-                        <option value="200/100 sm">200/100 sm</option>
-                    </select>
+                    {!! Form::text('size', null, ['placeholder' => 'Size' , 'class' => 'form-control']) !!}
+
                 </div>
             </div>
-            <div class="col-md-12 form-group">
-                <label style="margin-left: 15px">	Frame or Canvas</label>
-                <div class="col-md-12">
-                    <select class="form-control input-lg" name="frame_canvas">
-                        <option  selected="{{$imageFrame->frame_canvas}}" value="{{$imageFrame->frame_canvas}}">{{$imageFrame->frame_canvas}}</option>
-
-                        <option value="frame">Frame</option>
-                        <option value="canvas">Canvas</option>
-                    </select>
-                </div>
-            </div>
-
+            @if($imageFrame->frame != '')
             <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Choose Frame</label>
                 <div class="col-md-12">
@@ -56,6 +40,7 @@
                     </select>
                 </div>
             </div>
+            @endif
             <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Price</label>
                 <div class="col-md-12">

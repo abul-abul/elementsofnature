@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface SizePriceInterface
+interface WorkShopInterface
 {
     /**
      * @return mixed

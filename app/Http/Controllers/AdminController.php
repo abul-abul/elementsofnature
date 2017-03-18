@@ -17,7 +17,7 @@ use App\Contracts\GalleryCategoryInterface;
 use App\Contracts\GalleryCategoryImagesInterface;
 use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryImagesInnerTopInterface;
-use App\Contracts\SizePriceInterface;
+use App\Contracts\WorkShopInterface;
 use View;
 use Session;
 use Validator;
@@ -293,13 +293,7 @@ class AdminController extends BaseController
         return redirect()->back();
     }
 
-    public function getWorkShop()
-    {
-        $data = [
-            'activeworkshop' => 1,
-        ];
-        return view('admin.pages.work-shop',$data);
-    }
+
 
     /**
      * @param BackgroundInterface $bgRepo
@@ -728,7 +722,7 @@ class AdminController extends BaseController
         $gallery_images = $name.'.'.$logoFile;
         $result['images'] = $gallery_images;
         $galleryCategoryRepo->createData($result);
-        return redirect()->intended('/admin/gallery-category#tab_0')->with('message','You haveuploaded images');
+        return redirect()->back()->with('message','You haveuploaded images');
     }
 
     /**
@@ -799,11 +793,10 @@ class AdminController extends BaseController
      * @return View
      */
     public function getAddGalleryCategoryImages($id)
-
     {
         $data = [
             'gallery_category_actiove' => 1,
-            'id' => $id
+            'id' => $id,
         ];
         return view('admin.pages.gallery-category-images.add-gallery-category-images',$data);
     }
@@ -815,8 +808,7 @@ class AdminController extends BaseController
      */
     public function postAddGalleryCategoryImages(request $request,
                                                  GalleryCategoryImagesInterface $GalleryCategoryImagesRepo,
-                                                 GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
-                                                 SizePriceInterface $sizePriceRepo
+                                                 GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
                                                  )
     {
         $result = $request->all();
@@ -854,54 +846,101 @@ class AdminController extends BaseController
 
             $data_images_inner = [
                 'gallery_category_images_id' => $gallery_images_create['id'],
-                'title' => $result['title1'],
-                'description' => $result['description1'],
-                'frame_canvas' => $result['frame_canvas'],
-                'alt' => $result['alt1'],
-                'images' => $gallery_images1
+                'title' => $result['title_1'],
+                'description' => $result['description_1'],
+                'alt' => $result['alt_1'],
+                'images' => $gallery_images1,
+                'size' => $result['size'],
+                'price' => $result['price']
             ];
+            if(isset($result['frame'])){
+                $data_images_inner['frame'] = $result['frame'];
+            }
            $catImagesInner =  $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
 
-            $dara_first_size_pruce = [
-                'size' => $result['size'],
-                 'price' => $result['price'],
-                'gallery_category_images_inner_id' => $catImagesInner['id']
-            ];
-            $sizePriceRepo->createData($dara_first_size_pruce);
 
 
-            $arr_size_price = [];
 
+            $img_inner_key_array = [];
             foreach($result as $key=>$value){
+                if(count(explode('title_1_',$key)) > 1){
+                    array_push($img_inner_key_array,$key);
+                }
+                if(count(explode('description_1_',$key)) > 1){
+                    array_push($img_inner_key_array,$key);
+                }
+                if(count(explode('images_inner_',$key)) > 1){
+                    array_push($img_inner_key_array,$key);
+                }
+                if(count(explode('alt_1_',$key)) > 1){
+                    array_push($img_inner_key_array,$key);
+                }
                 if(count(explode('size_',$key)) > 1){
-                    array_push($arr_size_price,$key);
+                    array_push($img_inner_key_array,$key);
                 }
                 if(count(explode('price_',$key)) > 1){
-                    array_push($arr_size_price,$key);
+                    array_push($img_inner_key_array,$key);
                 }
-            }
-            $size_price_array = [
-                'size' => [],
-                'price' => []
-            ];
-            foreach ($arr_size_price as $key=>$value){
-                if ($key % 2 == 0) {
-                    array_push($size_price_array['size'],$result[$value]);
-                }else{
-                    array_push($size_price_array['price'],$result[$value]);
+
+                if(explode('frame_',$key) != ''){
+                    if(count(explode('frame_',$key)) > 1){
+                        array_push($img_inner_key_array,$key);
+                    }
                 }
+
             }
-            foreach(array_combine($size_price_array['size'],$size_price_array['price']) as $key=>$value){
-                $data_size= [
-                    'size' => $key,
-                    'price' => $value,
-                    'gallery_category_images_inner_id' => $catImagesInner['id']
-                ];
-                $sizePriceRepo->createData($data_size);
-            };
+
+            $array_images_value = [];
+            foreach ($img_inner_key_array as $key=>$value){
+                array_push($array_images_value,$result[$value]);
+            }
+
+            for($i=1;$i<=count(array_combine($array_images_value,$img_inner_key_array));$i++) {
+
+                $dataChild = [];
+                if(isset($result['title_1_' . $i]) && $result['title_1_' . $i] != null){
+                    $dataChild['title'] = $result['title_1_' . $i];
+                }
+                if(isset($result['description_1_' . $i]) && $result['description_1_' . $i] != null){
+                    $dataChild['description'] = $result['description_1_' . $i];
+                }
+                if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
+                    $dataChild['size'] = $result['size_' . $i];
+                }
+                if(isset($result['price_' . $i]) && $result['price_' . $i] != null){
+                    $dataChild['price'] = $result['price_' . $i];
+                }
+                if(isset($result['alt_1_' . $i]) && $result['alt_1_' . $i] != null){
+                    $dataChild['alt'] = $result['alt_1_' . $i];
+                }
+
+                if(explode('frame_',$i) != ''){
+                    if(isset($result['frame_' . $i]) && $result['frame_' . $i] != null){
+                        $dataChild['frame'] = $result['frame_' . $i];
+                    }
+                }
+
+                if(isset($result['images_inner_' . $i]) && $result['images_inner_' . $i] != null){
+                    $dataChild['images'] = $result['images_inner_' . $i];
+                    $logoFile = $dataChild['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/gallery-category-images';
+                    $result_move = $dataChild['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $dataChild['images'] = $gallery_images;
+                }
+                $dataChild['gallery_category_images_id'] = $gallery_images_create['id'];
+                $GalleryCategoryImagesInnerRepo->createData($dataChild);
+                $GalleryCategoryImagesInnerRepo->getDeleteNullFids($dataChild['gallery_category_images_id']);
+            }
         }
         return redirect()->back()->with('message','You have Added Gallery Category Images');
     }
+
+
+
+
+
 
     
 //    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
@@ -999,6 +1038,7 @@ class AdminController extends BaseController
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
 
        $data = [
+           'gallery_category_actiove' => 1,
            'id' => $id,
            'imageFrames' => $result,
            'imgTop' => $imgTop,
@@ -1229,6 +1269,59 @@ class AdminController extends BaseController
     }
 
 
+
+    public function getWorkShop(WorkShopInterface $workShopRepo)
+    {
+        $result = $workShopRepo->getAll();
+        $data = [
+            'workshops' => $result,
+            'activeworkshop' => 1,
+        ];
+        return view('admin.pages.work-shop.work-shop',$data);
+    }
+
+    /**
+     * @return View
+     */
+    public function getAddWorkShop()
+    {
+        $data = [
+            'activeworkshop' => 1
+        ];
+        return view('admin.pages.work-shop.add-work-shop',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param WorkShopInterface $workShopRepo
+     * @return mixed
+     */
+    public function postAddWorkShop(request $request,WorkShopInterface $workShopRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'title' => 'required',
+            'description' => 'required',
+            'images' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $path = public_path() . '/assets/work-shop-images';
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $data = [
+                'title' => $result['title'],
+                'description' => $result['description'],
+                'location' => $result['location']
+            ];
+            $data['images'] = $gallery_images;
+            $workShopRepo->createData($data);
+            //return redirect()->action('AdminController@getWorkShop');
+        }
+    }
 
 
 

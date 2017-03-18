@@ -90,3 +90,10 @@ Route::post('admin/add-gallery-category-images-background','AdminController@post
 Route::post('admin/add-cat-images-inner-top','AdminController@postAddCatImagesInnerTop');
 Route::get('admin/delete-gallery-category-images-inner-top/{id}','AdminController@getDeleteGalCatImgInnerTop');
 
+
+//Work shop
+Route::get('admin/add-work-shop','AdminController@getAddWorkShop');
+Route::post('admin/add-work-shop','AdminController@postAddWorkShop');
+
+
+

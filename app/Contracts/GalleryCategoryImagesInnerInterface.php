@@ -52,4 +52,10 @@ interface GalleryCategoryImagesInnerInterface
     public function getImageFrame($id);
 
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getDeleteNullFids($id);
+
 }

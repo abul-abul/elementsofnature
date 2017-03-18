@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\SizePriceInterface;
-use App\SizePrice;
+use App\Contracts\WorkShopInterface;
+use App\WorkShop;
 
-class SizePriceService implements SizePriceInterface
+class WorkShopService implements WorkShopInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class SizePriceService implements SizePriceInterface
      */
     public function __construct()
     {
-        $this->size_price = new SizePrice();
+        $this->workshop = new WorkShop();
     }
 
     /**
@@ -21,7 +21,7 @@ class SizePriceService implements SizePriceInterface
      */
     public function getAll()
     {
-        return $this->size_price->get();
+        return $this->workshop->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class SizePriceService implements SizePriceInterface
      */
     public function getAllPaginate()
     {
-        return $this->size_price->paginate(5);
+        return $this->workshop->paginate(5);
     }
 
 
@@ -39,7 +39,7 @@ class SizePriceService implements SizePriceInterface
      */
     public function createData($data)
     {
-        return $this->size_price->create($data);
+        return $this->workshop->create($data);
     }
 
 
@@ -49,7 +49,7 @@ class SizePriceService implements SizePriceInterface
      */
     public function getOne($id)
     {
-        return $this->size_price->find($id);
+        return $this->workshop->find($id);
     }
 
     /**

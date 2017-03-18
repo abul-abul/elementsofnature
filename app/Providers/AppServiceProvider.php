@@ -71,5 +71,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\SizePriceInterface',
             'App\Services\SizePriceService'
         );
+        $this->app->bind(
+            'App\Contracts\WorkShopInterface',
+            'App\Services\WorkShopService'
+        );
     }
 }

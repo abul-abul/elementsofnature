@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSizePriceTable extends Migration
+class CreateWorkshopTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSizePriceTable extends Migration
      */
     public function up()
     {
-        Schema::create('size_price', function (Blueprint $table) {
+        Schema::create('workshop', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('gallery_category_images_inner_id')->nullable();
-            $table->string('size')->nullable();
-            $table->string('price')->nullable();
+            $table->string('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('location')->nullable();
+            $table->string('skill')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSizePriceTable extends Migration
      */
     public function down()
     {
-        Schema::drop('size_price');
+        Schema::drop('workshop');
     }
 }
