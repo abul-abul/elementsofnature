@@ -112,5 +112,10 @@ Route::post('admin/add-pohot-tour-background-top','AdminController@postAddPhotoT
 Route::get('admin/edit-photo-tour-background/{id}','AdminController@getEditPhotoTourBackground');
 
 
+//Connect
+Route::post('admin/add-connect-background-top','AdminController@postAddConnectBackgroundTop');
+Route::get('admin/edit-connect-background/{id}','AdminController@getEditConnectBackground');
+Route::get('admin/delete-connect/{id}','AdminController@getDeleteConnect');
+
 
 

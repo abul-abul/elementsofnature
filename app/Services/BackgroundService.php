@@ -119,6 +119,12 @@ class BackgroundService implements BackgroundInterface
         return $this->background->where('role','phototour')->first();
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getConnectBackgroundImages()
+    {
+        return $this->background->where('role','connect')->first();
+    }
 
 }

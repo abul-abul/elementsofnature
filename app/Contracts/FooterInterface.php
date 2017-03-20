@@ -75,4 +75,9 @@ interface FooterInterface
      */
     public function getOneRowPhotoTour();
 
+    /**
+     * @return mixed
+     */
+    public function getOneRowConnect();
+
 }

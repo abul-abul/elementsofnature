@@ -20,6 +20,7 @@ use App\Contracts\GalleryCategoryImagesInnerTopInterface;
 use App\Contracts\WorkShopInterface;
 use App\Contracts\SkillInterface;
 use App\Contracts\PhotoTourInterface;
+use App\Contracts\ConnectInterface;
 use View;
 use Session;
 use Validator;
@@ -704,6 +705,31 @@ class AdminController extends BaseController
             }
 
 
+            if($result['role'] == 'connect'){
+                $row = $footerRepo->getOneRowConnect();
+                if(count($row) == ""){
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->createData($result);
+                    return redirect()->intended('/admin/connect#tab_2')->with('message','Footer Background Added');
+                }else{
+                    $oldpath = public_path() . '/assets/footer-images/' . $row['images'];
+                    File::delete($oldpath);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->getUpdateData($row['id'],$result);
+                }
+                return redirect()->intended('/admin/connect#tab_2')->with('message','Footer Background Update');
+            }
+
 
         }
     }
@@ -740,7 +766,9 @@ class AdminController extends BaseController
          if($row['role'] == 'phototour'){
              return redirect()->intended('/admin/photo-tour#tab_2')->with('message','Footer Background Deleted');
          }
-
+        if($row['role'] == 'connect'){
+            return redirect()->intended('/admin/connect#tab_2')->with('message','Footer Background Deleted');
+        }
     }
 
     /**
@@ -1789,6 +1817,96 @@ class AdminController extends BaseController
         return view('admin.pages.edit-background',$data);
     }
 
+    /**
+     * @param ConnectInterface $connectRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @return View
+     */
+    public function getConnect(ConnectInterface $connectRepo,FooterInterface $footerRepo,BackgroundInterface $bgRepo)
+    {
+        $connect = $connectRepo->getAll();
+        $background = $bgRepo->getConnectBackgroundImages();
+        $footer = $footerRepo->getOneRowConnect();
+        $data = [
+            'connects' => $connect,
+            'activeconnect' => 1,
+            'backgrounds' => $background,
+            'footer' => $footer
+        ];
+        return view('admin.pages.connect',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param BackgroundInterface $bgRepo
+     * @return mixed
+     */
+    public function postAddConnectBackgroundTop(request $request,BackgroundInterface $bgRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $row = $bgRepo->getWorkshopBackgrountImages();
+            if(count($row) == ""){
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $result['role'] = 'connect';
+                $bgRepo->createData($result);
+            }else{
+                $oldPath = public_path() . '/assets/background-images/' . $row['images'];
+                File::delete($oldPath);
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $bgRepo->getUpdateData($row['id'],$result);
+            }
+            return redirect()->intended('/admin/connect#tab_1')->with('message','You added Work Shop Background');
+        }
+    }
+
+    /**
+     * @param $id
+     * @param BackgroundInterface $bgRepo
+     * @return View
+     */
+    public function getEditConnectBackground($id,BackgroundInterface $bgRepo)
+    {
+        $row = $bgRepo->getOne($id);
+
+        $data = [
+            'activeconnect' => 1,
+            'id' => $id,
+            'background' => $row,
+        ];
+        return view('admin.pages.edit-background',$data);
+    }
+
+    /**
+     * @param $id
+     * @param ConnectInterface $connectRepo
+     * @return mixed
+     */
+    public function getDeleteConnect($id,ConnectInterface $connectRepo)
+    {
+        $connectRepo->deleteData($id);
+        return redirect()->back()->with('message','Connect Deleted');
+    }
+
+
 
     public function getAboutArtist()
     {
@@ -1796,14 +1914,6 @@ class AdminController extends BaseController
             'activeaboutartist' => 1,
         ];
         return view('admin.pages.about-artist',$data);
-    }
-
-    public function getConnect()
-    {
-        $data = [
-            'activeconnect' => 1,
-        ];
-        return view('admin.pages.connect',$data);
     }
 
     public function getAddGalleryPage()

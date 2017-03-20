@@ -70,4 +70,9 @@ interface BackgroundInterface
      */
     public function getPhotoTourBackgrountImages();
 
+    /**
+     * @return mixed
+     */
+    public function getConnectBackgroundImages();
+
 }
