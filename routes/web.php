@@ -94,6 +94,23 @@ Route::get('admin/delete-gallery-category-images-inner-top/{id}','AdminControlle
 //Work shop
 Route::get('admin/add-work-shop','AdminController@getAddWorkShop');
 Route::post('admin/add-work-shop','AdminController@postAddWorkShop');
+Route::get('admin/edit-work-shop/{id}','AdminController@getEditWorkShop');
+Route::post('admin/edit-work-shop','AdminController@postEditWorkShop');
+Route::get('admin/delete-work-shop/{id}','AdminController@getDeleteWorkShop');
+Route::post('admin/add-work-shop-background-top','AdminController@postAddWorkShopBackgroundTop');
+Route::get('admin/edit-worl-shop-background/{id}','AdminController@getEditWorkShopBackgrount');
+
+
+
+//Photo Tour
+Route::get('admin/add-photo-tour','AdminController@getAddPhotoTour');
+Route::get('admin/edit-photo-tour/{id}','AdminController@getEditPhotoTour');
+Route::get('admin/delete-photo-tour/{id}','AdminController@getDeletePhotoTour');
+Route::post('admin/add-photo-tour','AdminController@postAddPhotoTour');
+Route::post('admin/edit-photo-tour','AdminController@postEditPhotoTour');
+Route::post('admin/add-pohot-tour-background-top','AdminController@postAddPhotoTourBackgroundTop');
+Route::get('admin/edit-photo-tour-background/{id}','AdminController@getEditPhotoTourBackground');
+
 
 
 

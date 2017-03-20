@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkshopTable extends Migration
+class CreatePhotoTourTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWorkshopTable extends Migration
      */
     public function up()
     {
-        Schema::create('workshop', function (Blueprint $table) {
+        Schema::create('phototour', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
@@ -30,6 +30,6 @@ class CreateWorkshopTable extends Migration
      */
     public function down()
     {
-        Schema::drop('workshop');
+        Schema::drop('phototours');
     }
 }

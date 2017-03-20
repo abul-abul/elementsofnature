@@ -65,4 +65,14 @@ interface FooterInterface
      */
     public function getOneRowGalleryCategoryImagesInner();
 
+    /**
+     * @return mixed
+     */
+    public function getOneRowWorkShop();
+
+    /**
+     * @return mixed
+     */
+    public function getOneRowPhotoTour();
+
 }

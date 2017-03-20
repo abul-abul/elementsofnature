@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface BackgroundInterface
+interface PhotoTourInterface
 {
     /**
      * @return mixed
@@ -40,34 +40,5 @@ interface BackgroundInterface
      */
     public function deleteData($id);
 
-    /**
-     * @return mixed
-     */
-    public function getFirstRow();
-
-    /**
-     * @return mixed
-     */
-    public function getInYourSpaceBg();
-
-    /**
-     * @return mixed
-     */
-    public function getHomeBg();
-
-    /**
-     * @return mixed
-     */
-    public function getGalleryCategoryImages();
-
-    /**
-     * @return mixed
-     */
-    public function getWorkshopBackgrountImages();
-
-    /**
-     * @return mixed
-     */
-    public function getPhotoTourBackgrountImages();
 
 }

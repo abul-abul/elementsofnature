@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkshopTable extends Migration
+class CreateSkillTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateWorkshopTable extends Migration
      */
     public function up()
     {
-        Schema::create('workshop', function (Blueprint $table) {
+        Schema::create('skill', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title')->nullable();
-            $table->longText('description')->nullable();
-            $table->string('location')->nullable();
-            $table->string('images')->nullable();
+            $table->string('workshop_id')->nullable();
+            $table->string('skill')->nullable();
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateWorkshopTable extends Migration
      */
     public function down()
     {
-        Schema::drop('workshop');
+        Schema::drop('skill');
     }
 }

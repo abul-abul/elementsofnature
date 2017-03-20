@@ -75,5 +75,13 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\WorkShopInterface',
             'App\Services\WorkShopService'
         );
+        $this->app->bind(
+            'App\Contracts\SkillInterface',
+            'App\Services\SkillService'
+        );
+        $this->app->bind(
+            'App\Contracts\PhotoTourInterface',
+            'App\Services\PhotoTourService'
+        );
     }
 }

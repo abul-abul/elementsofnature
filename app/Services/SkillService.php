@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\WorkShopInterface;
-use App\WorkShop;
+use App\Contracts\SkillInterface;
+use App\Skill;
 
-class WorkShopService implements WorkShopInterface
+class SkillService implements SkillInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class WorkShopService implements WorkShopInterface
      */
     public function __construct()
     {
-        $this->workshop = new WorkShop();
+        $this->skill = new Skill();
     }
 
     /**
@@ -21,16 +21,15 @@ class WorkShopService implements WorkShopInterface
      */
     public function getAll()
     {
-        return $this->workshop->get();
+        return $this->skill->get();
     }
-    
 
     /**
      * @return mixed
      */
     public function getAllPaginate()
     {
-        return $this->workshop->paginate(5);
+        return $this->skill->paginate(5);
     }
 
 
@@ -40,7 +39,7 @@ class WorkShopService implements WorkShopInterface
      */
     public function createData($data)
     {
-        return $this->workshop->create($data);
+        return $this->skill->create($data);
     }
 
 
@@ -50,7 +49,7 @@ class WorkShopService implements WorkShopInterface
      */
     public function getOne($id)
     {
-        return $this->workshop->find($id);
+        return $this->skill->find($id);
     }
 
     /**
@@ -72,8 +71,23 @@ class WorkShopService implements WorkShopInterface
         return $this->getOne($id)->delete();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getWorkshopSkiils($id)
+    {
+        return $this->skill->where('workshop_id',$id)->where('role','workshop')->get();
+    }
 
-
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getPhotoTourSkiils($id)
+    {
+        return $this->skill->where('workshop_id',$id)->where('role','phototour')->get();
+    }
 
 
 }

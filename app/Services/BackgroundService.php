@@ -103,4 +103,22 @@ class BackgroundService implements BackgroundInterface
         return $this->background->where('role','gallery_category_images')->first();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getWorkshopBackgrountImages()
+    {
+        return $this->background->where('role','workshop')->first();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoTourBackgrountImages()
+    {
+        return $this->background->where('role','phototour')->first();
+    }
+
+    
+
 }

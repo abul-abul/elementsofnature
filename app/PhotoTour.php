@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WorkShop extends Model
+class PhotoTour extends Model
 {
-    protected $table = 'workshop';
+    protected $table = 'phototour';
 
     protected $fillable = ['title', 'description','location','images'];
 }

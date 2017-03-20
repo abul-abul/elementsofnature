@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\WorkShopInterface;
-use App\WorkShop;
+use App\Contracts\PhotoTourInterface;
+use App\PhotoTour;
 
-class WorkShopService implements WorkShopInterface
+class PhotoTourService implements PhotoTourInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class WorkShopService implements WorkShopInterface
      */
     public function __construct()
     {
-        $this->workshop = new WorkShop();
+        $this->phototour = new PhotoTour();
     }
 
     /**
@@ -21,16 +21,15 @@ class WorkShopService implements WorkShopInterface
      */
     public function getAll()
     {
-        return $this->workshop->get();
+        return $this->phototour->get();
     }
-    
 
     /**
      * @return mixed
      */
     public function getAllPaginate()
     {
-        return $this->workshop->paginate(5);
+        return $this->phototour->paginate(5);
     }
 
 
@@ -40,7 +39,7 @@ class WorkShopService implements WorkShopInterface
      */
     public function createData($data)
     {
-        return $this->workshop->create($data);
+        return $this->phototour->create($data);
     }
 
 
@@ -50,7 +49,7 @@ class WorkShopService implements WorkShopInterface
      */
     public function getOne($id)
     {
-        return $this->workshop->find($id);
+        return $this->phototour->find($id);
     }
 
     /**
@@ -71,9 +70,5 @@ class WorkShopService implements WorkShopInterface
     {
         return $this->getOne($id)->delete();
     }
-
-
-
-
 
 }

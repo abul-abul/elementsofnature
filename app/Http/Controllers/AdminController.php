@@ -18,6 +18,8 @@ use App\Contracts\GalleryCategoryImagesInterface;
 use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryImagesInnerTopInterface;
 use App\Contracts\WorkShopInterface;
+use App\Contracts\SkillInterface;
+use App\Contracts\PhotoTourInterface;
 use View;
 use Session;
 use Validator;
@@ -650,6 +652,59 @@ class AdminController extends BaseController
                 }
                 return redirect()->back()->with('message','Footer Background Update');
             }
+
+            if($result['role'] == 'workshop'){
+                $row = $footerRepo->getOneRowWorkShop();
+                if(count($row) == ""){
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->createData($result);
+                    return redirect()->intended('/admin/work-shop#tab_2')->with('message','Footer Background Added');
+                }else{
+                    $oldpath = public_path() . '/assets/footer-images/' . $row['images'];
+                    File::delete($oldpath);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->getUpdateData($row['id'],$result);
+                }
+                return redirect()->intended('/admin/work-shop#tab_2')->with('message','Footer Background Update');
+            }
+
+            if($result['role'] == 'phototour'){
+                $row = $footerRepo->getOneRowPhotoTour();
+                if(count($row) == ""){
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->createData($result);
+                    return redirect()->intended('/admin/photo-tour#tab_2')->with('message','Footer Background Added');
+                }else{
+                    $oldpath = public_path() . '/assets/footer-images/' . $row['images'];
+                    File::delete($oldpath);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->getUpdateData($row['id'],$result);
+                }
+                return redirect()->intended('/admin/photo-tour#tab_2')->with('message','Footer Background Update');
+            }
+
+
+
         }
     }
 
@@ -679,6 +734,13 @@ class AdminController extends BaseController
         if($row['role'] == 'gallery_category_images_inner'){
             return redirect()->back()->with('message','Footer Background Deleted');
         }
+        if($row['role'] == 'workshop'){
+            return redirect()->intended('/admin/work-shop#tab_2')->with('message','Footer Background Deleted');
+        }
+         if($row['role'] == 'phototour'){
+             return redirect()->intended('/admin/photo-tour#tab_2')->with('message','Footer Background Deleted');
+         }
+
     }
 
     /**
@@ -1269,13 +1331,23 @@ class AdminController extends BaseController
     }
 
 
-
-    public function getWorkShop(WorkShopInterface $workShopRepo)
+    /**
+     * @param WorkShopInterface $workShopRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @return View
+     */
+    public function getWorkShop(WorkShopInterface $workShopRepo,FooterInterface $footerRepo,BackgroundInterface $bgRepo)
     {
         $result = $workShopRepo->getAll();
+        $footer = $footerRepo->getOneRowWorkShop();
+        $Backgrount = $bgRepo->getWorkshopBackgrountImages();
+
         $data = [
+            'backgrounds' => $Backgrount,
             'workshops' => $result,
             'activeworkshop' => 1,
+            'footer' => $footer
         ];
         return view('admin.pages.work-shop.work-shop',$data);
     }
@@ -1296,9 +1368,10 @@ class AdminController extends BaseController
      * @param WorkShopInterface $workShopRepo
      * @return mixed
      */
-    public function postAddWorkShop(request $request,WorkShopInterface $workShopRepo)
+    public function postAddWorkShop(request $request,WorkShopInterface $workShopRepo,SkillInterface $skillRepo)
     {
         $result = $request->all();
+
         $validator = Validator::make($result, [
             'title' => 'required',
             'description' => 'required',
@@ -1318,26 +1391,404 @@ class AdminController extends BaseController
                 'location' => $result['location']
             ];
             $data['images'] = $gallery_images;
-            $workShopRepo->createData($data);
-            //return redirect()->action('AdminController@getWorkShop');
+            $created_workshop = $workShopRepo->createData($data);
+
+            $array = [];
+            foreach($result as $key=>$value){
+                if(count(explode('skill_',$key)) > 1){
+                    array_push($array,$key);
+                }
+
+            }
+
+            $data_first_skill = [
+                'skill' => $result['skill'],
+                'role' => 'workshop',
+                'workshop_id' => $created_workshop['id']
+            ];
+            $skillRepo->createData($data_first_skill);
+
+            foreach ($array as $key => $value){
+                $data_skill = [
+                    'skill' => $result[$value],
+                    'role' => 'workshop',
+                    'workshop_id' =>  $created_workshop['id']
+                ];
+                $skillRepo->createData($data_skill);
+            }
+            return redirect()->action('AdminController@getWorkShop');
         }
     }
 
+    /**
+     * @param $id
+     * @param WorkShopInterface $workshopRepo
+     * @param SkillInterface $skillRepo
+     * @return View
+     */
+    public function getEditWorkShop($id,WorkShopInterface $workshopRepo,SkillInterface $skillRepo)
+    {
+        $workshop = $workshopRepo->getOne($id);
+        $skill = $skillRepo->getWorkshopSkiils($id);
+        $data = [
+            'activeworkshop' => 1,
+            'workshops' => $workshop,
+            'skills' => $skill
+        ];
+        return view('admin.pages.work-shop.edit-work-shop',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param SkillInterface $skillRepo
+     * @param WorkShopInterface $workShopRepo
+     * @return mixed
+     */
+    public function postEditWorkShop(request $request,SkillInterface $skillRepo,WorkShopInterface $workShopRepo)
+    {
+        $result = $request->all();
+        $skills = $skillRepo->getWorkshopSkiils($result['id']);
+
+        $array = [];
+        foreach($result as $key=>$value){
+            if(count(explode('skill_',$key)) > 1){
+                array_push($array,$key);
+            }
+
+        }
+        $skill_ids = [];
+        foreach ($skills as $skill)
+        {
+            array_push($skill_ids,$skill['id']);
+        }
+
+        foreach (array_combine($skill_ids,$array) as $key => $value){
+            $data_skill = [
+                'skill' => $result[$value],
+            ];
+            $skillRepo->getUpdateData($key,$data_skill);
+        }
+
+        if(isset($result['images'])){
+            $row = $workShopRepo->getOne($result['id']);
+            $path = public_path() . '/assets/work-shop-images/' . $row['images'];
+            File::delete($path);
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/work-shop-images';
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images'] = $gallery_images;
+            $workShopRepo->getUpdateData($result['id'],$result);
+        }else{
+            $workShopRepo->getUpdateData($result['id'],$result);
+        }
+
+        return redirect()->action('AdminController@getWorkShop');
+    }
+
+    /**
+     * @param $id
+     * @param SkillInterface $skillRepo
+     * @param WorkShopInterface $workShopRepo
+     * @return mixed
+     */
+    public function getDeleteWorkShop($id,SkillInterface $skillRepo,WorkShopInterface $workShopRepo)
+    {
+        $rowWorkShop = $workShopRepo->getOne($id);
+        $rowsSkills = $skillRepo->getWorkshopSkiils($id);
+        foreach ($rowsSkills as $rowsSkill)
+        {
+            $skillRepo->deleteData($rowsSkill['id']);
+        }
+        $path = public_path() . '/assets/work-shop-images/' . $rowWorkShop['images'];
+        File::delete($path);
+        $workShopRepo->deleteData($id);
+        return redirect()->back()->with('message','Deleted Work Shop');
+
+    }
+
+    public function postAddWorkShopBackgroundTop(request $request,BackgroundInterface $bgRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $row = $bgRepo->getWorkshopBackgrountImages();
+            if(count($row) == ""){
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $result['role'] = 'workshop';
+                $bgRepo->createData($result);
+            }else{
+                $oldPath = public_path() . '/assets/background-images/' . $row['images'];
+                File::delete($oldPath);
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $bgRepo->getUpdateData($row['id'],$result);
+            }
+            return redirect()->intended('/admin/work-shop#tab_1')->with('message','You added Work Shop Background');
+        }
+    }
+
+    /**
+     * @param $id
+     * @param BackgroundInterface $bgRepo
+     * @return View
+     */
+    public function getEditWorkShopBackgrount($id,BackgroundInterface $bgRepo)
+    {
+        $row = $bgRepo->getOne($id);
+        $data = [
+            'activeworkshop' => 1,
+            'id' => $id,
+            'background' => $row,
+        ];
+        return view('admin.pages.edit-background',$data);
+    }
 
 
+    /**
+     * @param PhotoTourInterface $photoRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @return View
+     */
+    public function getPhotoTour(PhotoTourInterface $photoRepo,FooterInterface $footerRepo,BackgroundInterface $bgRepo)
+    {
+        $phototours = $photoRepo->getAll();
+        $footer = $footerRepo->getOneRowPhotoTour();
+        $backgrount = $bgRepo->getPhotoTourBackgrountImages();
+        $data = [
+            'footer' => $footer,
+            'backgrounds' => $backgrount,
+            'phototours' => $phototours,
+            'activephototour' => 1,
+        ];
+        return view('admin.pages.photo-tour.photo-tour',$data);
+    }
 
-
-
-
-
-
-    public function getPhotoTour()
+    /**
+     * @return View
+     */
+    public function getAddPhotoTour()
     {
         $data = [
             'activephototour' => 1,
         ];
-        return view('admin.pages.photo-tour',$data);
+        return view('admin.pages.photo-tour.add-photo-tour',$data);
     }
+
+    public function postAddPhotoTour(request $request,PhotoTourInterface $photoRepo,SkillInterface $skillRepo)
+    {
+        $result = $request->all();
+
+        $validator = Validator::make($result, [
+            'title' => 'required',
+            'description' => 'required',
+            'images' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $path = public_path() . '/assets/photo-tour-images';
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $data = [
+                'title' => $result['title'],
+                'description' => $result['description'],
+                'location' => $result['location']
+            ];
+            $data['images'] = $gallery_images;
+            $created_photo_tour = $photoRepo->createData($data);
+
+            $array = [];
+            foreach($result as $key=>$value){
+                if(count(explode('skill_',$key)) > 1){
+                    array_push($array,$key);
+                }
+
+            }
+
+            $data_first_skill = [
+                'skill' => $result['skill'],
+                'role' => 'phototour',
+                'workshop_id' => $created_photo_tour['id']
+            ];
+            $skillRepo->createData($data_first_skill);
+
+            foreach ($array as $key => $value){
+                $data_skill = [
+                    'skill' => $result[$value],
+                    'role' => 'phototour',
+                    'workshop_id' =>  $created_photo_tour['id']
+                ];
+                $skillRepo->createData($data_skill);
+            }
+            return redirect()->action('AdminController@getPhotoTour');
+        }
+    }
+
+    /**
+     * @param $id
+     * @param SkillInterface $skillRepo
+     * @param PhotoTourInterface $photoTourRepo
+     * @return View
+     */
+    public function getEditPhotoTour($id,SkillInterface $skillRepo,PhotoTourInterface $photoTourRepo)
+    {
+        $photoTour = $photoTourRepo->getOne($id);
+        $skill = $skillRepo->getPhotoTourSkiils($id);
+        $data = [
+            'activephototour' => 1,
+            'pototour' => $photoTour,
+            'skills' => $skill
+        ];
+        return view('admin.pages.photo-tour.edit-photo-tour',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param SkillInterface $skillRepo
+     * @param PhotoTourInterface $photoTourRepo
+     * @return mixed
+     */
+    public function postEditPhotoTour(request $request,SkillInterface $skillRepo,PhotoTourInterface $photoTourRepo)
+    {
+        $result = $request->all();
+        $skills = $skillRepo->getPhotoTourSkiils($result['id']);
+
+        $array = [];
+        foreach($result as $key=>$value){
+            if(count(explode('skill_',$key)) > 1){
+                array_push($array,$key);
+            }
+
+        }
+        $skill_ids = [];
+        foreach ($skills as $skill)
+        {
+            array_push($skill_ids,$skill['id']);
+        }
+
+        foreach (array_combine($skill_ids,$array) as $key => $value){
+            $data_skill = [
+                'skill' => $result[$value],
+            ];
+            $skillRepo->getUpdateData($key,$data_skill);
+        }
+
+        if(isset($result['images'])){
+            $row = $photoTourRepo->getOne($result['id']);
+            $path = public_path() . '/assets/photo-tour-images/' . $row['images'];
+            File::delete($path);
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/photo-tour-images';
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images'] = $gallery_images;
+            $photoTourRepo->getUpdateData($result['id'],$result);
+        }else{
+            $photoTourRepo->getUpdateData($result['id'],$result);
+        }
+        return redirect()->action('AdminController@getPhotoTour');
+    }
+
+    /**
+     * @param $id
+     * @param SkillInterface $skillRepo
+     * @param PhotoTourInterface $photoTourRepo
+     * @return mixed
+     */
+    public function getDeletePhotoTour($id,SkillInterface $skillRepo,PhotoTourInterface $photoTourRepo)
+    {
+        $rowWorkShop = $photoTourRepo->getOne($id);
+        $rowsSkills = $skillRepo->getPhotoTourSkiils($id);
+        foreach ($rowsSkills as $rowsSkill)
+        {
+            $skillRepo->deleteData($rowsSkill['id']);
+        }
+        $path = public_path() . '/assets/photo-tour-images/' . $rowWorkShop['images'];
+        File::delete($path);
+        $photoTourRepo->deleteData($id);
+        return redirect()->back()->with('message','Deleted Work Shop');
+    }
+
+
+    /**
+     * @param Request $request
+     * @param BackgroundInterface $bgRepo
+     * @return mixed
+     */
+    public function postAddPhotoTourBackgroundTop(request $request,BackgroundInterface $bgRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'images' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $row = $bgRepo->getWorkshopBackgrountImages();
+            if(count($row) == ""){
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $result['role'] = 'phototour';
+                $bgRepo->createData($result);
+            }else{
+                $oldPath = public_path() . '/assets/background-images/' . $row['images'];
+                File::delete($oldPath);
+                $path = public_path() . '/assets/background-images';
+                $logoFile = $result['images']->getClientOriginalExtension();
+                $name = str_random(12);
+                $path = public_path() . '/assets/background-images';
+                $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                $gallery_images = $name.'.'.$logoFile;
+                $result['images'] = $gallery_images;
+                $bgRepo->getUpdateData($row['id'],$result);
+            }
+            return redirect()->intended('/admin/photo-tour#tab_1')->with('message','You added Work Shop Background');
+        }
+    }
+
+    /**
+     * @param $id
+     * @param BackgroundInterface $bgRepo
+     * @return View
+     */
+    public function getEditPhotoTourBackground($id,BackgroundInterface $bgRepo)
+    {
+        $row = $bgRepo->getOne($id);
+
+        $data = [
+            'activeworkshop' => 1,
+            'id' => $id,
+            'background' => $row,
+        ];
+        return view('admin.pages.edit-background',$data);
+    }
+
 
     public function getAboutArtist()
     {

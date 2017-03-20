@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface BackgroundInterface
+interface SkillInterface
 {
     /**
      * @return mixed
@@ -41,33 +41,15 @@ interface BackgroundInterface
     public function deleteData($id);
 
     /**
+     * @param $id
      * @return mixed
      */
-    public function getFirstRow();
+    public function getWorkshopSkiils($id);
 
     /**
+     * @param $id
      * @return mixed
      */
-    public function getInYourSpaceBg();
-
-    /**
-     * @return mixed
-     */
-    public function getHomeBg();
-
-    /**
-     * @return mixed
-     */
-    public function getGalleryCategoryImages();
-
-    /**
-     * @return mixed
-     */
-    public function getWorkshopBackgrountImages();
-
-    /**
-     * @return mixed
-     */
-    public function getPhotoTourBackgrountImages();
+    public function getPhotoTourSkiils($id);
 
 }
