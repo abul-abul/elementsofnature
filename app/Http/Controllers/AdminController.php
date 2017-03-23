@@ -33,9 +33,9 @@ class AdminController extends BaseController
     /**
      * AdminController constructor.
      */
-    public function __construct()
+    public function __construct(BackgroundInterface $bgRepo,PartnersInterface $partnersRepo)
     {
-        parent::__construct();
+        parent::__construct($bgRepo,$partnersRepo);
         $this->middleware('authadmin', ['except' => ['getLogin', 'postLogin','getLogout']]);
     }
 
@@ -121,7 +121,7 @@ class AdminController extends BaseController
             $article_images = $name.'.'.$logoFile;
             $result['images'] = $article_images;
             $partnersRepo->createData($result);
-            return redirect()->back()->with('message','You added partners');
+            return redirect()->intended('/admin/home#tab_1')->with('message','You added partners');
         }
     }
 
@@ -223,7 +223,7 @@ class AdminController extends BaseController
             $result['images'] = $gallery_images;
             $result['role'] = 'home';
             $galleryRepo->createData($result);
-            return redirect()->back()->with('message','Add One Gallery');
+            return redirect()->intended('/admin/home#tab_2')->with('message','Add One Gallery');
         }
     }
 
@@ -236,6 +236,7 @@ class AdminController extends BaseController
     {
         $result = $galleryRepo->getOne($id);
         $data = [
+            'activeHome' => 1,
             'gallerys' => $result
         ];
         return view('admin.pages.home.home-gallery-edit',$data);
@@ -891,6 +892,8 @@ class AdminController extends BaseController
         return view('admin.pages.gallery-category-images.add-gallery-category-images',$data);
     }
 
+
+
     /**
      * @param Request $request
      * @param GalleryCategoryImagesInterface $GalleryCategoryImagesRepo
@@ -1066,6 +1069,22 @@ class AdminController extends BaseController
     public function getUpdateGalleryCategoryImagesFavourite($id,
                                                             request $request,
                                                             GalleryCategoryImagesInterface $GalleryCategoryImagesRepo)
+    {
+        $result = $request->all();
+        unset($result['_token']);
+        $GalleryCategoryImagesRepo->getUpdateData($id,$result);
+        return redirect()->back();
+    }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @param GalleryCategoryImagesInterface $GalleryCategoryImagesRepo
+     * @return mixed
+     */
+    public function getUpdateFuteredImages($id,
+                                           request $request,
+                                           GalleryCategoryImagesInterface $GalleryCategoryImagesRepo)
     {
         $result = $request->all();
         unset($result['_token']);
@@ -1773,7 +1792,7 @@ class AdminController extends BaseController
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }else{
-            $row = $bgRepo->getWorkshopBackgrountImages();
+            $row = $bgRepo->getPhotoTourBackgrountImages();
             if(count($row) == ""){
                 $path = public_path() . '/assets/background-images';
                 $logoFile = $result['images']->getClientOriginalExtension();
@@ -1783,6 +1802,7 @@ class AdminController extends BaseController
                 $gallery_images = $name.'.'.$logoFile;
                 $result['images'] = $gallery_images;
                 $result['role'] = 'phototour';
+
                 $bgRepo->createData($result);
             }else{
                 $oldPath = public_path() . '/assets/background-images/' . $row['images'];
@@ -1851,7 +1871,7 @@ class AdminController extends BaseController
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }else{
-            $row = $bgRepo->getWorkshopBackgrountImages();
+            $row = $bgRepo->getConnectBackgroundImages();
             if(count($row) == ""){
                 $path = public_path() . '/assets/background-images';
                 $logoFile = $result['images']->getClientOriginalExtension();
@@ -1874,7 +1894,7 @@ class AdminController extends BaseController
                 $result['images'] = $gallery_images;
                 $bgRepo->getUpdateData($row['id'],$result);
             }
-            return redirect()->intended('/admin/connect#tab_1')->with('message','You added Work Shop Background');
+            return redirect()->intended('/admin/connect#tab_1')->with('message','You added Connect Background');
         }
     }
 

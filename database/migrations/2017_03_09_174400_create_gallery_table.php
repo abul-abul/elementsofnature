@@ -21,6 +21,7 @@ class CreateGalleryTable extends Migration
             $table->longText('description')->nullable();
             $table->string('favourite')->nullable();
             $table->string('alt')->nullable();
+            $table->string('link')->nullable();
             $table->string('role')->nullable();
             $table->timestamps();
         });

@@ -51,4 +51,8 @@ interface GalleryCategoryImagesInterface
      */
     public function getSelectGalleryCatImages($id);
 
+    /**
+     * @return mixed
+     */
+    public function getHomeFeaturesImages();
 }

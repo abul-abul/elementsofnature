@@ -9,12 +9,13 @@ Route::get('gallery-images-inner/{id}','UsersController@getGalleryInner');
 
 Route::get('work-shop','UsersController@getWorkShop');
 
-Route::get('work-shop-inner','UsersController@getWorkShopInner');
+Route::get('work-shop-inner/{id}','UsersController@getWorkShopInner');
 
 Route::get('in-your-space','UsersController@getInYourSpace');
 Route::get('photo-tour','UsersController@gerPhotoTour');
 Route::get('about-artist','UsersController@getAboutArtist');
 Route::get('connect','UsersController@getConnect');
+Route::post('user/connect','UsersController@postConnect');
 
 
 
@@ -77,6 +78,8 @@ Route::get('admin/add-gallery-category-images/{id}','AdminController@getAddGalle
 Route::post('admin/gallery-category-images','AdminController@postAddGalleryCategoryImages');
 Route::post('admin/gallery-category-inner-images','AdminController@postAddGalleryCategoryInner');
 Route::post('admin/update-gallery-category-images-favourite/{id}','AdminController@getUpdateGalleryCategoryImagesFavourite');
+Route::post('admin/update-futered-images/{id}','AdminController@getUpdateFuteredImages');
+
 Route::get('admin/edit-gallery-category-images/{id}','AdminController@getEditGalleryCategoryImages');
 Route::post('admin/edit-gallery-category-images','AdminController@postEditGalleryCategoryImages');
 Route::get('admin/view-gallery-category-img-inner/{id}','AdminController@getViewGalleryCategoryImgInner');

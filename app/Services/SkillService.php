@@ -89,5 +89,7 @@ class SkillService implements SkillInterface
         return $this->skill->where('workshop_id',$id)->where('role','phototour')->get();
     }
 
+  
+
 
 }

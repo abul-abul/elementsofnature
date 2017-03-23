@@ -15,7 +15,9 @@
 <!-- big background page -->
 @if(isset($hoveNavigator))
 <section class="page_bg_place">
-    <img src="/assets/users/plugins/images/big_bg.jpg" class="big_bg" alt=""/>
+    @if(isset($homeBg) && count($homeBg) != '')
+    <img src="/assets/background-images/{{$homeBg->images}}" class="big_bg" alt="{{$homeBg->alt}}"/>
+    @endif
     <div class="bg_abs_menu_place">
         <div class="bg_rel_menu_place">
             <ul class="bg_hide_menu">
@@ -26,31 +28,31 @@
                     </a>
                 </li>
                 <li class="bg_hide_menu_li">
-                    <a href="Workshop.html" class="bg_hide_links">
+                    <a href="{{action('UsersController@getWorkShop')}}" class="bg_hide_links">
                         workshop
                         <span class="bg_hide_abs"></span>
                     </a>
                 </li>
                 <li class="bg_hide_menu_li">
-                    <a href="In-Your-Space.html" class="bg_hide_links">
+                    <a href="{{action('UsersController@getInYourSpace')}}" class="bg_hide_links">
                         in your space
                         <span class="bg_hide_abs"></span>
                     </a>
                 </li>
                 <li class="bg_hide_menu_li">
-                    <a href="Photo-Tour-Inner.html" class="bg_hide_links">
+                    <a href="{{action('UsersController@gerPhotoTour')}}" class="bg_hide_links">
                         photo tour
                         <span class="bg_hide_abs"></span>
                     </a>
                 </li>
                 <li class="bg_hide_menu_li">
-                    <a href="About.html" class="bg_hide_links">
+                    <a href="{{action('UsersController@getAboutArtist')}}" class="bg_hide_links">
                         about artist
                         <span class="bg_hide_abs"></span>
                     </a>
                 </li>
                 <li class="bg_hide_menu_li">
-                    <a href="Contact.html" class="bg_hide_links">
+                    <a href="{{action('UsersController@getConnect')}}" class="bg_hide_links">
                         connect
                         <span class="bg_hide_abs"></span>
                     </a>
@@ -142,12 +144,14 @@
         </li>
     </ul>
     <div class="big_logo_place">
-        <a href="#">
+        <a href="{{action('UsersController@getHome')}}">
             <img src="/assets/users/plugins/images/big_logo.png" class="big_logo" alt=""/>
         </a>
     </div>
     <h1 class="big_title_place">
-        Bringing images of Nature from Outside your Windows and into your home
+        @if(count($homeBg) != '')
+        {{$homeBg->title}}
+        @endif
     </h1>
     <div class="continue_btn_place">
         <div class="continue_btn">
@@ -155,38 +159,17 @@
         </div>
     </div>
     <div class="bg_partners_place">
-				<span class="partners_place_center">
-					<span class="partners_link_place">
-						<a href="#">
-                            <img src="/assets/users/plugins/images/partners_logo1.png" class="bg_partners_logo" alt="" />
-                        </a>
-					</span>
-					<span class="partners_link_place">
-						<a href="#">
-                            <img src="/assets/users/plugins/images/partners_logo2.png" class="bg_partners_logo" alt="" />
-                        </a>
-					</span>
-					<span class="partners_link_place">
-						<a href="#">
-                            <img src="/assets/users/plugins/images/partners_logo3.png" class="bg_partners_logo" alt="" />
-                        </a>
-					</span>
-					<span class="partners_link_place">
-						<a href="#">
-                            <img src="/assets/users/plugins/images/partners_logo4.png" class="bg_partners_logo" alt="" />
-                        </a>
-					</span>
-					<span class="partners_link_place">
-						<a href="#">
-                            <img src="/assets/users/plugins/images/partners_logo5.png" class="bg_partners_logo" alt="" />
-                        </a>
-					</span>
-					<span class="partners_link_place">
-						<a href="#">
-                            <img src="/assets/users/plugins/images/partners_logo6.png" class="bg_partners_logo" alt="" />
-                        </a>
-					</span>
-				</span>
+        @if(isset($partners) && count($partners) != 'null')
+            <span class="partners_place_center">
+                @foreach($partners as $partner)
+                <span class="partners_link_place">
+                    <a href="{{$partner->link}}">
+                        <img src="/assets/partners-images/{{$partner->images}}" class="bg_partners_logo" alt="{{$partner->alt}}" />
+                    </a>
+                </span>
+                @endforeach
+            </span>
+        @endif
     </div>
 </section>
 @endif
@@ -235,12 +218,12 @@
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="{{action('UsersController@getConnect')}}" class="h_soc_link">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="{{action('UsersController@getHome')}}" class="h_soc_link">
                         <i class="fa fa-home" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -250,7 +233,7 @@
     <div class="header_menu_place">
         <div class="header_menu_center">
             <div class="header_logo_place">
-                <a href="home.html">
+                <a href="{{action('UsersController@getHome')}}">
                     <img src="/assets/users/plugins/images/big_logo.png" class="header_logo" alt="" />
                 </a>
             </div>
@@ -266,27 +249,27 @@
                         </a>
                     </li>
                     <li class="header_hide_menu_li">
-                        <a href="Workshop.html" class="header_hide_menu_link">
+                        <a href="{{action('UsersController@getWorkShop')}}" class="header_hide_menu_link">
                             workshop
                         </a>
                     </li>
                     <li class="header_hide_menu_li">
-                        <a href="In-Your-Space.html" class="header_hide_menu_link">
+                        <a href="{{action('UsersController@getInYourSpace')}}" class="header_hide_menu_link">
                             in your space
                         </a>
                     </li>
                     <li class="header_hide_menu_li">
-                        <a href="Photo-Tour-Inner.html" class="header_hide_menu_link">
+                        <a href="{{action('UsersController@gerPhotoTour')}}" class="header_hide_menu_link">
                             photo tour
                         </a>
                     </li>
                     <li class="header_hide_menu_li">
-                        <a href="About.html" class="header_hide_menu_link">
+                        <a href="{{action('UsersController@getAboutArtist')}}" class="header_hide_menu_link">
                             about artist
                         </a>
                     </li>
                     <li class="header_hide_menu_li">
-                        <a href="Contact.html" class="header_hide_menu_link">
+                        <a href="{{action('UsersController@getConnect')}}" class="header_hide_menu_link">
                             connect
                         </a>
                     </li>
@@ -298,7 +281,7 @@
                 </li>
 
                 <li class="header_menu_child">
-                    <a href="{{action('UsersController@getWorkShop','a')}}" class="header_menu_link">workshop</a>
+                    <a href="{{action('UsersController@getWorkShop')}}" class="header_menu_link">workshop</a>
                 </li>
                 <li class="header_menu_child">
                     <a href="{{action('UsersController@getInYourSpace')}}" class="header_menu_link">in your space</a>
@@ -326,7 +309,6 @@
 </div>
 
 {!! HTML::script( asset('assets/users/plugins/js/jquery.min.js') ) !!}
-
 
 {!! HTML::script( asset('assets/users/plugins/js/init.js') ) !!}
 

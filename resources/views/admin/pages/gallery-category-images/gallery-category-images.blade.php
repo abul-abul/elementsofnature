@@ -58,6 +58,7 @@
                                                         <th>alt</th>
                                                         <th>Images</th>
                                                         <th>Favourite</th>
+                                                        <th>Featured Images</th>
                                                         <th>View Images Frame</th>
                                                         <th>Edit/Delete</th>
                                                     </tr>
@@ -80,6 +81,19 @@
                                                                 @else
                                                                     <input type="hidden" name="favourite" value="0">
                                                                     <i class="glyphicon glyphicon-star"></i>
+                                                                @endif
+                                                            </button>
+                                                            {!!Form::close()!!}
+                                                        </td>
+                                                        <td>
+                                                            {!! Form::open(['action' => ['AdminController@getUpdateFuteredImages',$galleryCategoryImage->id],'style'=>'float:left']) !!}
+                                                            <button type="submit" class="btn btn-default">
+                                                                @if($galleryCategoryImage->featured_images == "" || $galleryCategoryImage->featured_images == 0)
+                                                                    <input type="hidden" name="featured_images" value="1">
+                                                                    <i style="color: red" class="glyphicon glyphicon-remove"></i>
+                                                                @else
+                                                                    <input type="hidden" name="featured_images" value="0">
+                                                                    <i style="color: green" class="glyphicon glyphicon-ok"></i>
                                                                 @endif
                                                             </button>
                                                             {!!Form::close()!!}

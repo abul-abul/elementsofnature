@@ -242,6 +242,11 @@
                                                 {!! Form::text('alt', null, ['placeholder' => 'Alt' , 'class' => 'form-control']) !!}
                                             </div>
                                         </div>
+                                        <div class="col-md-12 form-group">
+                                            <div class="col-md-12">
+                                                {!! Form::text('link', null, ['placeholder' => 'Link' , 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
                                         <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
                                             <label class="input-group-btn">
                                                     <span class="btn btn-primary">
@@ -270,6 +275,7 @@
                                                             <th>Title</th>
                                                             <th>Gallery Name</th>
                                                             <th>Description</th>
+                                                            <th>Link</th>
                                                             <th>Image Alt</th>
                                                             <th>Images</th>
                                                             <th>Date</th>
@@ -284,6 +290,7 @@
                                                                 <td>{{$homeGallery->title}}</td>
                                                                 <td>{{$homeGallery->name}}</td>
                                                                 <td>{{substr($homeGallery->description,0,7)}}...</td>
+                                                                <td>{{$homeGallery->link}}</td>
                                                                 <td>{{$homeGallery->alt}}</td>
                                                                 <td><img style="width:100px;height:47px;" src="/assets/gallery-images/{{$homeGallery->images}}"></td>
                                                                 <td>{{date('d/m/Y', strtotime($homeGallery->created_at))}}</td>

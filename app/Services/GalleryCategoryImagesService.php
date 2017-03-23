@@ -88,5 +88,12 @@ class GalleryCategoryImagesService implements GalleryCategoryImagesInterface
         return $this->gallerycategoryimages->where('gallery_category_id',$id)->get();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getHomeFeaturesImages()
+    {
+        return $this->gallerycategoryimages->where('featured_images',1)->orderBy('id', 'desc')->take(9)->get();
+    }
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Contracts\PartnersInterface;
 use App\Contracts\BackgroundInterface;
 use App\Contracts\FooterInterface;
@@ -10,20 +11,35 @@ use App\Contracts\GalleryCategoryInterface;
 use App\Contracts\GalleryCategoryImagesInterface;
 use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryImagesInnerTopInterface;
+use App\Contracts\WorkShopInterface;
+use App\Contracts\SkillInterface;
+use App\Contracts\InYourSpaceTextInterface;
+use App\Contracts\PhotoTourInterface;
+use App\Contracts\ConnectInterface;
+
 use Illuminate\Http\Request;
+use Validator;
 
 class UsersController extends BaseController
 {
 
-    public function __construct()
+    public function __construct(BackgroundInterface $bgRepo,PartnersInterface $partnersRepo)
     {
-
+        parent::__construct($bgRepo,$partnersRepo);
     }
 
-
-    public function getHome()
+    /**
+     * @param GalleryInterface $galleryRepo
+     * @param GalleryCategoryImagesInterface $galleryCategoryImagesRepo
+     * @return mixed
+     */
+    public function getHome(GalleryInterface $galleryRepo,GalleryCategoryImagesInterface $galleryCategoryImagesRepo)
     {
+        $gallery = $galleryRepo->getHomeRoleGallery();
+        $featuresImages = $galleryCategoryImagesRepo->getHomeFeaturesImages();
         $data = [
+            'featuresImages' => $featuresImages,
+            'homeGallerys' => $gallery,
             'hoveNavigator' => 1
         ];
         return view('users.home',$data);
@@ -42,7 +58,6 @@ class UsersController extends BaseController
             'footer' => $footer,
             'gallerys' => $result
         ];
-
         return view('users.pages.gallery.gallery-category',$data);
     }
 
@@ -94,41 +109,161 @@ class UsersController extends BaseController
         return view('users.pages.gallery.gallery-inner',$data);
     }
 
-    public function getWorkShop($slug = 'work')
+    /**
+     * @param WorkShopInterface $workShopRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @return mixed
+     */
+    public function getWorkShop(WorkShopInterface $workShopRepo,FooterInterface $footerRepo,BackgroundInterface $bgRepo)
     {
-        //$page = page::whereSlug($slug)->first();
-        $slug = 'work-shop';
+        $result = $workShopRepo->getAll();
+        $footer = $footerRepo->getOneRowWorkShop();
+        $Backgrount = $bgRepo->getWorkshopBackgrountImages();
         $data = [
-            'workslug' => $slug,
+            'backgrounds' => $Backgrount,
+            'workshops' => $result,
+            'activeworkshop' => 1,
+            'footer' => $footer
         ];
-       // return \View::make('users.pages.workshop.workshop',$data)->with('page', $slug);
-
-        return view('users.pages.workshop.workshop');
+        return view('users.pages.workshop.workshop',$data);
     }
 
-    public function getWorkShopInner()
+    /**
+     * @param $id
+     * @param WorkShopInterface $workShopRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @return mixed
+     */
+    public function getWorkShopInner($id,
+                                     WorkShopInterface $workShopRepo,
+                                     FooterInterface $footerRepo,
+                                     BackgroundInterface $bgRepo,
+                                     SkillInterface $skillRepo)
     {
-        return view('users.pages.workshop.workshop-inner');
+        $result = $workShopRepo->getOne($id);
+        $skills = $skillRepo->getWorkshopSkiils($id);
+        if(count($result) == null){
+            abort(404);
+        }
+        $footer = $footerRepo->getOneRowWorkShop();
+        $backgrount = $bgRepo->getWorkshopBackgrountImages();
+        $data = [
+            'backgrounds' => $backgrount,
+            'workshops' => $result,
+            'activeworkshop' => 1,
+            'footer' => $footer,
+            'skills' => $skills
+        ];
+        return view('users.pages.workshop.workshop-inner',$data);
     }
 
-    public function getInYourSpace()
+    /**
+     * @param BackgroundInterface $bgRepo
+     * @param InYOurSpaceInterface $inYorSpaceRepo
+     * @param InYourSpaceTextInterface $inYourSpaceTextRepo
+     * @param FooterInterface $footerRepo
+     * @return mixed
+     */
+    public function getInYourSpace(BackgroundInterface $bgRepo,
+                                   InYOurSpaceInterface $inYorSpaceRepo,
+                                   InYourSpaceTextInterface $inYourSpaceTextRepo,
+                                   FooterInterface $footerRepo)
     {
-        return view('users.pages.inyourspace.inyourspace');
+        $background = $bgRepo->getInYourSpaceBg();
+        $inyourspace = $inYorSpaceRepo->getAll();
+        $inYourSpaceText = $inYourSpaceTextRepo->getFirstRow();
+        $footer = $footerRepo->getOneRowInYourSpace();
+        $data = [
+            'activiinyourspace' => 1,
+            'inYourSpaceTexts' => $inYourSpaceText,
+            'inyourspaces' => $inyourspace,
+            'footer' => $footer,
+            'backgrounds' => $background
+        ];
+        return view('users.pages.inyourspace.inyourspace',$data);
     }
 
-    public function gerPhotoTour()
+    /**
+     * @param PhotoTourInterface $photoRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @param SkillInterface $skillRepo
+     * @return mixed
+     */
+    public function gerPhotoTour(PhotoTourInterface $photoRepo,
+                                 FooterInterface $footerRepo,
+                                 BackgroundInterface $bgRepo,
+                                 SkillInterface $skillRepo)
     {
-        return view('users.pages.phototour.phototour');
+        $phototours = $photoRepo->getAll();
+        $footer = $footerRepo->getOneRowPhotoTour();
+        $backgrount = $bgRepo->getPhotoTourBackgrountImages();
+        $full_block = [
+            'skill' => [],
+            'photo'  => $phototours
+        ];
+        foreach($phototours as $phototour){
+            $skills = $skillRepo->getPhotoTourSkiils($phototour->id);
+            array_push($full_block['skill'],$skills);
+        }
+        $data = [
+            'footer' => $footer,
+            'backgrounds' => $backgrount,
+            'phototours' => $full_block,
+            'activephototour' => 1,
+        ];
+        return view('users.pages.phototour.phototour',$data);
     }
+
+    /**
+     * @param ConnectInterface $connectRepo
+     * @param FooterInterface $footerRepo
+     * @param BackgroundInterface $bgRepo
+     * @return mixed
+     */
+    public function getConnect(ConnectInterface $connectRepo,FooterInterface $footerRepo,BackgroundInterface $bgRepo)
+    {
+        $connect = $connectRepo->getAll();
+        $background = $bgRepo->getConnectBackgroundImages();
+        $footer = $footerRepo->getOneRowConnect();
+        $data = [
+            'connects' => $connect,
+            'activeconnect' => 1,
+            'backgrounds' => $background,
+            'footer' => $footer
+        ];
+        return view('users.pages.connect.connect',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param ConnectInterface $connectRepo
+     * @return mixed
+     */
+    public function postConnect(request $request,ConnectInterface $connectRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'team' => 'required',
+            'message' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            unset($result['_token']);
+            $connectRepo->createData($result);
+            return redirect()->back()->with('message','Thanks for your message');
+        }
+    }
+
 
     public function getAboutArtist()
     {
         return view('users.pages.aboutartist.aboutartist');
-    }
-
-    public function getConnect()
-    {
-        return view('users.pages.connect.connect');
     }
 
 }

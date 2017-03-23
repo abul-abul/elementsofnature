@@ -17,6 +17,7 @@ class CreateGalleryCategoryImagesTable extends Migration
             $table->increments('id');
             $table->string('gallery_category_id')->nullable();
             $table->string('favourite')->nullable();
+            $table->string('featured_images')->nullable();
             $table->string('images')->nullable();
             $table->string('title')->nullable();
             $table->longText('description')->nullable();

@@ -52,4 +52,6 @@ interface SkillInterface
      */
     public function getPhotoTourSkiils($id);
 
+   
+
 }
