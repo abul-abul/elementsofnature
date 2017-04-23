@@ -15,9 +15,9 @@
                 </div>
             </div>
             <div class="col-md-12 form-group">
-                <label style="margin-left: 15px">Title</label>
+                <label style="margin-left: 15px">Description</label>
                 <div class="col-md-12">
-                    {!! Form::text('description', null, ['placeholder' => 'Description' , 'class' => 'form-control']) !!}
+                    {!! Form::textarea('description', null, ['placeholder' => 'Description' , 'class' => 'form-control']) !!}
                 </div>
             </div>
 

@@ -375,6 +375,7 @@ class AdminController extends BaseController
     {
         $row = $bgRepo->getOne($id);
         $data = [
+            'activiinyourspace' => 1,
             'id' => $id,
             'background' => $row,
         ];
@@ -825,6 +826,7 @@ class AdminController extends BaseController
     {
         $row = $galleryCategoryRepo->getOne($id);
         $data = [
+            'gallery_category_actiove' => 1,
             'galleryCategory' => $row
         ];
         return view('admin.pages.gallery-category.edit-gallery-category',$data);
@@ -857,7 +859,13 @@ class AdminController extends BaseController
     }
 
 
-
+    /**
+     * @param $id
+     * @param GalleryCategoryImagesInterface $galleryCategoryImagesRepo
+     * @param BackgroundInterface $backgroundRepo
+     * @param FooterInterface $footerRepo
+     * @return View
+     */
     public function getGalleryCategoryImages($id,
                                              GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
                                              BackgroundInterface $backgroundRepo,
@@ -1101,6 +1109,7 @@ class AdminController extends BaseController
     {
         $row = $GalleryCategoryImagesRepo->getOne($id);
         $data = [
+            'gallery_category_actiove' => 1,
             'results' => $row
         ];
         return view('admin.pages.gallery-category-images.edit-gallery-category-images',$data);
@@ -1165,6 +1174,7 @@ class AdminController extends BaseController
     {
         $result = $GalleryCategoryImagesInnerRepo->getOne($id);
         $data = [
+            'gallery_category_actiove' => 1,
             'imageFrame' => $result
         ];
         return view('admin.pages.gallery-category-images.edit-inner',$data);

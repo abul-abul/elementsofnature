@@ -76,111 +76,175 @@
         <div class="page-sidebar navbar-collapse collapse">
 
             <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                @if(isset($activeworkshop) || isset($activiinyourspace) || isset($activephototour) || isset($activeaboutartist) || isset($activeconnect) || isset($activeHome) || isset($gallery_category_actiove))
-                <li class="start active open">
-                @else
-                <li class="start">
-                @endif
-                    <a href="javascript:;">
-                        <i class="icon-docs"></i>
-                        <span class="title">Pages</span>
-                        <span class="selected"></span>
-                        <span class="arrow open"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        @if(isset($activeHome))
-                            <li class="active">
-                        @else
-                            <li>
-                        @endif
-                            <a href="{{action('AdminController@getHome')}}">
 
-                                Home
-                            </a>
-                        </li>
-                        @if(isset($activeworkshop))
-                        <li class="active">
-                        @else
-                        <li>
-                        @endif
-                            <a href="{{action('AdminController@getWorkShop')}}">
-
-                                Work Shop
-                            </a>
-                        </li>
-                        @if(isset($activiinyourspace))
-                        <li class="active">
-                        @else
-                        <li>
-                        @endif
-                            <a href="{{action('AdminController@getInYourSpace')}}">
-
-                                In Your Space
-                            </a>
-                        </li>
-                        @if(isset($activephototour))
-                        <li class="active">
-                        @else
-                        <li>
-                        @endif
-                            <a href="{{action('AdminController@getPhotoTour')}}">
-
-                                Photo Tour
-                            </a>
-                        </li>
-                        @if(isset($activeaboutartist))
-                        <li class="active">
-                        @else
-                        <li>
-                        @endif
-                            <a href="{{action('AdminController@getAboutArtist')}}">
-
-                                About Artist
-                            </a>
-                        </li>
-                        @if(isset($activeconnect))
-                        <li class="active">
-                        @else
-                        <li>
-                        @endif
-                            <a href="{{action('AdminController@getConnect')}}">
-                                Connect
-                            </a>
-                        </li>
-                        @if(isset($gallery_category_actiove))
-                        <li class="active">
-                        @else
-                        <li>
-                        @endif
-                            <a href="{{action('AdminController@getGalleryCategory')}}">
-                                Gallery Category
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-                @if(isset($activeAddGalleryPage))
-                <li class="start active open">
-                @else
-                <li>
-                @endif
-                    <a href="javascript:;">
-                        <i class="fa fa-file-image-o"></i>
-                        <span class="title">Gallery</span>
-                        <span class="arrow "></span>
-                    </a>
-                    <ul class="sub-menu">
-                            @if(isset($activeAddGalleryPage))
-                            <li class="active">
+                    @if(isset($activeHome))
+                        <li class="start active open">
+                    @else
+                        <li class="start">
+                    @endif
+                        <a href="javascript:;">
+                            <i class="icon-docs"></i>
+                            <span class="title">Home</span>
+                            <span class="selected"></span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            @if(isset($activeHome))
+                                <li class="active">
                             @else
                             <li>
                             @endif
-                                <a href="{{action('AdminController@getAddGalleryPage')}}">
-                                    Add Gallery
+                                <a href="{{action('AdminController@getHome')}}">
+                                    Home
                                 </a>
                             </li>
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+
+                        @if(isset($activeworkshop))
+                            <li class="start active open">
+                        @else
+                            <li class="start">
+                                @endif
+                                <a href="javascript:;">
+                                    <i class="icon-docs"></i>
+                                    <span class="title"> Work Shop</span>
+                                    <span class="selected"></span>
+                                    <span class="arrow open"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @if(isset($activeworkshop))
+                                        <li class="active">
+                                    @else
+                                        <li>
+                                            @endif
+                                            <a href="{{action('AdminController@getWorkShop')}}">
+                                                Work Shop
+                                            </a>
+                                        </li>
+                                </ul>
+                            </li>
+
+                            @if(isset($gallery_category_actiove))
+                                <li class="start active open">
+                            @else
+                                <li class="start">
+                                    @endif
+                                    <a href="javascript:;">
+                                        <i class="icon-docs"></i>
+                                        <span class="title"> Gallery Category</span>
+                                        <span class="selected"></span>
+                                        <span class="arrow open"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        @if(isset($gallery_category_actiove))
+                                            <li class="active">
+                                        @else
+                                            <li>
+                                                @endif
+                                                <a href="{{action('AdminController@getGalleryCategory')}}">
+                                                    Gallery Category
+                                                </a>
+                                            </li>
+                                    </ul>
+                                </li>
+
+
+                            @if(isset($activiinyourspace))
+                                <li class="start active open">
+                            @else
+                                <li class="start">
+                                    @endif
+                                    <a href="javascript:;">
+                                        <i class="icon-docs"></i>
+                                        <span class="title"> In Your Space</span>
+                                        <span class="selected"></span>
+                                        <span class="arrow open"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        @if(isset($activiinyourspace))
+                                            <li class="active">
+                                        @else
+                                            <li>
+                                                @endif
+                                                <a href="{{action('AdminController@getInYourSpace')}}">
+                                                    In Your Space
+                                                </a>
+                                            </li>
+                                    </ul>
+                                </li>
+
+                                @if(isset($activephototour))
+                                    <li class="start active open">
+                                @else
+                                    <li class="start">
+                                        @endif
+                                        <a href="javascript:;">
+                                            <i class="icon-docs"></i>
+                                            <span class="title"> Photo Tour</span>
+                                            <span class="selected"></span>
+                                            <span class="arrow open"></span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            @if(isset($activephototour))
+                                                <li class="active">
+                                            @else
+                                                <li>
+                                                    @endif
+                                                    <a href="{{action('AdminController@getPhotoTour')}}">
+                                                        Photo Tour
+                                                    </a>
+                                                </li>
+                                        </ul>
+                                    </li>
+
+                                    @if(isset($activeaboutartist))
+                                        <li class="start active open">
+                                    @else
+                                        <li class="start">
+                                            @endif
+                                            <a href="javascript:;">
+                                                <i class="icon-docs"></i>
+                                                <span class="title"> About Artist</span>
+                                                <span class="selected"></span>
+                                                <span class="arrow open"></span>
+                                            </a>
+                                            <ul class="sub-menu">
+                                                @if(isset($activeaboutartist))
+                                                    <li class="active">
+                                                @else
+                                                    <li>
+                                                        @endif
+                                                        <a href="{{action('AdminController@getAboutArtist')}}">
+                                                            About Artist
+                                                        </a>
+                                                    </li>
+                                            </ul>
+                                        </li>
+
+                                        @if(isset($activeconnect))
+                                            <li class="start active open">
+                                        @else
+                                            <li class="start">
+                                                @endif
+                                                <a href="javascript:;">
+                                                    <i class="icon-docs"></i>
+                                                    <span class="title"> Connect</span>
+                                                    <span class="selected"></span>
+                                                    <span class="arrow open"></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                                                    @if(isset($activeconnect))
+                                                        <li class="active">
+                                                    @else
+                                                        <li>
+                                                            @endif
+                                                            <a href="{{action('AdminController@getConnect')}}">
+                                                                Connect
+                                                            </a>
+                                                        </li>
+                                                </ul>
+                                            </li>
 
             </ul>
             <!-- END SIDEBAR MENU -->
