@@ -96,18 +96,29 @@ class UsersController extends BaseController
 
     {
         $categoryImagee = $galleryCategoryImagesRepo->getOne($id);
+        $allCategoryImages = $galleryCategoryImagesRepo->getAll();
+        $firstId = $galleryCategoryImagesRepo->getFirstRow()->id;
+        $lastId = $galleryCategoryImagesRepo->getLastRow()->id;
+        if(count($categoryImagee) ==  ""){
+            abort(404);
+        }
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
         $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
         $data = [
             'id' => $id,
+            'firstId' => $firstId,
+            'lastId' => $lastId,
             'categoryImagee' => $categoryImagee,
             'imageFrames' => $result,
             'imgTop' => $imgTop,
-            'footer' => $footer
+            'footer' => $footer,
+            'allCategoryImages' => $allCategoryImages
         ];
         return view('users.pages.gallery.gallery-inner',$data);
     }
+
+
 
     /**
      * @param WorkShopInterface $workShopRepo

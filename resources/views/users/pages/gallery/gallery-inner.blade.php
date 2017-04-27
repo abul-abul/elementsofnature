@@ -52,14 +52,26 @@
         <div class="zoom_next_last_place">
             <button class="z_next_last_btn">
                 <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                <a href="#" class="next_last_link">
+                @if($id != $firstId)
+                <a href="{{action('UsersController@getGalleryInner',$id-1)}}" class="next_last_link">
                     last picture
                 </a>
+                @else
+                    <a href="#" class="next_last_link"> last picture</a>
+                @endif
             </button>
+
             <button class="z_next_last_btn">
-                <a href="#" class="next_last_link">
-                    next picture
-                </a>
+                @if($lastId == $id)
+
+                    <a href="#" class="next_last_link">
+                        next picture
+                    </a>
+                @else
+                    <a href="{{action('UsersController@getGalleryInner',$id+1)}}" class="next_last_link">
+                        next picture
+                    </a>
+                @endif
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
             </button>
         </div>

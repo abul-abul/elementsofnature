@@ -55,4 +55,9 @@ interface GalleryCategoryImagesInterface
      * @return mixed
      */
     public function getHomeFeaturesImages();
+
+    /**
+     * @return mixed
+     */
+    public function getLastRow();
 }

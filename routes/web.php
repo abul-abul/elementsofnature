@@ -24,6 +24,7 @@ Route::post('user/connect','UsersController@postConnect');
 
 
 
+
 //Admin
 
 Route::get('admin/login','AdminController@getLogin');

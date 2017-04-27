@@ -96,4 +96,12 @@ class GalleryCategoryImagesService implements GalleryCategoryImagesInterface
         return $this->gallerycategoryimages->where('featured_images',1)->orderBy('id', 'desc')->take(9)->get();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLastRow()
+    {
+        return $this->gallerycategoryimages->latest()->first();
+    }
+
 }
