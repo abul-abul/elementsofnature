@@ -168,7 +168,7 @@
                 <div class="product_price">
                     800 usd
                 </div>
-                <a href="#" class="price_btn_text">
+                <a href="{{action('PaymentController@getPayPal')}}" class="price_btn_text">
                     <button class="price_btn">
                         buy now
                     </button>

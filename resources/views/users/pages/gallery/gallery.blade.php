@@ -18,40 +18,40 @@
 <!-- small bg place -->
 
 <!-- small menu -->
-<div class="small_menu_place">
-    <ul class="small_menu">
-        <li class="small_menu_li">
-            <a href="#" class="small_menu_link">
-                predators
-            </a>
-            <span class="small_menu_abs"></span>
-        </li>
-        <li class="small_menu_li">
-            <a href="#" class="small_menu_link">
-                flight
-            </a>
-            <span class="small_menu_abs"></span>
-        </li>
-        <li class="small_menu_li">
-            <a href="#" class="small_menu_link">
-                portrait art
-            </a>
-            <span class="small_menu_abs"></span>
-        </li>
-        <li class="small_menu_li">
-            <a href="#" class="small_menu_link">
-                wilderness
-            </a>
-            <span class="small_menu_abs"></span>
-        </li>
-        <li class="small_menu_li">
-            <a href="#" class="small_menu_link">
-                fine art
-            </a>
-            <span class="small_menu_abs"></span>
-        </li>
-    </ul>
-</div>
+{{--<div class="small_menu_place">--}}
+    {{--<ul class="small_menu">--}}
+        {{--<li class="small_menu_li">--}}
+            {{--<a href="#" class="small_menu_link">--}}
+                {{--predators--}}
+            {{--</a>--}}
+            {{--<span class="small_menu_abs"></span>--}}
+        {{--</li>--}}
+        {{--<li class="small_menu_li">--}}
+            {{--<a href="#" class="small_menu_link">--}}
+                {{--flight--}}
+            {{--</a>--}}
+            {{--<span class="small_menu_abs"></span>--}}
+        {{--</li>--}}
+        {{--<li class="small_menu_li">--}}
+            {{--<a href="#" class="small_menu_link">--}}
+                {{--portrait art--}}
+            {{--</a>--}}
+            {{--<span class="small_menu_abs"></span>--}}
+        {{--</li>--}}
+        {{--<li class="small_menu_li">--}}
+            {{--<a href="#" class="small_menu_link">--}}
+                {{--wilderness--}}
+            {{--</a>--}}
+            {{--<span class="small_menu_abs"></span>--}}
+        {{--</li>--}}
+        {{--<li class="small_menu_li">--}}
+            {{--<a href="#" class="small_menu_link">--}}
+                {{--fine art--}}
+            {{--</a>--}}
+            {{--<span class="small_menu_abs"></span>--}}
+        {{--</li>--}}
+    {{--</ul>--}}
+{{--</div>--}}
 <!-- small menu -->
 
 <!-- standart images place -->
@@ -93,12 +93,12 @@
     @endforeach
 
 
-    <div class="look_more_place">
-				<span>
-					<a href="#" class="look_more_link">look more</a>
-					<img src="/assets/users/plugins/images/look_more.png" class="loadimg"/>
-				</span>
-    </div>
+    {{--<div class="look_more_place">--}}
+				{{--<span>--}}
+					{{--<a href="#" class="look_more_link">look more</a>--}}
+					{{--<img src="/assets/users/plugins/images/look_more.png" class="loadimg"/>--}}
+				{{--</span>--}}
+    {{--</div>--}}
 </div>
 <!-- standart images place -->
 

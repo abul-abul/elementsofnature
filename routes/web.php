@@ -19,6 +19,12 @@ Route::post('user/connect','UsersController@postConnect');
 
 
 
+//payments
+Route::get('paypal','PaymentController@getPayPal');
+Route::get('paypal-response','PaymentController@getPaypalCancelResponse');
+//endpayments
+
+
 
 
 

@@ -2,6 +2,9 @@
 
 return [
 
+    'paypal_client_id' => env('PAYPAL_CLIENT'),
+    'paypal_client_secret' => env('PAYPAL_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
