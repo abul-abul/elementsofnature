@@ -17,4 +17,8 @@
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteEngine on
+	RewriteCond %{HTTP_HOST} ^www\.theelementsofnature\.com [NC]
+	RewriteRule ^(.*)$ http://theelementsofnature.com/$1 [L,R=301]
 </IfModule>
