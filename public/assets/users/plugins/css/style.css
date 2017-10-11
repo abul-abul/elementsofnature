@@ -7,6 +7,18 @@
 /*********************page_bg_place*/
 /*******************************page_bg_place*/
 
+.menu_active{
+	position: relative;
+	height: 100%;
+	line-height: 60px;
+	float: left;
+	background-color: #000;
+	z-index: 5;
+}
+
+.menu_active > .header_menu_link{
+	color: #fbc73a;
+}
 .page_bg_place{
 	position: relative;
 	width: 100%;
@@ -21,24 +33,6 @@
 	width: 100%;
 	height: 100%;
 	z-index: -2;
-}
-
-/*.menu_active{*/
-	/*color: #fbc73a!important;*/
-	/*background-color: #000!important;*/
-/*}*/
-
-.menu_active{
-	position: relative;
-	height: 100%;
-	line-height: 60px;
-	float: left;
-	background-color: #000;
-	z-index: 5;
-}
-
-.menu_active > .header_menu_link{
-	color: #fbc73a;
 }
 
 .bg_burger_abs{
@@ -1519,16 +1513,6 @@ footer{
 	width: 100%;
 	height: 400px;
 	margin-top: 100px;
-	padding-top: 150px;
-	background-color: rgba(0,0,0,0.4);
-}
-
-.small_bg_place2{
-	position: relative;
-	width: 100%;
-	margin-top: 100px;
-	padding-top: 150px;
-	padding-bottom: 160px;
 	background-color: rgba(0,0,0,0.4);
 }
 
@@ -1544,6 +1528,7 @@ footer{
 .small_bg_place_center{
 	width: 1200px;
 	margin: 0px auto;
+	padding-top: 75px;
 }
 
 .small_bg_title{
@@ -2197,7 +2182,7 @@ footer{
 .product_images_place{
 	position: relative;
 	width: 224px;
-	height: 175px;
+	height: 215px;
 	float: left;
 	margin-right: 20px;
 	transition: 0.5s ease;
@@ -2260,7 +2245,7 @@ footer{
 .product_text{
 	position: absolute;
 	left: 0px;
-	top: calc(100% + 20px);
+	top: 87%;
 	font-size: 18px;
 	font-family: 'FuturaBT-Book';
 	color: #000;
@@ -3218,11 +3203,6 @@ input[type="submit"]:hover{
 	height: auto;
 	overflow: hidden;
 }
-.your_space_place{
-	width: 100%;
-	height: auto;
-	overflow: hidden;
-}
 
 .space_images_place{
 	position: relative;
@@ -3339,6 +3319,12 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 1400px){
+
+	.space_images_place {
+		height: 900px;
+		background-size: 100% 900px;
+	}
+
 	.remainig_place{
 		height: 700px;
 	}
@@ -3416,9 +3402,8 @@ input[type="submit"]:hover{
 		height: 350px;
 	}
 
-	.small_bg_place2{
-		padding-top: 125px;
-		padding-bottom: 125px;
+	.small_bg_place_center{
+		padding-top: 50px;
 	}
 }
 
@@ -3905,6 +3890,11 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 1000px){
+	.space_images_place {
+		height: 750px;
+		background-size: 100% 750px;
+	}
+
 	.remainig_place{
 		height: 500px;
 	}
@@ -3938,7 +3928,6 @@ input[type="submit"]:hover{
 
 	.small_bg_place{
 		height: 300px;
-		padding-top: 100px;
 	}
 }
 
@@ -4058,6 +4047,11 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 850px){
+	.space_images_place {
+		height: 600px;
+		background-size: 100% 600px;
+	}
+
 	.remainig_place{
 		height: 300px;
 	}
@@ -4123,10 +4117,10 @@ input[type="submit"]:hover{
 		height: 250px;
 	}
 
-	.small_bg_place2{
-		padding-top: 75px;
-		padding-bottom: 75px;
+	.small_bg_place_center{
+		padding-top: 25px;
 	}
+
 }
 
 @media(max-width: 840px){
@@ -4468,18 +4462,13 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 700px){
+	.space_images_place {
+		height: 550px;
+		background-size: 100% 550px;
+	}
+
 	.artist_text{
 		font-size: 16px;
-	}
-
-	.small_bg_place{
-		padding-top: 70px;
-	}
-
-	.small_bg_place2{
-		margin-top: 70px;
-		padding-top: 105px;
-		padding-bottom: 60px;
 	}
 
 	.big_title_place_footer{
@@ -4783,6 +4772,11 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 600px){
+	.space_images_place {
+		height: 490px;
+		background-size: 100% 490px;
+	}
+
 	.connect_place_center{
 		width: 90%;
 	}
@@ -4813,7 +4807,6 @@ input[type="submit"]:hover{
 
 	.small_bg_place{
 		height: 200px;
-		padding-top: 50px;
 	}
 
 	.small_bg_text{
@@ -5067,6 +5060,11 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 500px){
+	.space_images_place {
+		height: 450px;
+		background-size: 100% 450px;
+	}
+
 	.artist_text{
 		font-size: 14px;
 	}
@@ -5394,6 +5392,11 @@ input[type="submit"]:hover{
 }
 
 @media(max-width: 450px){
+	.space_images_place {
+		height: 350px;
+		background-size: 100% 350px;
+	}
+
 	.connect_soc_place{
 		height: 50px;
 		margin-bottom: 20px;
@@ -5595,6 +5598,10 @@ input[type="submit"]:hover{
 	.topics_covered2{
 		font-size: 16px;
 		text-align: left;
+	}
+
+	.small_bg_place{
+		height: 150px;
 	}
 }
 
@@ -5815,18 +5822,6 @@ input[type="submit"]:hover{
 
 	.standart_order_link{
 		margin: 110px auto 0px;
-	}
-}
-
-@media(max-height: 570px){
-	.big_logo_place{
-		width: 220px;
-		height: 140px;
-	}
-
-	.big_title_place{
-		width: 838px;
-		font-size: 35px;
 	}
 }
 
