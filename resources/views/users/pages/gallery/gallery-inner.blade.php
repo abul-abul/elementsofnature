@@ -93,21 +93,21 @@
 
 <div class="product_place">
     @if(count($imageFrames) != '')
-    <div class="product_place_center">
-        @foreach($imageFrames as $imageFrame)
-        <div class="product_images_place">
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <div class="product_img_child">
-                <img src="/assets/gallery-category-images/{{$imageFrame->images}}" class="product_image" alt="{{$imageFrame->alt}}" />
-                <div class="product_img_abs"></div>
-            </div>
-            <p class="product_text">{{$imageFrame->title}}</p>
-            <p class="product_text_hide">
-                {{$imageFrame->description}}
-            </p>
+        <div class="product_place_center">
+            @foreach($imageFrames as $imageFrame)
+                <div class="product_images_place">
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    <div class="product_img_child">
+                        <img src="/assets/gallery-category-images/{{$imageFrame->images}}" class="product_image" alt="{{$imageFrame->alt}}" />
+                        <div class="product_img_abs"></div>
+                    </div>
+                    <p class="product_text">{{$imageFrame->title}}</p>
+                    <p class="product_text_hide">
+                        {{$imageFrame->description}}
+                    </p>
+                </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
     @endif
 </div>
 <div class="product_yellow_place">

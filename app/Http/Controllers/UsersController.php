@@ -56,7 +56,8 @@ class UsersController extends BaseController
         $footer = $footerRepo->getOneRowGalleryCategory();
         $data = [
             'footer' => $footer,
-            'gallerys' => $result
+            'gallerys' => $result,
+            'gallery_category_active' => 1
         ];
         return view('users.pages.gallery.gallery-category',$data);
     }
@@ -274,7 +275,10 @@ class UsersController extends BaseController
 
     public function getAboutArtist()
     {
-        return view('users.pages.aboutartist.aboutartist');
+        $data = [
+            'activeaboutartist' => 1
+        ];
+        return view('users.pages.aboutartist.aboutartist',$data);
     }
 
 }

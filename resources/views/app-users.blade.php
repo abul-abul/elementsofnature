@@ -276,23 +276,52 @@
                 </ul>
             </div>
             <ul class="header_menu">
+                @if(isset($gallery_category_active))
+                <li class="header_menu_child menu_active">
+                @else
                 <li class="header_menu_child">
+                @endif
                     <a href="{{action('UsersController@getGalleryCategory')}}" class="header_menu_link">gallery</a>
                 </li>
 
-                <li class="header_menu_child">
+                @if(isset($activeworkshop))
+                    <li class="header_menu_child menu_active">
+                @else
+                    <li class="header_menu_child">
+                @endif
                     <a href="{{action('UsersController@getWorkShop')}}" class="header_menu_link">workshop</a>
                 </li>
+
+                @if(isset($activiinyourspace))
+                <li class="header_menu_child menu_active">
+                @else
                 <li class="header_menu_child">
+                @endif
                     <a href="{{action('UsersController@getInYourSpace')}}" class="header_menu_link">in your space</a>
                 </li>
+
+                @if(isset($activephototour))
+                <li class="header_menu_child menu_active">
+                @else
                 <li class="header_menu_child">
+                @endif
                     <a href="{{action('UsersController@gerPhotoTour')}}" class="header_menu_link">photo tour</a>
                 </li>
+
+
+                @if(isset($activeaboutartist))
+                <li class="header_menu_child menu_active">
+                @else
                 <li class="header_menu_child">
+                @endif
                     <a href="{{action('UsersController@getAboutArtist')}}" class="header_menu_link">about artist</a>
                 </li>
-                <li class="header_menu_child">
+
+                @if(isset($activeconnect))
+                    <li class="header_menu_child menu_active">
+                @else
+                    <li class="header_menu_child">
+                @endif
                     <a href="{{action('UsersController@getConnect')}}" class="header_menu_link">connect</a>
                 </li>
             </ul>

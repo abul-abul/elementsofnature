@@ -23,6 +23,24 @@
 	z-index: -2;
 }
 
+/*.menu_active{*/
+	/*color: #fbc73a!important;*/
+	/*background-color: #000!important;*/
+/*}*/
+
+.menu_active{
+	position: relative;
+	height: 100%;
+	line-height: 60px;
+	float: left;
+	background-color: #000;
+	z-index: 5;
+}
+
+.menu_active > .header_menu_link{
+	color: #fbc73a;
+}
+
 .bg_burger_abs{
 	position: absolute;
 	top: 20px;
@@ -5797,7 +5815,7 @@ input[type="submit"]:hover{
 
 @media(max-height: 570px){
 	.big_logo_place{
-		width: 220;
+		width: 220px;
 		height: 140px;
 	}
 
