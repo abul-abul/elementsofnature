@@ -43,32 +43,36 @@ class PaymentController extends Controller
         $transactionArr = [];
         $amount = new Amount();
         $amount->setCurrency('USD');
-        $amount->setTotal(12);
+        $amount->setTotal(2000);
         $transaction = new Transaction();
         $transaction->setAmount($amount);
 
         $redirectUrls = new RedirectUrls();
-        $redirectUrls->setReturnUrl(action('PaymentController@getPaypalReturnResponse' ));
-        dd($redirectUrls);
+        $redirectUrls->setReturnUrl(action('PaymentController@getPaypalReturnResponse'));
+
         $redirectUrls->setCancelUrl(action('PaymentController@getPaypalCancelResponse'));
 
         $payment = new Payment();
+
         $payment->setIntent('sale');
         $payment->setPayer($payer);
         $payment->setRedirectUrls($redirectUrls);
         $payment->setTransactions(array($transaction));
+
         $response = $payment->create($apiContext);
+
         $redirectUrl = $payment->getApprovalLink();
+
         return redirect()->to($redirectUrl);
     }
 
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getPaypalReturnResponse(Request $request)
     {
-        dd(2);
         $token = $request->get('token');
         $paymentId = $request->get('paymentId');
         $payerId = $request->get('PayerID');
@@ -82,7 +86,7 @@ class PaymentController extends Controller
 
         $paymentExec = new PaymentExecution;
         $paymentExec->setPayerId($payerId);
-
+        return redirect()->action('UsersController@getHome');
     }
 
     public function getPaypalCancelResponse(Request $request)
