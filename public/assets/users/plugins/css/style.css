@@ -3218,11 +3218,20 @@ input[type="submit"]:hover{
 	height: auto;
 	overflow: hidden;
 }
+.your_space_place{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
 
 .space_images_place{
 	position: relative;
 	width: 100%;
-	height: auto;
+	height: 1000px;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: 100% 1000px;
+	background-position: top left;
 }
 
 .space_image_abs{
@@ -3272,10 +3281,6 @@ input[type="submit"]:hover{
 .space_images_place:nth-child(4n) > .space_image_abs > .space_image_rel > .space_image_title{
 	top: 590px;
 	left: 0px;
-}
-
-.space_image{
-	width: 100%;
 }
 
 .space_title{
