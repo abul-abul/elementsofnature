@@ -21,8 +21,18 @@
 <!-- your space place -->
 <div class="your_space_place">
     @foreach($inyourspaces as $inyourspace)
-        <div class="space_images_place">
-            <img src="/assets/in-your-space-images/{{$inyourspace->images}}" class="space_image" alt="{{$inyourspace->alt}}" />
+        {{--<div class="space_images_place">--}}
+            {{--<img src="/assets/in-your-space-images/{{$inyourspace->images}}" class="space_image" alt="{{$inyourspace->alt}}" />--}}
+            {{--<div class="space_image_abs">--}}
+                {{--<div class="space_image_rel">--}}
+                    {{--<h2 class="space_image_title">--}}
+                        {{--{{$inyourspace->title}}--}}
+                        {{--<span class="space_title_underline"></span>--}}
+                    {{--</h2>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        <div class="space_images_place" style="background-image: url('/assets/in-your-space-images/{{$inyourspace->images}}');" >
             <div class="space_image_abs">
                 <div class="space_image_rel">
                     <h2 class="space_image_title">
