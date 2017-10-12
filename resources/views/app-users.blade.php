@@ -336,6 +336,20 @@
 @yield('users-content')
 
 
+
+
+
+<!-- back to top btn -->
+<div class="back_to_top">
+    <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+</div>
+
+{!! HTML::script( asset('assets/users/plugins/js/jquery.min.js') ) !!}
+
+{!! HTML::script( asset('assets/users/plugins/js/init.js') ) !!}
+
+    @yield('script')
+
         <script>
             window.fbAsyncInit = function() {
                 FB.init({
@@ -354,18 +368,6 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-
-
-<!-- back to top btn -->
-<div class="back_to_top">
-    <i class="fa fa-angle-double-up" aria-hidden="true"></i>
-</div>
-
-{!! HTML::script( asset('assets/users/plugins/js/jquery.min.js') ) !!}
-
-{!! HTML::script( asset('assets/users/plugins/js/init.js') ) !!}
-
-    @yield('script')
 
 </body>
 </html>

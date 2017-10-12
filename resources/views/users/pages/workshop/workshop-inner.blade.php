@@ -69,10 +69,10 @@
         <a onclick="shareFbPage()" href="#" class="event_soc_link">
             <img src="/assets/users/plugins/images/face_link.png" />
         </a>
-        <a onclick="window.open('http://twitter.com/share?url=http://theelementsofnature.com{{ $url }}&text={{ $workshops->title }}','name','width=600,height=400')" href="#" class="event_soc_link">
+        <a onclick="window.open('http://twitter.com/share?url={{ $url }}&text={{ $workshops->title }}','name','width=600,height=400')" href="#" class="event_soc_link">
             <img src="/assets/users/plugins/images/twi_link.png" />
         </a>
-        <a onclick="window.open('http://plus.google.com/share?url=http://theelementsofnature.com{{ $url }}','name','width=600,height=400')" href="#" class="event_soc_link">
+        <a onclick="window.open('http://plus.google.com/share?url={{ $url }}','name','width=600,height=400')" href="#" class="event_soc_link">
             <img src="/assets/users/plugins/images/pin_link.png" />
         </a>
     </div>

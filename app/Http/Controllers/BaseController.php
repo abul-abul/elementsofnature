@@ -12,6 +12,7 @@ class BaseController extends Controller
     {
 
         $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $this->currentPathWithoutLocale = substr( implode(\Request::segments(), '/'), 0);
 
         $backgrounds = $bgRepo->getHomeBg();
         $partners = $partnersRepo->getAll();
