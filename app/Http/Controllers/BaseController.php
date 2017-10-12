@@ -10,11 +10,15 @@ class BaseController extends Controller
 {
     public function __construct(BackgroundInterface $bgRepo,PartnersInterface $partnersRepo)
     {
+
+        $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
         $backgrounds = $bgRepo->getHomeBg();
         $partners = $partnersRepo->getAll();
         $data = [
             'partners' => $partners,
             'homeBg' => $backgrounds,
+            'url' => $url
         ];
 
         view()->share($data);

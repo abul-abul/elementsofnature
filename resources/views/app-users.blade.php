@@ -1,12 +1,13 @@
 <html>
 <head>
-    <title>HomePage</title>
+    {{--<title>HomePage</title>--}}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {!! HTML::style( asset('assets/users/plugins/font-awesome/css/font-awesome.css')) !!}
     {!! HTML::style( asset('assets/users/plugins/css/font-face.css')) !!}
     {!! HTML::style( asset('assets/users/plugins/css/style.css')) !!}
+    @yield('meta')
 
 
 
@@ -330,7 +331,30 @@
 </header>
 <!-- page header -->
 
+
+
 @yield('users-content')
+
+
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '290814454758242',
+                    xfbml      : true,
+                    version    : 'v2.8'
+                });
+                FB.AppEvents.logPageView();
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
 
 <!-- back to top btn -->
 <div class="back_to_top">

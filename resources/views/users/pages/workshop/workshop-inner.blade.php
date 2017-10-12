@@ -1,4 +1,12 @@
 @extends('app-users')
+
+@section('meta')
+    <title>{{ $workshops->title }}</title>
+    <meta property="og:title" content="{{ $workshops->title }}" />
+    <meta property="og:description" content="{{ $workshops->description }}" />
+    <meta property="og:image" content="http://theelementsofnature.com/assets/work-shop-images/6YCPNdOKcvao.png" />
+@endsection
+
 @section('users-content')
         <!-- small bg place -->
 @if(count($backgrounds) != '')
@@ -58,13 +66,13 @@
         </a>
     </div>
     <div class="event_soc_place">
-        <a href="#" class="event_soc_link">
+        <a onclick="shareFbPage()" href="#" class="event_soc_link">
             <img src="/assets/users/plugins/images/face_link.png" />
         </a>
-        <a href="#" class="event_soc_link">
+        <a onclick="window.open('http://twitter.com/share?url=http://theelementsofnature.com{{ $url }}&text={{ $workshops->title }}','name','width=600,height=400')" href="#" class="event_soc_link">
             <img src="/assets/users/plugins/images/twi_link.png" />
         </a>
-        <a href="#" class="event_soc_link">
+        <a onclick="window.open('http://plus.google.com/share?url=http://theelementsofnature.com{{ $url }}','name','width=600,height=400')" href="#" class="event_soc_link">
             <img src="/assets/users/plugins/images/pin_link.png" />
         </a>
     </div>
