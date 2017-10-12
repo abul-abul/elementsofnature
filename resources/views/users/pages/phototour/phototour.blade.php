@@ -1,4 +1,11 @@
 @extends('app-users')
+
+@section('meta')
+    <title>{{ $phototours['photo'][0]->title }}</title>
+    <meta property="og:title" content="{{ $phototours['photo'][0]->title }}" />
+    <meta property="og:description" content="{{ $phototours['photo'][0]->description }}" />
+    <meta property="og:image" content="http://theelementsofnature.com/assets/photo-tour-images/{{$phototours['photo'][0]->images}}" />
+@endsection
 @section('users-content')
         <!-- small bg place -->
 @if(count($backgrounds) != '')
@@ -74,21 +81,23 @@
                         send request
                     </button>
                 </a>
-                <div class="event_soc_place">
-                    <a href="#" class="event_soc_link">
-                        <img src="/assets/users/plugins/images/face_link.png" />
-                    </a>
-                    <a href="#" class="event_soc_link">
-                        <img src="/assets/users/plugins/images/twi_link.png" />
-                    </a>
-                    <a href="#" class="event_soc_link">
-                        <img src="/assets/users/plugins/images/pin_link.png" />
-                    </a>
-                </div>
+
             </div>
         </div>
 
 @endforeach
+
+    <div class="event_soc_place">
+        <a onclick="shareFbPage()" href="#" class="event_soc_link">
+            <img src="/assets/users/plugins/images/face_link.png" />
+        </a>
+        <a onclick="window.open('http://twitter.com/share?url={{ $url }}&text={{ $phototours['photo'][0]->title }}','name','width=600,height=400')" href="#" class="event_soc_link">
+            <img src="/assets/users/plugins/images/twi_link.png" />
+        </a>
+        <a onclick="window.open('http://plus.google.com/share?url={{ $url }}','name','width=600,height=400')" href="#" class="event_soc_link">
+            <img src="/assets/users/plugins/images/pin_link.png" />
+        </a>
+    </div>
 <!-- event place -->
 
 <!-- footer place -->

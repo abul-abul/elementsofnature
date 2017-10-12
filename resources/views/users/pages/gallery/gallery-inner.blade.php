@@ -1,4 +1,12 @@
 @extends('app-users')
+
+@section('meta')
+    <title>{{ $categoryImagee->title }}</title>
+    <meta property="og:title" content="{{ $categoryImagee->title }}" />
+    <meta property="og:description" content="{{ $categoryImagee->description }}" />
+    <meta property="og:image" content="http://theelementsofnature.com/assets/gallery-category-images/{{$categoryImagee->images}}" />
+@endsection
+
 @section('users-content')
 
         <!-- big small images place -->
@@ -39,13 +47,14 @@
         </p>
 
         <div class="zoom_soc_place">
-            <a href="#" class="event_soc_link">
+            
+            <a onclick="shareFbPage()" href="#" class="event_soc_link">
                 <img src="/assets/users/plugins/images/face_link.png" />
             </a>
-            <a href="#" class="event_soc_link">
+            <a onclick="window.open('http://twitter.com/share?url={{ $url }}&text={{ $categoryImagee->title }}','name','width=600,height=400')" href="#" class="event_soc_link">
                 <img src="/assets/users/plugins/images/twi_link.png" />
             </a>
-            <a href="#" class="event_soc_link">
+            <a onclick="window.open('http://plus.google.com/share?url={{ $url }}','name','width=600,height=400')" href="#" class="event_soc_link">
                 <img src="/assets/users/plugins/images/pin_link.png" />
             </a>
         </div>
