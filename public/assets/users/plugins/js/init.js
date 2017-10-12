@@ -458,3 +458,13 @@ $(document).ready(function(){
 	});
 	// product open size & frame
 });
+
+shareFbPage = function(){
+
+	var pathName = window.location.pathname;
+
+	FB.ui({
+		method: 'feed',
+		link: 'http://theelementsofnature.com/'+pathName
+	}, function(response){});
+};
