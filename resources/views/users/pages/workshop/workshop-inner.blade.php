@@ -4,7 +4,7 @@
     <title>{{ $workshops->title }}</title>
     <meta property="og:title" content="{{ $workshops->title }}" />
     <meta property="og:description" content="{{ $workshops->description }}" />
-    <meta property="og:image" content="http://theelementsofnature.com/assets/work-shop-images/6YCPNdOKcvao.png" />
+    <meta property="og:image" content="http://theelementsofnature.com/assets/work-shop-images/{{$workshops->images}}" />
 @endsection
 
 @section('users-content')
