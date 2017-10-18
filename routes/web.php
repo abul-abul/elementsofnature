@@ -91,9 +91,15 @@ Route::post('admin/update-futered-images/{id}','AdminController@getUpdateFutered
 Route::get('admin/edit-gallery-category-images/{id}','AdminController@getEditGalleryCategoryImages');
 Route::post('admin/edit-gallery-category-images','AdminController@postEditGalleryCategoryImages');
 Route::get('admin/view-gallery-category-img-inner/{id}','AdminController@getViewGalleryCategoryImgInner');
-Route::get('admin/edit-gallery-category-images-inner/{id}','AdminController@getEditGalleryCategoryImagesInner');
+
+Route::get('admin/add-gallery-category-img-inner-page/{id}','AdminController@getAddGalleryImgInnerPage');
+Route::post('admin/add-gallery-category-img-inner-page/','AdminController@postAddCatImgInner');
+
+Route::get('admin/edit-gallery-category-images-inner/{id}/{id1}','AdminController@getEditGalleryCategoryImagesInner');
 Route::post('admin/edit-gallery-category-images-inner','AdminController@postEditGalleryCategoryImagesInner');
 Route::get('admin/delete-gallery-category-images-inner/{id}','AdminController@getDeleteGalleryCategoryImagesInner');
+
+Route::post('admin/delete-gallery-category-images-inner','AdminController@postEditImgFrame');
 
 Route::get('admin/delete-gallery-category-images/{id}','AdminController@getDeleteGalleryCategoryImages');
 Route::post('admin/add-gallery-category-images-background','AdminController@postAddGalleryCategoryImagesBackground');

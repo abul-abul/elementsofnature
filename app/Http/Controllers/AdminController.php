@@ -21,6 +21,7 @@ use App\Contracts\WorkShopInterface;
 use App\Contracts\SkillInterface;
 use App\Contracts\PhotoTourInterface;
 use App\Contracts\ConnectInterface;
+use App\Contracts\GalleryCategoryFrameInterface;
 use View;
 use Session;
 use Validator;
@@ -909,9 +910,11 @@ class AdminController extends BaseController
      */
     public function postAddGalleryCategoryImages(request $request,
                                                  GalleryCategoryImagesInterface $GalleryCategoryImagesRepo,
-                                                 GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
+                                                 GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                                 GalleryCategoryFrameInterface $galleryCanvasRepo
                                                  )
     {
+
         $result = $request->all();
 
         $validator = Validator::make($result, [
@@ -922,12 +925,12 @@ class AdminController extends BaseController
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
-        }else{
+        } else {
             $logoFile = $result['images']->getClientOriginalExtension();
             $name = str_random(12);
             $path = public_path() . '/assets/gallery-category-images';
-            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
-            $gallery_images = $name.'.'.$logoFile;
+            $result_move = $result['images']->move($path, $name . '.' . $logoFile);
+            $gallery_images = $name . '.' . $logoFile;
 
             $data_images = [
                 'gallery_category_id' => $result['gallery_category_id'],
@@ -942,8 +945,8 @@ class AdminController extends BaseController
             $logoFile1 = $result['images_inner']->getClientOriginalExtension();
             $name1 = str_random(12);
             $path1 = public_path() . '/assets/gallery-category-images';
-            $result_move1 = $result['images_inner']->move($path1, $name1.'.'.$logoFile1);
-            $gallery_images1 = $name1.'.'.$logoFile1;
+            $result_move1 = $result['images_inner']->move($path1, $name1 . '.' . $logoFile1);
+            $gallery_images1 = $name1 . '.' . $logoFile1;
 
             $data_images_inner = [
                 'gallery_category_images_id' => $gallery_images_create['id'],
@@ -951,99 +954,282 @@ class AdminController extends BaseController
                 'description' => $result['description_1'],
                 'alt' => $result['alt_1'],
                 'images' => $gallery_images1,
-                'size' => $result['size'],
+                //'size' => $result['size'],
                 'price' => $result['price']
             ];
-            if(isset($result['frame'])){
-                $data_images_inner['frame'] = $result['frame'];
+
+            if (isset($result['frame'])) {
+               // $data_images_inner['frame'] = $result['frame'];
             }
-           $catImagesInner =  $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
-
-
+            $catImagesInner = $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
 
 
             $img_inner_key_array = [];
-            foreach($result as $key=>$value){
-                if(count(explode('title_1_',$key)) > 1){
-                    array_push($img_inner_key_array,$key);
+            foreach ($result as $key => $value) {
+                if (count(explode('title_1_', $key)) > 1) {
+                    array_push($img_inner_key_array, $key);
                 }
-                if(count(explode('description_1_',$key)) > 1){
-                    array_push($img_inner_key_array,$key);
+                if (count(explode('description_1_', $key)) > 1) {
+                    array_push($img_inner_key_array, $key);
                 }
-                if(count(explode('images_inner_',$key)) > 1){
-                    array_push($img_inner_key_array,$key);
+                if (count(explode('images_inner_', $key)) > 1) {
+                    array_push($img_inner_key_array, $key);
                 }
-                if(count(explode('alt_1_',$key)) > 1){
-                    array_push($img_inner_key_array,$key);
+                if (count(explode('alt_1_', $key)) > 1) {
+                    array_push($img_inner_key_array, $key);
                 }
-                if(count(explode('size_',$key)) > 1){
-                    array_push($img_inner_key_array,$key);
+                if (count(explode('size_', $key)) > 1) {
+                    array_push($img_inner_key_array, $key);
                 }
-                if(count(explode('price_',$key)) > 1){
-                    array_push($img_inner_key_array,$key);
+                if (count(explode('price_', $key)) > 1) {
+                    array_push($img_inner_key_array, $key);
                 }
 
-                if(explode('frame_',$key) != ''){
-                    if(count(explode('frame_',$key)) > 1){
-                        array_push($img_inner_key_array,$key);
+                if (explode('frame_', $key) != '') {
+                    if (count(explode('frame_', $key)) > 1) {
+                        array_push($img_inner_key_array, $key);
+                    }
+                }
+
+            }
+
+
+//            $array_images_value = [];
+//            foreach ($img_inner_key_array as $key=>$value){
+//                array_push($array_images_value,$result[$value]);
+//            }
+//
+//            for($i=1;$i<=count(array_combine($array_images_value,$img_inner_key_array));$i++) {
+//
+//                $dataChild = [];
+//                if(isset($result['title_1_' . $i]) && $result['title_1_' . $i] != null){
+//                    $dataChild['title'] = $result['title_1_' . $i];
+//                }
+//                if(isset($result['description_1_' . $i]) && $result['description_1_' . $i] != null){
+//                    $dataChild['description'] = $result['description_1_' . $i];
+//                }
+//                if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
+//                    $dataChild['size'] = $result['size_' . $i];
+//                }
+//                if(isset($result['price_' . $i]) && $result['price_' . $i] != null){
+//                    $dataChild['price'] = $result['price_' . $i];
+//                }
+//                if(isset($result['alt_1_' . $i]) && $result['alt_1_' . $i] != null){
+//                    $dataChild['alt'] = $result['alt_1_' . $i];
+//                }
+//
+//                if(explode('frame_',$i) != ''){
+//                    if(isset($result['frame_' . $i]) && $result['frame_' . $i] != null){
+//                        $dataChild['frame'] = $result['frame_' . $i];
+//                    }
+//                }
+//
+//                if(isset($result['images_inner_' . $i]) && $result['images_inner_' . $i] != null){
+//                    $dataChild['images'] = $result['images_inner_' . $i];
+//                    $logoFile = $dataChild['images']->getClientOriginalExtension();
+//                    $name = str_random(12);
+//                    $path = public_path() . '/assets/gallery-category-images';
+//                    $result_move = $dataChild['images']->move($path, $name.'.'.$logoFile);
+//                    $gallery_images = $name.'.'.$logoFile;
+//                    $dataChild['images'] = $gallery_images;
+//                }
+//
+//                $dataChild['gallery_category_images_id'] = $gallery_images_create['id'];
+//                $GalleryCategoryImagesInnerRepo->createData($dataChild);
+//                $GalleryCategoryImagesInnerRepo->getDeleteNullFids($dataChild['gallery_category_images_id']);
+//            }
+
+
+
+            $img_frame_key_array = [];
+            foreach ($result as $key => $value) {
+
+                if (count(explode('size_', $key)) > 1) {
+                    array_push($img_frame_key_array, $key);
+                }
+
+                if (explode('frame_', $key) != '') {
+                    if (count(explode('frame_', $key)) > 1) {
+                        array_push($img_frame_key_array, $key);
                     }
                 }
 
             }
 
             $array_images_value = [];
-            foreach ($img_inner_key_array as $key=>$value){
-                array_push($array_images_value,$result[$value]);
+            foreach ($img_frame_key_array as $key => $value) {
+                array_push($array_images_value, $result[$value]);
             }
+            $dataFrame = [
+                'frame' => $result['frame'],
+                'size' => $result['size'],
+                'gallery_category_images_id' => $result['id']
+            ];
 
-            for($i=1;$i<=count(array_combine($array_images_value,$img_inner_key_array));$i++) {
+            $galleryCanvasRepo->createData($dataFrame);
+
+            for ($i = 1; $i <= count(array_combine($array_images_value, $img_frame_key_array)); $i++) {
 
                 $dataChild = [];
-                if(isset($result['title_1_' . $i]) && $result['title_1_' . $i] != null){
-                    $dataChild['title'] = $result['title_1_' . $i];
-                }
-                if(isset($result['description_1_' . $i]) && $result['description_1_' . $i] != null){
-                    $dataChild['description'] = $result['description_1_' . $i];
-                }
-                if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
+
+                if (isset($result['size_' . $i]) && $result['size_' . $i] != null) {
                     $dataChild['size'] = $result['size_' . $i];
                 }
-                if(isset($result['price_' . $i]) && $result['price_' . $i] != null){
-                    $dataChild['price'] = $result['price_' . $i];
-                }
-                if(isset($result['alt_1_' . $i]) && $result['alt_1_' . $i] != null){
-                    $dataChild['alt'] = $result['alt_1_' . $i];
-                }
 
-                if(explode('frame_',$i) != ''){
-                    if(isset($result['frame_' . $i]) && $result['frame_' . $i] != null){
+                if (explode('frame_', $i) != '') {
+                    if (isset($result['frame_' . $i]) && $result['frame_' . $i] != null) {
                         $dataChild['frame'] = $result['frame_' . $i];
                     }
                 }
 
-                if(isset($result['images_inner_' . $i]) && $result['images_inner_' . $i] != null){
-                    $dataChild['images'] = $result['images_inner_' . $i];
-                    $logoFile = $dataChild['images']->getClientOriginalExtension();
-                    $name = str_random(12);
-                    $path = public_path() . '/assets/gallery-category-images';
-                    $result_move = $dataChild['images']->move($path, $name.'.'.$logoFile);
-                    $gallery_images = $name.'.'.$logoFile;
-                    $dataChild['images'] = $gallery_images;
-                }
-                $dataChild['gallery_category_images_id'] = $gallery_images_create['id'];
-                $GalleryCategoryImagesInnerRepo->createData($dataChild);
-                $GalleryCategoryImagesInnerRepo->getDeleteNullFids($dataChild['gallery_category_images_id']);
+                $dataChild['gallery_category_images_id'] = $result['id'];
+                $galleryCanvasRepo->createData($dataChild);
+                $galleryCanvasRepo->getDeleteNullFids($result['id']);
             }
+            return redirect()->back()->with('message', 'You have Added Gallery Category Images');
         }
-        return redirect()->back()->with('message','You have Added Gallery Category Images');
     }
 
 
+    /**
+     * @param Request $request
+     * @param GalleryCategoryFrameInterface $galleryCanvasRepo
+     * @param GalleryCategoryImagesInnerInterface $galleryInnerRepo
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function postAddCatImgInner(request $request,
+                                       GalleryCategoryFrameInterface $galleryCanvasRepo,
+                                       GalleryCategoryImagesInnerInterface $galleryInnerRepo
+    )
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'title' => 'required',
+            'price' => 'required',
+            'images_inner' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+        $logoFile = $result['images_inner']->getClientOriginalExtension();
+        $name = str_random(12);
+        $path = public_path() . '/assets/gallery-category-images';
+        $result_move = $result['images_inner']->move($path, $name.'.'.$logoFile);
+        $gallery_images = $name.'.'.$logoFile;
 
 
+        $dataInner = [
+            'title' => $result['title'],
+            'description' => $result['description'],
+            'price' => $result['price'],
+            'images' => $gallery_images,
+            'gallery_category_images_id' => $result['id']
+        ];
+
+        $galleryInnerRepo->createData($dataInner);
+
+        $img_frame_key_array = [];
+        foreach($result as $key=>$value){
+
+            if(count(explode('size_',$key)) > 1){
+                array_push($img_frame_key_array,$key);
+            }
+
+            if(explode('frame_',$key) != ''){
+                if(count(explode('frame_',$key)) > 1){
+                    array_push($img_frame_key_array,$key);
+                }
+            }
+
+        }
+
+        $array_images_value = [];
+        foreach ($img_frame_key_array as $key=>$value){
+            array_push($array_images_value,$result[$value]);
+        }
+
+        $dataFrame = [
+            //'frame' => $result['frame'],
+            'size' => $result['size'],
+            'gallery_category_images_id' => $result['id']
+        ];
 
 
-    
+        if(isset($result['frame'])){
+            $dataFrame['frame'] = $result['frame'];
+        }
+
+        $galleryCanvasRepo->createData($dataFrame);
+
+        for($i=1;$i<=count(array_combine($array_images_value,$img_frame_key_array));$i++) {
+
+            $dataChild = [];
+
+            if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
+                $dataChild['size'] = $result['size_' . $i];
+            }
+
+            if(explode('frame_',$i) != ''){
+                if(isset($result['frame_' . $i]) && $result['frame_' . $i] != null){
+                    $dataChild['frame'] = $result['frame_' . $i];
+                }
+            }
+
+            $dataChild['gallery_category_images_id'] = $result['id'];
+            $galleryCanvasRepo->createData($dataChild);
+            $galleryCanvasRepo->getDeleteNullFids($result['id']);
+
+
+        }
+        return redirect()->back()->with('message','You have Added');
+
+    }
+
+    public function postEditImgFrame(request $request,GalleryCategoryFrameInterface $galleryCategoryFrame)
+    {
+        $result = $request->all();
+
+        $gal_img_id = $result['gallery_category_images_id'];
+        $img_frame_key_array = [];
+        foreach($result as $key=>$value){
+
+            if(count(explode('size_',$key)) > 1){
+                array_push($img_frame_key_array,$key);
+            }
+
+            if(explode('frame_',$key) != ''){
+                if(count(explode('frame_',$key)) > 1){
+                    array_push($img_frame_key_array,$key);
+                }
+            }
+
+        }
+        $array_images_value = [];
+        foreach ($img_frame_key_array as $key=>$value){
+            array_push($array_images_value,$result[$value]);
+        }
+
+        for($i=1;$i<=count(array_combine($array_images_value,$img_frame_key_array));$i++) {
+
+            $dataChild = [];
+            $frame_id = $result['id'];
+           // if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
+                $dataChild['size'] = $result['size_' . $i];
+           // }
+
+            if(explode('frame_',$i) != ''){
+                //if(isset($result['frame_' . $i]) && $result['frame_' . $i] != null){
+                    $dataChild['frame'] = $result['frame_' . $i];
+               // }
+            }
+           // $dataChild['gallery_category_images_id'] = $gal_img_id;
+            print_r($dataChild);die;
+            //$galleryCategoryFrame->getUpdateData($frame_id,$dataChild);
+
+
+        }
+
+    }
 //    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
 //    {
 //        $result =$request->all();
@@ -1167,18 +1353,42 @@ class AdminController extends BaseController
 
     /**
      * @param $id
+     * @return View
+     */
+    public function getAddGalleryImgInnerPage($id)
+    {
+        $data = [
+            'gallery_category_actiove' => 1,
+            'id' => $id
+        ];
+        return view('admin.pages.gallery-category-images.add-gallery-img-inner',$data);
+    }
+
+
+
+    /**
+     * @param $id
      * @param GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
      * @return View
      */
-    public function getEditGalleryCategoryImagesInner($id,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
+    public function getEditGalleryCategoryImagesInner($id,
+                                                      $gal_inner_id,
+                                                      GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                                      GalleryCategoryFrameInterface $galleryCategoryFrame
+                                                      )
     {
         $result = $GalleryCategoryImagesInnerRepo->getOne($id);
+        $frameReult = $galleryCategoryFrame->getAllCanvas($gal_inner_id);
+
         $data = [
+            'canvas_frames' => $frameReult,
             'gallery_category_actiove' => 1,
             'imageFrame' => $result
         ];
         return view('admin.pages.gallery-category-images.edit-inner',$data);
     }
+
+
 
     /**
      * @param Request $request

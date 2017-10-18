@@ -1,6 +1,8 @@
 $(document).ready(function () {
         // Gallery caegory
         window.count = 0;
+        window.count_frame = 0;
+        window.count_size = 0;
 
         $('.add_size').click(function () {
             count++;
@@ -15,10 +17,16 @@ $(document).ready(function () {
                 content += "</div>";
                 content += "<div class=col-md-10><select style='margin-top: 15px' class='form-control input-lg frame_select' name='frame_canvas_"+count+"'><option value='frame'>Frame</option><option value='canvas'>Canvas</option></select>";
                 content += "</div>";
-                content += "<div class='col-md-10 fremae_added_"+count+"'><select style='margin-top: 15px' class='form-control input-lg coose_frame_block' name='frame_"+count+"'><option value='ash_"+count+"'>Ash</option><option value='noca_"+count+"'>Noca</option><option value='tobaco_"+count+"'>Tobaco</option></select>";
-                content += "</div>";
-                content += "<div class=col-md-5><input style='margin-top:15px' type=text name='size_"+count+"' placeholder=size class='form-control tt-input'>";
-                content += "</div>";
+               // content += "<div class='col-md-10 fremae_added_"+count+"'><select style='margin-top: 15px' class='form-control input-lg coose_frame_block' name='frame_"+count+"'><option value='ash_"+count+"'>Ash</option><option value='noca_"+count+"'>Noca</option><option value='tobaco_"+count+"'>Tobaco</option></select>";
+               // content += "</div>";
+                //content += "<div class=col-md-5><input style='margin-top:15px' type=text name='size_"+count+"' placeholder=size class='form-control tt-input'>";
+                //content += "</div>";
+                // content += "<div>";
+                //     content += "<input type='text' placeholder='Type Frame' class='form-control tt-input coose_frame_block' style='margin-top:15px;width:80%'>";
+                //
+                //     content += "<button type='button' style='margin: 14px 0 0 35px' class='btn green add_frame'>Add</button>"
+                // content += "</div>";
+
                 content += "<div class=col-md-5><input  style='margin-top:15px'type=text name='price_"+count+"' placeholder=Price class='form-control tt-input'>";
                 content += "</div>";
                 content += "<div class=col-md-5><input style='margin-top:15px' type=text name='alt_1_"+count+"' placeholder=Alt class='form-control tt-input'>";
@@ -50,8 +58,14 @@ $(document).ready(function () {
                 if(val == 'canvas'){
                     $(this).parent().next().children().remove();
                 }else if(val == 'frame'){
+                    // content = "";
+                    // // content += "<div style='padding: 0' class='col-md-12 fremae_added_"+count+"'><select style='margin-top: 15px' class='form-control input-lg coose_frame_block' name='frame_"+count+"'><option value='ash_"+count+"'>Ash</option><option value='noca_"+count+"'>Noca</option><option value='tobaco_"+count+"'>Tobaco</option></select>";
+                    // // content += "</div>";
+
                     content = "";
-                    content += "<div style='padding: 0' class='col-md-12 fremae_added_"+count+"'><select style='margin-top: 15px' class='form-control input-lg coose_frame_block' name='frame_"+count+"'><option value='ash_"+count+"'>Ash</option><option value='noca_"+count+"'>Noca</option><option value='tobaco_"+count+"'>Tobaco</option></select>";
+                    content += "<div>";
+                    content += "<input placeholder='Type Frame' class='form-control tt-input coose_frame_block' style='margin-top:15px;width:80%' type='text' name='frame_"+count_frame+"'>"
+                    content += "<div class='col-md-2'><i style='color: red;cursor: pointer;margin-left: 46px;font-size: 21px;margin-top:24px' class='glyphicon glyphicon-remove del_frame'></i></div>"
                     content += "</div>";
                     $(this).parent().next().append(content);
                 }
@@ -81,4 +95,41 @@ $(document).ready(function () {
         $(document).on('click','.del_workshop_block',function () {
             $(this).parent().parent().parent().remove();
         })
-})
+
+        //add frame
+        $(document).on('click','.add_frame',function () {
+            count_frame++;
+            content = "";
+            content += "<div>";
+                content += "<input placeholder='Type Frame' class='form-control tt-input coose_frame_block' style='margin-top:15px;width:80%' type='text' name='frame_"+count_frame+"'>"
+                content += "<div class='col-md-2'><i style='color: red;cursor: pointer;margin-left: 46px;font-size: 21px;margin-top:24px' class='glyphicon glyphicon-remove del_frame'></i></div>"
+            content += "</div>";
+            $('.fremae_added').append(content);
+
+        });
+
+        $(document).on('click','.del_frame',function () {
+            count_frame --;
+            $(this).parent().parent().remove();
+        });
+
+
+       //add size
+
+        $('.add_size_gal_inner').click(function () {
+            count_size++;
+            content = "";
+            content += "<div>"
+            content += "<input placeholder='Size' class='form-control tt-input' style='margin-top:15px;width:80%' type='text' name='size_"+count_size+"'>"
+            content += "<div class='col-md-2'><i style='color: red;cursor: pointer;margin-left: 46px;font-size: 21px;margin-top:24px' class='glyphicon glyphicon-remove del_size'></i></div>"
+            content += "</div>"
+            $('.size_added').append(content);
+
+        });
+
+        $(document).on('click','.del_size',function () {
+            count_size --;
+            $(this).parent().parent().remove();
+        })
+
+});

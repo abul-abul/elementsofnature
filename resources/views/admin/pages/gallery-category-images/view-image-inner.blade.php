@@ -1,5 +1,6 @@
 @extends('app-admin')
 @section('admin-content')
+
 <div class="row">
     <div class="col-md-12">
         @include('message')
@@ -19,6 +20,11 @@
                     <a href="#tab_2" data-toggle="tab">
                         Gallery Images Footer Background
                     </a>
+                </li>
+                <li>
+                <a style="padding: 0" href="{{action("AdminController@getAddGalleryImgInnerPage",$id)}}">
+                    <button class="btn btn-info">Add</button>
+                </a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -44,9 +50,9 @@
                                             <th>Description</th>
                                             <th>alt</th>
                                             <th>Images</th>
-                                            <th>Size</th>
-                                            <th>Frame or canvas</th>
-                                            <th>Frame</th>
+                                            {{--<th>Size</th>--}}
+                                            {{--<th>Frame or canvas</th>--}}
+                                            {{--<th>Frame</th>--}}
                                             <th>Price</th>
                                             <th>Edit/Delete</th>
                                         </tr>
@@ -60,12 +66,13 @@
                                                 <td>
                                                     <img style="width: 114px;height: 56px" src="/assets/gallery-category-images/{{$imageFrame->images}}" alt="">
                                                 </td>
-                                                <td>{{$imageFrame->size}}</td>
-                                                <td>{{$imageFrame->frame_canvas}}</td>
-                                                <td>{{$imageFrame->frame}}</td>
+                                                {{--<td>{{$imageFrame->size}}</td>--}}
+                                                {{--<td>{{$imageFrame->frame_canvas}}</td>--}}
+                                                {{--<td>{{$imageFrame->frame}}</td>--}}
                                                 <td>{{$imageFrame->price}}</td>
+
                                                 <td>
-                                                    <a href="{{action('AdminController@getEditGalleryCategoryImagesInner',$imageFrame->id)}}">
+                                                    <a href="{{action('AdminController@getEditGalleryCategoryImagesInner',[$imageFrame->id,$id])}}">
                                                         <button class="btn green">
                                                             <i class="glyphicon glyphicon-pencil"></i>
                                                         </button>

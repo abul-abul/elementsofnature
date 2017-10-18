@@ -47,7 +47,7 @@
         </p>
 
         <div class="zoom_soc_place">
-            
+
             <a onclick="shareFbPage()" href="#" class="event_soc_link">
                 <img src="/assets/users/plugins/images/face_link.png" />
             </a>

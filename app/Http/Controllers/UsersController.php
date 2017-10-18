@@ -16,6 +16,7 @@ use App\Contracts\SkillInterface;
 use App\Contracts\InYourSpaceTextInterface;
 use App\Contracts\PhotoTourInterface;
 use App\Contracts\ConnectInterface;
+use App\Contracts\GalleryCategoryFrameInterface;
 
 use Illuminate\Http\Request;
 use Validator;
