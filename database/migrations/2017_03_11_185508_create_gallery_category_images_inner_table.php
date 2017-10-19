@@ -19,9 +19,9 @@ class CreateGalleryCategoryImagesInnerTable extends Migration
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
             $table->string('images')->nullable();
-            $table->string('size')->nullable();
+            //$table->string('size')->nullable();
             $table->string('frame_canvas')->nullable();
-            $table->string('frame')->nullable();
+            //$table->string('frame')->nullable();
             $table->string('price')->nullable();
             $table->string('alt')->nullable();
             $table->timestamps();

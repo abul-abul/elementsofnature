@@ -54,14 +54,14 @@
                                             {{--<th>Frame or canvas</th>--}}
                                             {{--<th>Frame</th>--}}
                                             <th>Price</th>
-                                            <th>Edit/Delete</th>
+                                            <th>Edit Frame/Edit/Delete</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($imageFrames as $imageFrame)
                                             <tr>
                                                 <td>{{$imageFrame->title}}</td>
-                                                <td>{{$imageFrame->description}}</td>
+                                                <td>{{substr($imageFrame->description,0, 50)}}</td>
                                                 <td>{{$imageFrame->alt}}</td>
                                                 <td>
                                                     <img style="width: 114px;height: 56px" src="/assets/gallery-category-images/{{$imageFrame->images}}" alt="">
@@ -72,6 +72,9 @@
                                                 <td>{{$imageFrame->price}}</td>
 
                                                 <td>
+                                                    <button  data-toggle="modal" data-target="#myModal1" type="button" class="btn btn-warning">
+                                                        <i class="glyphicon glyphicon-edit"></i>
+                                                    </button>
                                                     <a href="{{action('AdminController@getEditGalleryCategoryImagesInner',[$imageFrame->id,$id])}}">
                                                         <button class="btn green">
                                                             <i class="glyphicon glyphicon-pencil"></i>
@@ -302,6 +305,58 @@
         </div>
     </div>
     {{--end delete modal--}}
+
+
+    {{-- frame modal --}}
+
+    <div class="modal fade" id="myModal1" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <center>Change Frame</center>
+                </div>
+                <input type="hidden" content="{{ csrf_token() }}" class="token">
+                <div class="modal-body">
+                    @foreach($frames as $frame)
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                 <div class="col-md-12">
+                                     <b class="col-md-12">Frame</b>
+                                     <div class="col-md-10">
+                                        <input class="form-control tt-input" type="text" value="{{$frame->frame}}">
+                                     </div>
+                                     <div class="col-md-2">
+                                         <button data-name="frame" data-id="{{$frame->id}}" class="btn green edit_frame">Edit</button>
+                                     </div>
+                                 </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <b class="col-md-12">Size</b>
+                                    <div class="col-md-10">
+                                        <input class="form-control tt-input" type="text" value="{{$frame->size}}">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button data-name="size"  data-id="{{$frame->id}}"  class="btn green edit_frame">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    {{-- end frame modal --}}
 @endsection
 
 

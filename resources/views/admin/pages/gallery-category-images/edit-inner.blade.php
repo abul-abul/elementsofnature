@@ -71,29 +71,7 @@
         </div>
     </div>
 
-    {!! Form::open(['action' => ['AdminController@postEditImgFrame'],'files' => 'true',  ]) !!}
 
-    <input type="hidden" name="gallery_category_images_id" value="{{$imageFrame->id}}">
-    @foreach($canvas_frames as $key => $canvas_frame)
-        <div class="col-md-12 form-group">
-            <div class="col-md-12">
-            <input type="hidden" name="id" value="{{$canvas_frame->id}}">
-            <label style="margin:15px 0 15px 15px;font-weight: bold">Size</label>
-                {!! Form::text('size_'.$key, $canvas_frame->size, ['placeholder' => 'size' , 'class' => 'form-control']) !!}
-            </div>
-            <div class="col-md-12">
-                <label style="margin:15px 0 15px 15px;font-weight: bold">Frame</label>
-
-            {!! Form::text('frame_'.$key, $canvas_frame->frame, ['placeholder' => 'frame' , 'class' => 'form-control']) !!}
-            </div>
-        </div>
-
-    @endforeach
-    <div style="float: right;margin-right: 31px;">
-        <button type="submit" class="btn green">Submit</button>
-    </div>
-
-    {!! Form::close() !!}
 
 
 

@@ -1063,7 +1063,7 @@ class AdminController extends BaseController
             $dataFrame = [
                 'frame' => $result['frame'],
                 'size' => $result['size'],
-                'gallery_category_images_id' => $result['id']
+                'gallery_category_frame_id' => $catImagesInner->id
             ];
 
             $galleryCanvasRepo->createData($dataFrame);
@@ -1082,7 +1082,7 @@ class AdminController extends BaseController
                     }
                 }
 
-                $dataChild['gallery_category_images_id'] = $result['id'];
+                $dataChild['gallery_category_frame_id'] = $result['id'];
                 $galleryCanvasRepo->createData($dataChild);
                 $galleryCanvasRepo->getDeleteNullFids($result['id']);
             }
@@ -1175,7 +1175,7 @@ class AdminController extends BaseController
                 }
             }
 
-            $dataChild['gallery_category_images_id'] = $result['id'];
+            $dataChild['gallery_category_frame_id'] = $result['id'];
             $galleryCanvasRepo->createData($dataChild);
             $galleryCanvasRepo->getDeleteNullFids($result['id']);
 
@@ -1185,49 +1185,25 @@ class AdminController extends BaseController
 
     }
 
+    /**
+     * @param Request $request
+     * @param GalleryCategoryFrameInterface $galleryCategoryFrame
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postEditImgFrame(request $request,GalleryCategoryFrameInterface $galleryCategoryFrame)
     {
         $result = $request->all();
+        unset($result['_token']);
+        $name = $result['frame_name'];
 
-        $gal_img_id = $result['gallery_category_images_id'];
-        $img_frame_key_array = [];
-        foreach($result as $key=>$value){
-
-            if(count(explode('size_',$key)) > 1){
-                array_push($img_frame_key_array,$key);
-            }
-
-            if(explode('frame_',$key) != ''){
-                if(count(explode('frame_',$key)) > 1){
-                    array_push($img_frame_key_array,$key);
-                }
-            }
-
+        if($name == 'size'){
+            $data['size'] = $result['val'];
+        }else{
+            $data['frame'] = $result['val'];
         }
-        $array_images_value = [];
-        foreach ($img_frame_key_array as $key=>$value){
-            array_push($array_images_value,$result[$value]);
-        }
+       $response =  $galleryCategoryFrame->getUpdateData($result['frame_id'],$data);
 
-        for($i=1;$i<=count(array_combine($array_images_value,$img_frame_key_array));$i++) {
-
-            $dataChild = [];
-            $frame_id = $result['id'];
-           // if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
-                $dataChild['size'] = $result['size_' . $i];
-           // }
-
-            if(explode('frame_',$i) != ''){
-                //if(isset($result['frame_' . $i]) && $result['frame_' . $i] != null){
-                    $dataChild['frame'] = $result['frame_' . $i];
-               // }
-            }
-           // $dataChild['gallery_category_images_id'] = $gal_img_id;
-            print_r($dataChild);die;
-            //$galleryCategoryFrame->getUpdateData($frame_id,$dataChild);
-
-
-        }
+        return response()->json(["status"=>"success","resource"=>$response]);
 
     }
 //    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
@@ -1334,19 +1310,22 @@ class AdminController extends BaseController
     public function getViewGalleryCategoryImgInner($id,
                                                    GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
                                                    GalleryCategoryImagesInnerTopInterface $galCatImg,
-                                                   FooterInterface $footerRepo
+                                                   FooterInterface $footerRepo,
+                                                   GalleryCategoryFrameInterface $galleryFrameRepo
                                                     )
     {
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
         $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
+        $frame = $galleryFrameRepo->getAllCanvas($id);
 
        $data = [
            'gallery_category_actiove' => 1,
            'id' => $id,
            'imageFrames' => $result,
            'imgTop' => $imgTop,
-           'footer' => $footer
+           'footer' => $footer,
+           'frames' => $frame
        ];
         return view('admin.pages.gallery-category-images.view-image-inner',$data);
     }
@@ -1423,11 +1402,16 @@ class AdminController extends BaseController
      * @param GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
      * @return mixed
      */
-    public function getDeleteGalleryCategoryImagesInner($id,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
+    public function getDeleteGalleryCategoryImagesInner($id,
+                                                        GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                                        GalleryCategoryFrameInterface $galleryFrameRepo
+                                                        )
     {
         $row = $GalleryCategoryImagesInnerRepo->getOne($id);
         $path = public_path() . '/assets/gallery-category-images/' . $row['images'];
         File::delete($path);
+        $frame = $galleryFrameRepo->getAllCanvas($id);
+
         $GalleryCategoryImagesInnerRepo->deleteData($id);
         return redirect()->back()->with('message','File Deleted');
     }

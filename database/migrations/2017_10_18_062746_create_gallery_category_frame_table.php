@@ -15,7 +15,7 @@ class CreateGalleryCategoryFrameTable extends Migration
     {
         Schema::create('gallery_category_frame', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('gallery_category_images_id')->nullable();
+            $table->string('gallery_category_frame_id')->nullable();
             $table->string('size')->nullable();
             $table->string('frame')->nullable();
             $table->timestamps();

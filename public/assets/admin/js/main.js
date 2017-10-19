@@ -132,4 +132,25 @@ $(document).ready(function () {
             $(this).parent().parent().remove();
         })
 
+
+
+
+        //change Frame
+        $('.edit_frame').click(function () {
+            var frame_id = $(this).attr('data-id');
+            var frame_name = $(this).attr('data-name');
+            var token = $('.token').attr('content');
+            var val = $(this).parent().prev().children().val();
+            $.ajax({
+                url: '/index.php/admin/delete-gallery-category-images-inner',
+                type: 'post',
+                data: {_token:token,frame_id:frame_id,frame_name:frame_name,val:val},
+                success: function(data)
+                {
+
+                }
+            });
+
+        })
+
 });
