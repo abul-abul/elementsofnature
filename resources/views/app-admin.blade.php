@@ -222,6 +222,30 @@
                                             </ul>
                                         </li>
 
+                                        @if(isset($activenews))
+                                            <li class="start active open">
+                                        @else
+                                            <li class="start">
+                                                @endif
+                                                <a href="javascript:;">
+                                                    <i class="icon-docs"></i>
+                                                    <span class="title"> News</span>
+                                                    <span class="selected"></span>
+                                                    <span class="arrow open"></span>
+                                                </a>
+                                                <ul class="sub-menu">
+                                                    @if(isset($activenews))
+                                                        <li class="active">
+                                                    @else
+                                                        <li>
+                                                            @endif
+                                                            <a href="{{action('AdminController@getNews')}}">
+                                                                News
+                                                            </a>
+                                                        </li>
+                                                </ul>
+                                            </li>
+
                                         @if(isset($activeconnect))
                                             <li class="start active open">
                                         @else

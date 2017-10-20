@@ -143,5 +143,14 @@ Route::get('admin/edit-about/{id}','AdminController@getEditAbout');
 Route::post('admin/edit-about','AdminController@postEditAbout');
 Route::get('admin/delete-about/{id}','AdminController@getDeleteAbout');
 
+//News
+Route::get('admin/news','AdminController@getNews');
+Route::post('admin/add-news','AdminController@postAddNews');
+Route::get('admin/edit-news/{id}','AdminController@getEditNews');
+Route::post('admin/edit-news','AdminController@postEditNews');
+Route::get('admin/delete-news/{id}','AdminController@getDeleteNews');
+Route::get('admin/news-favourite/{id}','AdminController@getUpdateNewsFavourite');
+
+
 
 

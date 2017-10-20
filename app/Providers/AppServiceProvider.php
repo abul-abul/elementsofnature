@@ -95,5 +95,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\AboutInterface',
             'App\Services\AboutService'
         );
+        $this->app->bind(
+            'App\Contracts\NewsInterface',
+            'App\Services\NewsService'
+        );
     }
 }

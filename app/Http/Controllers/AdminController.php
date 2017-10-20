@@ -23,6 +23,7 @@ use App\Contracts\SkillInterface;
 use App\Contracts\PhotoTourInterface;
 use App\Contracts\ConnectInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
+use App\Contracts\NewsInterface;
 use View;
 use Session;
 use Validator;
@@ -2267,5 +2268,116 @@ class AdminController extends BaseController
         return view('admin.gallery-images.add-gallery-images-page',$data);
     }
 
+    /**
+     * @param NewsInterface $newsRepo
+     * @return View
+     */
+    public function getNews(NewsInterface $newsRepo)
+    {
+        $news =  $newsRepo->getAll();
+        $data = [
+            'news' => $news,
+            'activenews' => 1
+        ];
+        return view('admin.pages.news.news-page',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param NewsInterface $newsRepo
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function postAddNews(request $request,NewsInterface $newsRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'title' => 'required',
+            'description' => 'required',
+            'images' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+        unset($result['_token']);
+
+        $path = public_path() . '/assets/news-images';
+        $logoFile = $result['images']->getClientOriginalExtension();
+        $name = str_random(12);
+        $path = public_path() . '/assets/news-images';
+        $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+        $news_images = $name.'.'.$logoFile;
+        $result['images'] = $news_images;
+
+
+        $newsRepo->createData($result);
+        return redirect()->back()->with('message','You added About');
+    }
+
+    /**
+     * @param $id
+     * @param NewsInterface $newsRepo
+     * @return View
+     */
+    public function getEditNews($id,NewsInterface $newsRepo)
+    {
+        $row = $newsRepo->getOne($id);
+        $data = [
+            'news' => $row,
+            'activenews' => 1
+        ];
+        return view('admin.pages.news.news-edit',$data);
+
+    }
+
+    /**
+     * @param Request $request
+     * @param NewsInterface $newsRepo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postEditNews(request $request,NewsInterface $newsRepo)
+    {
+        $result = $request->all();
+        if(isset($result['images'])){
+            $row = $newsRepo->getOne($result['id']);
+            $path = public_path() . '/assets/news-images/' . $row['images'];
+            File::delete($path);
+            $logoFile = $result['images']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/news-images';
+            $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images'] = $gallery_images;
+            $newsRepo->getUpdateData($result['id'],$result);
+        }else{
+            $newsRepo->getUpdateData($result['id'],$result);
+        }
+        return redirect()->action('AdminController@getNews')->with('message','You have edit news');
+    }
+
+    /**
+     * @param $id
+     * @param NewsInterface $newsRepo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getDeleteNews($id,NewsInterface $newsRepo)
+    {
+        $row = $newsRepo->getOne($id);
+        $path = public_path() . '/assets/news-images/' . $row['images'];
+        File::delete($path);
+        $newsRepo->deleteData($id);
+        return redirect()->back()->with('message','You have Delete News');
+    }
+
+
+    public function getUpdateNewsFavourite($id,
+                                           request $request,
+                                           NewsInterface $newsRepo)
+    {
+ 
+        $result = $request->all();
+        unset($result['_token']);
+        $newsRepo->getUpdateData($id,$result);
+        return redirect()->back();
+    }
 
 }
