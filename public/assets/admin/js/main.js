@@ -136,7 +136,52 @@ $(document).ready(function () {
 
 
         //change Frame
-        $('.edit_frame').click(function () {
+        $('.edit_inner_frame').click(function () {
+            var id = $(this).attr('data-id');
+            $('.frame_modal').empty();
+
+            var content = "";
+            $.ajax({
+                url: '/index.php/admin/all-frames/'+id,
+                type: 'get',
+                success: function(data)
+                {
+                    $.each(data.resource, function( index, value ) {
+                        if (value.frame != null || value.size != null){
+                            content += '<div class="col-md-12" style="border-bottom: 1px solid #2f343b;">';
+                            content += '<div class="col-md-12">';
+                            content += '<div class="col-md-12" style="margin-top: 12px;">';
+                            content += '<b class="col-md-12">Frame</b>';
+                            content += '<div class="col-md-10">';
+                            content += '<input class="form-control tt-input" type="text" value="' + value.frame + '">';
+                            content += '</div>';
+                            content += '<div class="col-md-2">';
+                            content += '<button data-name="frame" data-id="' + value.id + '" class="btn green edit_frame">Edit</button>';
+                            content += '</div>';
+                            content += '</div>';
+                            content += '</div>';
+
+                            content += '<div class="col-md-12">';
+                            content += '<div class="col-md-12" style="    margin-bottom: 12px;">';
+                            content += '<b class="col-md-12">Size</b>';
+                            content += '<div class="col-md-10">';
+                            content += '<input class="form-control tt-input" type="text" value="' + value.size + '">';
+                            content += '</div>';
+                            content += '<div class="col-md-2">';
+                            content += '<button data-name="size" data-id="' + value.id + '" class="btn green edit_frame">Edit</button>';
+                            content += '</div>';
+                            content += '</div>';
+                            content += '</div>';
+                            content += '</div>';
+                        }
+                    });
+                    $('.frame_modal').append(content);
+
+                }
+            });
+        });
+
+        $(document).on('click','.edit_frame',function () {
             var frame_id = $(this).attr('data-id');
             var frame_name = $(this).attr('data-name');
             var token = $('.token').attr('content');
@@ -147,6 +192,8 @@ $(document).ready(function () {
                 data: {_token:token,frame_id:frame_id,frame_name:frame_name,val:val},
                 success: function(data)
                 {
+                    $('#myModal1').modal('hide');
+                    $('.frame_modal').empty();
 
                 }
             });

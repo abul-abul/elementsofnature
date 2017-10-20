@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface GalleryCategoryFrameInterface
+interface AboutInterface
 {
     /**
      * @return mixed
@@ -40,22 +40,6 @@ interface GalleryCategoryFrameInterface
      */
     public function deleteData($id);
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getDeleteNullFids($id);
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getAllCanvas($id);
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getAllFramesInId($id);
 
 }

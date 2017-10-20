@@ -40,7 +40,6 @@ Route::get('admin/dashboard','AdminController@getDashboard');
 Route::get('admin/work-shop','AdminController@getWorkShop');
 Route::get('admin/in-your-space','AdminController@getInYourSpace');
 Route::get('admin/photo-tour','AdminController@getPhotoTour');
-Route::get('admin/about-artist','AdminController@getAboutArtist');
 Route::get('admin/connect','AdminController@getConnect');
 Route::get('admin/add-gallery-images-page','AdminController@getAddGalleryPage');
 Route::post('admin/add-gallery-images','AdminController@postAddGallery');
@@ -99,6 +98,8 @@ Route::get('admin/edit-gallery-category-images-inner/{id}/{id1}','AdminControlle
 Route::post('admin/edit-gallery-category-images-inner','AdminController@postEditGalleryCategoryImagesInner');
 Route::get('admin/delete-gallery-category-images-inner/{id}','AdminController@getDeleteGalleryCategoryImagesInner');
 
+Route::get('admin/all-frames/{id}','AdminController@getAllFrames');
+
 Route::post('admin/delete-gallery-category-images-inner','AdminController@postEditImgFrame');
 
 Route::get('admin/delete-gallery-category-images/{id}','AdminController@getDeleteGalleryCategoryImages');
@@ -133,6 +134,14 @@ Route::get('admin/edit-photo-tour-background/{id}','AdminController@getEditPhoto
 Route::post('admin/add-connect-background-top','AdminController@postAddConnectBackgroundTop');
 Route::get('admin/edit-connect-background/{id}','AdminController@getEditConnectBackground');
 Route::get('admin/delete-connect/{id}','AdminController@getDeleteConnect');
+
+
+//About Artist
+Route::get('admin/about-artist','AdminController@getAboutArtist');
+Route::post('admin/add-about','AdminController@postAddAbout');
+Route::get('admin/edit-about/{id}','AdminController@getEditAbout');
+Route::post('admin/edit-about','AdminController@postEditAbout');
+Route::get('admin/delete-about/{id}','AdminController@getDeleteAbout');
 
 
 

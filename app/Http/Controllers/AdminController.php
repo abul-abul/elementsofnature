@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\AboutInterface;
 use App\Contracts\InYourSpaceTextInterface;
 use App\GalleryCategory;
 use App\GalleryCategoryImagesInner;
@@ -733,6 +734,31 @@ class AdminController extends BaseController
                 return redirect()->intended('/admin/connect#tab_2')->with('message','Footer Background Update');
             }
 
+            if($result['role'] == 'about'){
+                $row = $footerRepo->getOneRowAbout();
+                if(count($row) == ""){
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->createData($result);
+                    return redirect()->intended('/admin/about-artist#tab_2')->with('message','Footer Background Added');
+                }else{
+                    $oldpath = public_path() . '/assets/footer-images/' . $row['images'];
+                    File::delete($oldpath);
+                    $logoFile = $result['images']->getClientOriginalExtension();
+                    $name = str_random(12);
+                    $path = public_path() . '/assets/footer-images';
+                    $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+                    $gallery_images = $name.'.'.$logoFile;
+                    $result['images'] = $gallery_images;
+                    $footerRepo->getUpdateData($row['id'],$result);
+                }
+                return redirect()->intended('/admin/about-artist#tab_2')->with('message','Footer Background Update');
+            }
+
 
         }
     }
@@ -771,6 +797,9 @@ class AdminController extends BaseController
          }
         if($row['role'] == 'connect'){
             return redirect()->intended('/admin/connect#tab_2')->with('message','Footer Background Deleted');
+        }
+        if($row['role'] == 'about'){
+            return redirect()->intended('/admin/about-artist#tab_2')->with('message','Footer Background Deleted');
         }
     }
 
@@ -954,44 +983,41 @@ class AdminController extends BaseController
                 'description' => $result['description_1'],
                 'alt' => $result['alt_1'],
                 'images' => $gallery_images1,
-                //'size' => $result['size'],
                 'price' => $result['price']
             ];
 
-            if (isset($result['frame'])) {
-               // $data_images_inner['frame'] = $result['frame'];
-            }
+
             $catImagesInner = $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
 
 
-            $img_inner_key_array = [];
-            foreach ($result as $key => $value) {
-                if (count(explode('title_1_', $key)) > 1) {
-                    array_push($img_inner_key_array, $key);
-                }
-                if (count(explode('description_1_', $key)) > 1) {
-                    array_push($img_inner_key_array, $key);
-                }
-                if (count(explode('images_inner_', $key)) > 1) {
-                    array_push($img_inner_key_array, $key);
-                }
-                if (count(explode('alt_1_', $key)) > 1) {
-                    array_push($img_inner_key_array, $key);
-                }
-                if (count(explode('size_', $key)) > 1) {
-                    array_push($img_inner_key_array, $key);
-                }
-                if (count(explode('price_', $key)) > 1) {
-                    array_push($img_inner_key_array, $key);
-                }
-
-                if (explode('frame_', $key) != '') {
-                    if (count(explode('frame_', $key)) > 1) {
-                        array_push($img_inner_key_array, $key);
-                    }
-                }
-
-            }
+//            $img_inner_key_array = [];
+//            foreach ($result as $key => $value) {
+//                if (count(explode('title_1_', $key)) > 1) {
+//                    array_push($img_inner_key_array, $key);
+//                }
+//                if (count(explode('description_1_', $key)) > 1) {
+//                    array_push($img_inner_key_array, $key);
+//                }
+//                if (count(explode('images_inner_', $key)) > 1) {
+//                    array_push($img_inner_key_array, $key);
+//                }
+//                if (count(explode('alt_1_', $key)) > 1) {
+//                    array_push($img_inner_key_array, $key);
+//                }
+//                if (count(explode('size_', $key)) > 1) {
+//                    array_push($img_inner_key_array, $key);
+//                }
+//                if (count(explode('price_', $key)) > 1) {
+//                    array_push($img_inner_key_array, $key);
+//                }
+//
+//                if (explode('frame_', $key) != '') {
+//                    if (count(explode('frame_', $key)) > 1) {
+//                        array_push($img_inner_key_array, $key);
+//                    }
+//                }
+//
+//            }
 
 
 //            $array_images_value = [];
@@ -1043,17 +1069,14 @@ class AdminController extends BaseController
 
             $img_frame_key_array = [];
             foreach ($result as $key => $value) {
-
                 if (count(explode('size_', $key)) > 1) {
                     array_push($img_frame_key_array, $key);
                 }
-
                 if (explode('frame_', $key) != '') {
                     if (count(explode('frame_', $key)) > 1) {
                         array_push($img_frame_key_array, $key);
                     }
                 }
-
             }
 
             $array_images_value = [];
@@ -1063,7 +1086,8 @@ class AdminController extends BaseController
             $dataFrame = [
                 'frame' => $result['frame'],
                 'size' => $result['size'],
-                'gallery_category_frame_id' => $catImagesInner->id
+                'gallery_category_images_id' => $gallery_images_create['id'],
+                'gallery_category_images_inner_id' => $catImagesInner->id
             ];
 
             $galleryCanvasRepo->createData($dataFrame);
@@ -1082,9 +1106,10 @@ class AdminController extends BaseController
                     }
                 }
 
-                $dataChild['gallery_category_frame_id'] = $result['id'];
+                $dataChild['gallery_category_images_inner_id'] = $catImagesInner->id;
+                $dataChild['gallery_category_images_id'] = $gallery_images_create['id'];
                 $galleryCanvasRepo->createData($dataChild);
-                $galleryCanvasRepo->getDeleteNullFids($result['id']);
+                $galleryCanvasRepo->getDeleteNullFids($catImagesInner->id);
             }
             return redirect()->back()->with('message', 'You have Added Gallery Category Images');
         }
@@ -1095,7 +1120,7 @@ class AdminController extends BaseController
      * @param Request $request
      * @param GalleryCategoryFrameInterface $galleryCanvasRepo
      * @param GalleryCategoryImagesInnerInterface $galleryInnerRepo
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function postAddCatImgInner(request $request,
                                        GalleryCategoryFrameInterface $galleryCanvasRepo,
@@ -1103,6 +1128,7 @@ class AdminController extends BaseController
     )
     {
         $result = $request->all();
+
         $validator = Validator::make($result, [
             'title' => 'required',
             'price' => 'required',
@@ -1126,7 +1152,7 @@ class AdminController extends BaseController
             'gallery_category_images_id' => $result['id']
         ];
 
-        $galleryInnerRepo->createData($dataInner);
+        $dataInnerObj = $galleryInnerRepo->createData($dataInner);
 
         $img_frame_key_array = [];
         foreach($result as $key=>$value){
@@ -1151,7 +1177,8 @@ class AdminController extends BaseController
         $dataFrame = [
             //'frame' => $result['frame'],
             'size' => $result['size'],
-            'gallery_category_images_id' => $result['id']
+            'gallery_category_images_id' => $result['id'],
+            'gallery_category_images_inner_id' => $dataInnerObj->id
         ];
 
 
@@ -1175,7 +1202,8 @@ class AdminController extends BaseController
                 }
             }
 
-            $dataChild['gallery_category_frame_id'] = $result['id'];
+            $dataChild['gallery_category_images_id'] = $result['id'];
+            $dataChild['gallery_category_images_inner_id'] = $dataInnerObj->id;
             $galleryCanvasRepo->createData($dataChild);
             $galleryCanvasRepo->getDeleteNullFids($result['id']);
 
@@ -1183,6 +1211,12 @@ class AdminController extends BaseController
         }
         return redirect()->back()->with('message','You have Added');
 
+    }
+
+    public function getAllFrames($id,GalleryCategoryFrameInterface $galleryCanvasRepo)
+    {
+        $result = $galleryCanvasRepo->getAllFramesInId($id);
+        return response()->json(["status"=>"success","resource"=>$result]);
     }
 
     /**
@@ -1204,7 +1238,6 @@ class AdminController extends BaseController
        $response =  $galleryCategoryFrame->getUpdateData($result['frame_id'],$data);
 
         return response()->json(["status"=>"success","resource"=>$response]);
-
     }
 //    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
 //    {
@@ -1400,19 +1433,23 @@ class AdminController extends BaseController
     /**
      * @param $id
      * @param GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo
-     * @return mixed
+     * @param GalleryCategoryFrameInterface $frameRepo
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getDeleteGalleryCategoryImagesInner($id,
                                                         GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
-                                                        GalleryCategoryFrameInterface $galleryFrameRepo
+                                                        GalleryCategoryFrameInterface $frameRepo
                                                         )
     {
         $row = $GalleryCategoryImagesInnerRepo->getOne($id);
         $path = public_path() . '/assets/gallery-category-images/' . $row['images'];
         File::delete($path);
-        $frame = $galleryFrameRepo->getAllCanvas($id);
-
         $GalleryCategoryImagesInnerRepo->deleteData($id);
+
+        $allFrames = $frameRepo->getAllFramesInId($id);
+        foreach ($allFrames as $allFrame){
+            $frameRepo->deleteData($allFrame['id']);
+        }
         return redirect()->back()->with('message','File Deleted');
     }
 
@@ -1426,7 +1463,8 @@ class AdminController extends BaseController
     public function getDeleteGalleryCategory($id,
                                                     GalleryCategoryInterface $catRepo,
                                                     GalleryCategoryImagesInterface $catImgRepo,
-                                                    GalleryCategoryImagesInnerInterface $catImgInnerRepo
+                                                    GalleryCategoryImagesInnerInterface $catImgInnerRepo,
+                                                    GalleryCategoryFrameInterface $frameRepo
                                                    )
     {
         $catRow = $catRepo->getOne($id);
@@ -1450,6 +1488,14 @@ class AdminController extends BaseController
                         File::delete($pathCatInner);
                         $catImgInnerRepo->deleteData($rowCatInner['id']);
                     }
+
+                }
+
+                $allFrames = $frameRepo->getAllCanvas($catImgRow['id']);
+                if(count($allFrames) != 0){
+                    foreach ($allFrames as $allFrame){
+                        $frameRepo->deleteData($allFrame['id']);
+                    }
                 }
             }
         }
@@ -1464,7 +1510,9 @@ class AdminController extends BaseController
      */
     public function getDeleteGalleryCategoryImages($id,
                                                    GalleryCategoryImagesInterface $catImgRepo,
-                                                   GalleryCategoryImagesInnerInterface $catImgInnerRepo
+                                                   GalleryCategoryImagesInnerInterface $catImgInnerRepo,
+                                                   GalleryCategoryFrameInterface $frameRepo
+
                                                     )
     {
         $catImagesRow = $catImgRepo->getOne($id);
@@ -1478,6 +1526,12 @@ class AdminController extends BaseController
                 $pathCatInnerImg = public_path() . '/assets/gallery-category-images/' . $catImgInnerRow['images'];
                 File::delete($pathCatInnerImg);
                 $catImgInnerRepo->deleteData($catImgInnerRow['id']);
+            }
+        }
+        $allFrames = $frameRepo->getAllCanvas($id);
+        if(count($allFrames) != ""){
+            foreach ($allFrames as $allFrame){
+                $frameRepo->deleteData($allFrame['id']);
             }
         }
         return redirect()->back()->with('message','You  Deleted Gallery Category Images');
@@ -2131,13 +2185,78 @@ class AdminController extends BaseController
     }
 
 
-
-    public function getAboutArtist()
+    /**
+     * @param FooterInterface $footerRepo
+     * @param AboutInterface $aboutRepo
+     * @return View
+     */
+    public function getAboutArtist(FooterInterface $footerRepo,AboutInterface $aboutRepo)
     {
+        $footer = $footerRepo->getOneRowAbout();
+        $abouts = $aboutRepo->getAll();
         $data = [
+            'abouts' => $abouts,
+            'footer' => $footer,
             'activeaboutartist' => 1,
         ];
-        return view('admin.pages.about-artist',$data);
+        return view('admin.pages.about.about-artist',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param AboutInterface $aboutRepo
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function postAddAbout(request $request,AboutInterface $aboutRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'video' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+        unset($result['_token']);
+        $aboutRepo->createData($result);
+        return redirect()->back()->with('message','You added About');
+    }
+
+    /**
+     * @param $id
+     * @param AboutInterface $aboutRepo
+     * @return View
+     */
+    public function getEditAbout($id,AboutInterface $aboutRepo)
+    {
+        $row = $aboutRepo->getOne($id);
+        $data = [
+            'activeaboutartist' => 1,
+             'about' => $row
+        ];
+        return view('admin.pages.about.edit-about-page',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param AboutInterface $aboutRepo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postEditAbout(request $request,AboutInterface $aboutRepo)
+    {
+        $result = $request->all();
+        $aboutRepo->getUpdateData($result['id'],$result);
+        return redirect()->action('AdminController@getAboutArtist')->with('message','You edit About');
+    }
+
+    /**
+     * @param $id
+     * @param AboutInterface $aboutRepo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getDeleteAbout($id,AboutInterface $aboutRepo)
+    {
+        $aboutRepo->deleteData($id);
+        return redirect()->back()->with('message','You delete about');
     }
 
     public function getAddGalleryPage()

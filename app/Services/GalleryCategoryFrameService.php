@@ -77,7 +77,7 @@ class GalleryCategoryFrameService implements GalleryCategoryFrameInterface
      */
     public function getDeleteNullFids($id)
     {
-        return $this->frame->where('gallery_category_frame_id',$id)->where('size',null)->where('frame',null)->delete();
+        return $this->frame->where('gallery_category_images_id',$id)->where('size',null)->where('frame',null)->delete();
     }
 
     /**
@@ -86,7 +86,17 @@ class GalleryCategoryFrameService implements GalleryCategoryFrameInterface
      */
     public function getAllCanvas($id)
     {
-        return $this->frame->where('gallery_category_frame_id',$id)->get();
+        return $this->frame->where('gallery_category_images_id',$id)->get();
+
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getAllFramesInId($id)
+    {
+        return $this->frame->where('gallery_category_images_inner_id',$id)->get();
 
     }
 

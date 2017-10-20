@@ -80,4 +80,9 @@ interface FooterInterface
      */
     public function getOneRowConnect();
 
+    /**
+     * @return mixed
+     */
+    public function getOneRowAbout();
+
 }

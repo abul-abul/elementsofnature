@@ -17,7 +17,6 @@
                 <div class="tab-pane active" id="tab_0">
                     <div class="col-md-12">
                         <div class="row">
-
                             <div class="col-md-12">
                                 <!-- BEGIN PORTLET-->
 

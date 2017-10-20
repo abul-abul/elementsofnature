@@ -135,4 +135,12 @@ class FooterService implements FooterInterface
         return $this->footer->where('role','connect')->first();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getOneRowAbout()
+    {
+        return $this->footer->where('role','about')->first();
+    }
+
 }

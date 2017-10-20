@@ -91,5 +91,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\GalleryCategoryFrameInterface',
             'App\Services\GalleryCategoryFrameService'
         );
+        $this->app->bind(
+            'App\Contracts\AboutInterface',
+            'App\Services\AboutService'
+        );
     }
 }

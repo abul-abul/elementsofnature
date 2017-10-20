@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGalleryCategoryFrameTable extends Migration
+class CreateAboutTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateGalleryCategoryFrameTable extends Migration
      */
     public function up()
     {
-        Schema::create('gallery_category_frame', function (Blueprint $table) {
+        Schema::create('about', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('gallery_category_images_id')->nullable();
-            $table->string('gallery_category_images_inner_id')->nullable();
-            $table->string('size')->nullable();
-            $table->string('frame')->nullable();
+            $table->string('video')->nullable();
+            $table->longText('description1')->nullable();
+            $table->longText('description2')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateGalleryCategoryFrameTable extends Migration
      */
     public function down()
     {
-        Schema::drop('gallery_category_frame');
+        Schema::drop('about');
     }
 }

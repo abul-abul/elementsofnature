@@ -72,7 +72,7 @@
                                                 <td>{{$imageFrame->price}}</td>
 
                                                 <td>
-                                                    <button  data-toggle="modal" data-target="#myModal1" type="button" class="btn btn-warning">
+                                                    <button  data-toggle="modal" data-target="#myModal1" type="button" data-id="{{$imageFrame->id}}" class="btn btn-warning edit_inner_frame">
                                                         <i class="glyphicon glyphicon-edit"></i>
                                                     </button>
                                                     <a href="{{action('AdminController@getEditGalleryCategoryImagesInner',[$imageFrame->id,$id])}}">
@@ -319,33 +319,33 @@
                     <center>Change Frame</center>
                 </div>
                 <input type="hidden" content="{{ csrf_token() }}" class="token">
-                <div class="modal-body">
-                    @foreach($frames as $frame)
-                        <div class="col-md-12">
-                            <div class="col-md-12">
-                                 <div class="col-md-12">
-                                     <b class="col-md-12">Frame</b>
-                                     <div class="col-md-10">
-                                        <input class="form-control tt-input" type="text" value="{{$frame->frame}}">
-                                     </div>
-                                     <div class="col-md-2">
-                                         <button data-name="frame" data-id="{{$frame->id}}" class="btn green edit_frame">Edit</button>
-                                     </div>
-                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-12">
-                                    <b class="col-md-12">Size</b>
-                                    <div class="col-md-10">
-                                        <input class="form-control tt-input" type="text" value="{{$frame->size}}">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button data-name="size"  data-id="{{$frame->id}}"  class="btn green edit_frame">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                <div class="modal-body frame_modal">
+                    {{--@foreach($frames as $frame)--}}
+                        {{--<div class="col-md-12">--}}
+                            {{--<div class="col-md-12">--}}
+                                 {{--<div class="col-md-12">--}}
+                                     {{--<b class="col-md-12">Frame</b>--}}
+                                     {{--<div class="col-md-10">--}}
+                                        {{--<input class="form-control tt-input" type="text" value="{{$frame->frame}}">--}}
+                                     {{--</div>--}}
+                                     {{--<div class="col-md-2">--}}
+                                         {{--<button data-name="frame" data-id="{{$frame->id}}" class="btn green edit_frame">Edit</button>--}}
+                                     {{--</div>--}}
+                                 {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-md-12">--}}
+                                {{--<div class="col-md-12">--}}
+                                    {{--<b class="col-md-12">Size</b>--}}
+                                    {{--<div class="col-md-10">--}}
+                                        {{--<input class="form-control tt-input" type="text" value="{{$frame->size}}">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-2">--}}
+                                        {{--<button data-name="size"  data-id="{{$frame->id}}"  class="btn green edit_frame">Edit</button>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--@endforeach--}}
                 </div>
                 <div class="modal-footer">
                     {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
