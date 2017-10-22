@@ -19,6 +19,11 @@ Route::post('user/connect','UsersController@postConnect');
 
 
 
+//News
+Route::get('user/news-inner/{id}','UsersController@getNewsInner');
+
+//end news
+
 //payments
 Route::get('paypal','PaymentController@getPayPal');
 Route::get('paypal-cancel','PaymentController@getPaypalCancelResponse');
@@ -150,6 +155,9 @@ Route::get('admin/edit-news/{id}','AdminController@getEditNews');
 Route::post('admin/edit-news','AdminController@postEditNews');
 Route::get('admin/delete-news/{id}','AdminController@getDeleteNews');
 Route::get('admin/news-favourite/{id}','AdminController@getUpdateNewsFavourite');
+Route::get('admin/news-gallery/{id}','AdminController@getNewsGallery');
+Route::post('admin/add-news-gallery','AdminController@postAddNewsGallery');
+Route::get('admin/delete-news-gallery/{id}','AdminController@getDeleteNewsGallery');
 
 
 

@@ -93,39 +93,39 @@
             news
             <span class="news_title_underline"></span>
         </div>
+        @foreach($news as $new)
         <div class="footer_news">
-            <img src="/assets/users/plugins/images/news1.jpg" class="news_image" />
+            <img src="/assets/news-images/{{$new->images}}" class="news_image" />
             <h4 class="news_title">
-                Kenya photographic safari
+                {{$new->title}}
             </h4>
             <p class="news_text">
-                Scott Dere & Ted Schiffman / Animal images August 16, 2017-August 27,2017
+                {{$new->description}}
             </p>
-            <p class="news_text">
-                Eleven days , luxuty five star hotels and tend camps, all meals, all inclusive ground and air tranportation in Kenya $7,995.
-            </p>
-            <a href="#" class="news_details">details</a>
+
+            <a href="{{action('UsersController@getNewsInner',$new->id)}}" class="news_details">details</a>
         </div>
-        <div class="footer_news">
-            <img src="/assets/users/plugins/images/news2.jpg" class="news_image" />
-            <h4 class="news_title">
-                world through the eyes of  scott dere
-            </h4>
-            <p class="news_text">
-                Eleven days , luxuty five star hotels and tend camps, all meals, all inclusive ground and air tranportation in Kenya $7,995.
-            </p>
-            <a href="#" class="news_details">details</a>
-        </div>
-        <div class="footer_news">
-            <img src="/assets/users/plugins/images/news3.jpg" class="news_image" />
-            <h4 class="news_title">
-                Color magazine about scott
-            </h4>
-            <p class="news_text">
-                Eleven days , luxuty five star hotels and tend camps, all meals, all inclusive ground and air tranportation in all inclusive ground and air tranportation all inclusive ground and air tranportation.
-            </p>
-            <a href="#" class="news_details">details</a>
-        </div>
+        @endforeach
+        {{--<div class="footer_news">--}}
+            {{--<img src="/assets/users/plugins/images/news2.jpg" class="news_image" />--}}
+            {{--<h4 class="news_title">--}}
+                {{--world through the eyes of  scott dere--}}
+            {{--</h4>--}}
+            {{--<p class="news_text">--}}
+                {{--Eleven days , luxuty five star hotels and tend camps, all meals, all inclusive ground and air tranportation in Kenya $7,995.--}}
+            {{--</p>--}}
+            {{--<a href="#" class="news_details">details</a>--}}
+        {{--</div>--}}
+        {{--<div class="footer_news">--}}
+            {{--<img src="/assets/users/plugins/images/news3.jpg" class="news_image" />--}}
+            {{--<h4 class="news_title">--}}
+                {{--Color magazine about scott--}}
+            {{--</h4>--}}
+            {{--<p class="news_text">--}}
+                {{--Eleven days , luxuty five star hotels and tend camps, all meals, all inclusive ground and air tranportation in all inclusive ground and air tranportation all inclusive ground and air tranportation.--}}
+            {{--</p>--}}
+            {{--<a href="#" class="news_details">details</a>--}}
+        {{--</div>--}}
     </div>
     <div class="follow_us_place">
         <div class="follow_us_title">

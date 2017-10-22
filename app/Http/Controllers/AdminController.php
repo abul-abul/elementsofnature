@@ -24,6 +24,7 @@ use App\Contracts\PhotoTourInterface;
 use App\Contracts\ConnectInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
 use App\Contracts\NewsInterface;
+use App\Contracts\NewsGalleryInterface;
 use View;
 use Session;
 use Validator;
@@ -2310,7 +2311,7 @@ class AdminController extends BaseController
 
 
         $newsRepo->createData($result);
-        return redirect()->back()->with('message','You added About');
+        return redirect()->back()->with('message','You added News');
     }
 
     /**
@@ -2357,27 +2358,106 @@ class AdminController extends BaseController
     /**
      * @param $id
      * @param NewsInterface $newsRepo
-     * @return \Illuminate\Http\RedirectResponse
+     * @param NewsGalleryInterface $newsGalleryRepo
+     * @return mixed
      */
-    public function getDeleteNews($id,NewsInterface $newsRepo)
+    public function getDeleteNews($id,NewsInterface $newsRepo,NewsGalleryInterface $newsGalleryRepo)
     {
         $row = $newsRepo->getOne($id);
         $path = public_path() . '/assets/news-images/' . $row['images'];
         File::delete($path);
         $newsRepo->deleteData($id);
+        $newsGallerys = $newsGalleryRepo->newsByGallery($id);
+        foreach ($newsGallerys as $newsGallery){
+            $path = public_path() . '/assets/news-images/' . $newsGallery['images'];
+            File::delete($path);
+            $newsGalleryRepo->deleteData($newsGallery['id']);
+        }
+
         return redirect()->back()->with('message','You have Delete News');
     }
 
-
+    /**
+     * @param $id
+     * @param Request $request
+     * @param NewsInterface $newsRepo
+     * @return mixed
+     */
     public function getUpdateNewsFavourite($id,
                                            request $request,
                                            NewsInterface $newsRepo)
     {
- 
         $result = $request->all();
+        if($result['favourite'] == 1){
+            $favourite = $newsRepo->getAllNewsFavourite();
+            if(count($favourite) >= 3){
+                return redirect()->back()->with('error','Limitied 3 favourite');
+            }
+        }
         unset($result['_token']);
         $newsRepo->getUpdateData($id,$result);
         return redirect()->back();
     }
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @param NewsGalleryInterface $newsGalleryRepo
+     * @return View
+     */
+    public function getNewsGallery($id,request $request,NewsGalleryInterface $newsGalleryRepo)
+    {
+        $result = $newsGalleryRepo->newsByGallery($id);
+        $data = [
+            'id' => $id,
+            'newsGallery' => $result,
+            'activenews' => 1
+        ];
+        return view('admin.pages.news.news-gallery',$data);
+
+    }
+
+    /**
+     * @param Request $request
+     * @param NewsGalleryInterface $newsGalleryRepo
+     * @return mixed
+     */
+    public function postAddNewsGallery(request $request,NewsGalleryInterface $newsGalleryRepo)
+    {
+        $results = $request->all();
+        unset($results['_token']);
+        $data = [];
+        foreach ($results['images'] as $result){
+
+            $path = public_path() . '/assets/news-images';
+            $logoFile = $result->getClientOriginalExtension();
+
+            $name = str_random(12);
+            $path = public_path() . '/assets/news-images';
+            $result_move = $result->move($path, $name.'.'.$logoFile);
+            $news_images = $name.'.'.$logoFile;
+            $data['news_id'] = $results['id'];
+            $data['images'] = $news_images;
+            $newsGalleryRepo->createData($data);
+        }
+        return redirect()->back()->with('message','You Have add News Gallery');
+    }
+
+    /**
+     * @param $id
+     * @param $
+     * @param NewsGalleryInterface $newsGalleryRepo
+     * @return mixed
+     */
+    public function getDeleteNewsGallery($id,NewsGalleryInterface $newsGalleryRepo)
+    {
+        $row = $newsGalleryRepo->getOne($id);
+        $path = public_path() . '/assets/news-images/' . $row['images'];
+        File::delete($path);
+        $newsGalleryRepo->deleteData($id);
+        return redirect()->back()->with('message','You have Delete News');
+    }
+
+
 
 }

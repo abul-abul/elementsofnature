@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\AboutInterface;
+use App\Contracts\NewsGalleryInterface;
+use App\Contracts\NewsInterface;
 use App\Contracts\PartnersInterface;
 use App\Contracts\BackgroundInterface;
 use App\Contracts\FooterInterface;
@@ -34,13 +37,18 @@ class UsersController extends BaseController
      * @param GalleryCategoryImagesInterface $galleryCategoryImagesRepo
      * @return mixed
      */
-    public function getHome(GalleryInterface $galleryRepo,GalleryCategoryImagesInterface $galleryCategoryImagesRepo)
+    public function getHome(GalleryInterface $galleryRepo,
+                            GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
+                            NewsInterface $newsRepo
+                            )
     {
+        $newsFavourite = $newsRepo->getAllNewsFavourite();
         $gallery = $galleryRepo->getHomeRoleGallery();
         $featuresImages = $galleryCategoryImagesRepo->getHomeFeaturesImages();
         $data = [
             'featuresImages' => $featuresImages,
             'homeGallerys' => $gallery,
+            'news' => $newsFavourite,
             'hoveNavigator' => 1
         ];
         return view('users.home',$data);
@@ -273,13 +281,41 @@ class UsersController extends BaseController
         }
     }
 
-
-    public function getAboutArtist()
+    /**
+     * @param AboutInterface $aboutRepo
+     * @param FooterInterface $footerRepo
+     * @param NewsInterface $newsRepo
+     * @return mixed
+     */
+    public function getAboutArtist(AboutInterface $aboutRepo,FooterInterface $footerRepo,NewsInterface $newsRepo)
     {
+        $abouts = $aboutRepo->getAll();
+        $footer = $footerRepo->getOneRowAbout();
+        $news = $newsRepo->getAll();
         $data = [
+            'abouts' => $abouts,
+            'footer' => $footer,
+            'news' => $news,
             'activeaboutartist' => 1
         ];
         return view('users.pages.aboutartist.aboutartist',$data);
+    }
+
+    /**
+     * @param $id
+     * @param NewsInterface $newsRepo
+     * @param NewsGalleryInterface $newsGalleryRepo
+     * @return mixed
+     */
+    public function getNewsInner($id,NewsInterface $newsRepo,NewsGalleryInterface $newsGalleryRepo)
+    {
+        $news = $newsRepo->getOne($id);
+        $newsGallery = $newsGalleryRepo->newsByGallery($id);
+        $data = [
+            'news' => $news,
+            'newsGallery' => $newsGallery
+        ];
+        return view('users.pages.news.news-inner',$data);
     }
 
 }

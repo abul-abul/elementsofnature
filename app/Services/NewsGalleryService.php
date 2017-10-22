@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\NewsInterface;
-use App\News;
+use App\Contracts\NewsGalleryInterface;
+use App\NewsGallery;
 
-class NewsService implements NewsInterface
+class NewsGalleryService implements NewsGalleryInterface
 {
 
     /**
@@ -13,7 +13,7 @@ class NewsService implements NewsInterface
      */
     public function __construct()
     {
-        $this->news = new News();
+        $this->newsgallery = new NewsGallery();
     }
 
     /**
@@ -21,7 +21,7 @@ class NewsService implements NewsInterface
      */
     public function getAll()
     {
-        return $this->news->get();
+        return $this->newsgallery->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class NewsService implements NewsInterface
      */
     public function getAllPaginate()
     {
-        return $this->news->paginate(5);
+        return $this->newsgallery->paginate(5);
     }
 
 
@@ -39,7 +39,7 @@ class NewsService implements NewsInterface
      */
     public function createData($data)
     {
-        return $this->news->create($data);
+        return $this->newsgallery->create($data);
     }
 
 
@@ -49,7 +49,7 @@ class NewsService implements NewsInterface
      */
     public function getOne($id)
     {
-        return $this->news->find($id);
+        return $this->newsgallery->find($id);
     }
 
     /**
@@ -72,11 +72,13 @@ class NewsService implements NewsInterface
     }
 
     /**
+     * @param $id
      * @return mixed
      */
-    public function getAllNewsFavourite()
+    public function newsByGallery($id)
     {
-        return $this->news->where('favourite','1')->get();
+        return $this->newsgallery->where('news_id',$id)->get();
     }
 
+    
 }

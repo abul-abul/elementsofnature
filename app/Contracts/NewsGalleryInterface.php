@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface NewsInterface
+interface NewsGalleryInterface
 {
     /**
      * @return mixed
@@ -41,8 +41,9 @@ interface NewsInterface
     public function deleteData($id);
 
     /**
+     * @param $id
      * @return mixed
      */
-    public function getAllNewsFavourite();
+    public function newsByGallery($id);
 
 }

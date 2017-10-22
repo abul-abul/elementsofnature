@@ -7,7 +7,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active tab_url">
                         <a href="#tab_0" data-toggle="tab">
-                            News List
+                            News Gallery List
                         </a>
                     </li>
 
@@ -18,34 +18,27 @@
 
                         <div class="row">
 
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <center>
-                                            <h1> Add News </h1>
-                                        </center>
-                                    </div>
-
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <center>
+                                        <h1> Add News Gallery</h1>
+                                    </center>
                                 </div>
-                                {!! Form::open(['action' => ['AdminController@postAddNews'],'files' => 'true',  ]) !!}
 
+                            </div>
+                            {!! Form::open(['action' => ['AdminController@postAddNewsGallery'],'files' => 'true', 'enctype'=>'multipart/form-data' ]) !!}
 
-                                <div class="col-md-12 form-group">
-                                    <div class="col-md-12">
-                                        {!! Form::text('title', null, ['placeholder' => 'Title' , 'class' => 'form-control']) !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <div class="col-md-12">
-                                        {!! Form::textarea('description', null, ['placeholder' => 'description' , 'class' => 'form-control']) !!}
-                                    </div>
-                                </div>
+                                <input type="hidden" name="id" value="{{$id}}">
                                 <div class="col-md-12 form-group">
                                     <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
 
                                         <label class="input-group-btn">
-                                        <span class="btn btn-primary">
-                                            Browse News Images… <input name="images" type="file" style="display: none;" multiple="">
-                                        </span>
+                                            <span class="btn btn-primary">
+
+                                                Browse News Images… <input required type="file" class="form-control" name="images[]" style="display: none;" multiple>
+
+                                               {{--<input name="images" type="file"  multiple="">--}}
+                                            </span>
                                         </label>
                                         <input type="text" class="form-control" readonly="">
                                     </div>
@@ -53,16 +46,16 @@
                                 <div style="float: right;margin-right: 31px;">
                                     <button type="submit" class="btn green">Submit</button>
                                 </div>
-                                {!! Form::close() !!}
+                            {!! Form::close() !!}
 
                             {{--@if(count($workshops) != '')--}}
-                            @if(count($news) != '')
+                            @if(count($newsGallery) != '')
                                 <div class="col-md-12" style="margin-top: 25px;">
                                     <!-- BEGIN SAMPLE TABLE PORTLET-->
                                     <div class="portlet box red">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-cogs"></i>News LIst
+                                                <i class="fa fa-cogs"></i>News Gallery LIst
                                             </div>
                                             <div class="tools">
                                                 <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -75,47 +68,22 @@
                                                 <table class="table table-hover">
                                                     <thead>
                                                     <tr>
-                                                        <th>
-                                                                title
-                                                        </th>
-                                                        <th>Description </th>
+
                                                         <th>Images</th>
-                                                        <th>favourite</th>
+                                                        <th>Date</th>
 
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($news as $new)
+                                                    @foreach($newsGallery as $new)
                                                         <tr>
-                                                            <td>
-                                                                <a href="{{action('AdminController@getNewsGallery',$new->id)}}">
-                                                                {{$new->title}}
-                                                                </a>
-                                                            </td>
-                                                            <td>{{$new->description}}</td>
+
                                                             <td><img style="width: 100px" src="/assets/news-images/{{$new->images}}" alt=""></td>
+                                                            <td>{{date('d/m/Y', strtotime($new->created_at))}}</td>
 
-
+                                                            <td></td>
                                                             <td>
-                                                                {!! Form::open(['action' => ['AdminController@getUpdateNewsFavourite',$new->id],'method' => 'get', 'style'=>'float:left']) !!}
-                                                                <button type="submit" class="btn btn-info">
-                                                                    @if($new->favourite == "" || $new->favourite == 0)
-                                                                        <input type="hidden" name="favourite" value="1">
-                                                                        <i class="glyphicon glyphicon-star-empty"></i>
-                                                                    @else
-                                                                        <input type="hidden" name="favourite" value="0">
-                                                                        <i class="glyphicon glyphicon-star"></i>
-                                                                    @endif
-                                                                </button>
-                                                                {!!Form::close()!!}
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{action('AdminController@getEditNews',$new->id)}}">
-                                                                    <button class="btn green">
-                                                                        <i class="glyphicon glyphicon-pencil"></i>
-                                                                    </button>
-                                                                </a>
-                                                                <button data-href="{{action('AdminController@getDeleteNews',$new->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
+                                                                <button data-href="{{action('AdminController@getDeleteNewsGallery',$new->id)}}" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-danger click_del">
                                                                     <i class="fa fa-trash-o bigger-120"></i>
                                                                 </button>
                                                             </td>

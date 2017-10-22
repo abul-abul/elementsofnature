@@ -57,15 +57,19 @@
 <!-- standart images place -->
 <div class="standart_img_place">
     @foreach($galleryCategoryImages as $galleryCategoryImage)
+
     <div class="standart_img_parent">
         <img src="/assets/gallery-category-images/{{$galleryCategoryImage->images}}" class="standert_img" alt="{{$galleryCategoryImage->alt}}" />
         <div class="art_fav_place">
-      				<span class="art_fav_star">
-      					<img src="/assets/users/plugins/images/fav_star.png" id="fav_star" />
-      				</span>
-      				<span class="art_fav_text">
-      					artist favorit
-      				</span>
+            @if($galleryCategoryImage->favourite)
+                <span class="art_fav_star">
+                    <img src="/assets/users/plugins/images/fav_star.png" id="fav_star" />
+                </span>
+
+                <span class="art_fav_text">
+                    artist favorit
+                </span>
+            @endif
         </div>
         <div class="standart_order_place">
             <a href="{{action('UsersController@getGalleryInner',$galleryCategoryImage->id)}}" class="standart_order_link">
