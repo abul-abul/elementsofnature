@@ -27,9 +27,9 @@ use Validator;
 class UsersController extends BaseController
 {
 
-    public function __construct(BackgroundInterface $bgRepo,PartnersInterface $partnersRepo)
+    public function __construct(BackgroundInterface $bgRepo, PartnersInterface $partnersRepo)
     {
-        parent::__construct($bgRepo,$partnersRepo);
+        parent::__construct($bgRepo, $partnersRepo);
     }
 
     /**
@@ -40,7 +40,7 @@ class UsersController extends BaseController
     public function getHome(GalleryInterface $galleryRepo,
                             GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
                             NewsInterface $newsRepo
-                            )
+    )
     {
         $newsFavourite = $newsRepo->getAllNewsFavourite();
         $gallery = $galleryRepo->getHomeRoleGallery();
@@ -51,7 +51,7 @@ class UsersController extends BaseController
             'news' => $newsFavourite,
             'hoveNavigator' => 1
         ];
-        return view('users.home',$data);
+        return view('users.home', $data);
     }
 
     /**
@@ -59,7 +59,7 @@ class UsersController extends BaseController
      * @param FooterInterface $footerRepo
      * @return mixed
      */
-    public function getGalleryCategory(GalleryCategoryInterface $galleryCategoryRepo,FooterInterface $footerRepo)
+    public function getGalleryCategory(GalleryCategoryInterface $galleryCategoryRepo, FooterInterface $footerRepo)
     {
         $result = $galleryCategoryRepo->getAll();
         $footer = $footerRepo->getOneRowGalleryCategory();
@@ -68,26 +68,29 @@ class UsersController extends BaseController
             'gallerys' => $result,
             'gallery_category_active' => 1
         ];
-        return view('users.pages.gallery.gallery-category',$data);
+        return view('users.pages.gallery.gallery-category', $data);
     }
 
     public function getGalleryCategoryImages($id,
                                              GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
                                              BackgroundInterface $backgroundRepo,
-                                             FooterInterface $footerRepo
-                                            )
+                                             FooterInterface $footerRepo,
+                                             NewsInterface $newsRepo
+    )
     {
         $galleryCategoryImages = $galleryCategoryImagesRepo->getSelectGalleryCatImages($id);
         $background = $backgroundRepo->getGalleryCategoryImages();
         $footer = $footerRepo->getOneRowGalleryCategoryImages();
+        $news = $newsRepo->getAllNewsFavourite();
         $data = [
             'id' => $id,
             'footer' => $footer,
             'backgrounds' => $background,
+            'news' => $news,
             'galleryCategoryImages' => $galleryCategoryImages
         ];
 
-        return view('users.pages.gallery.gallery',$data);
+        return view('users.pages.gallery.gallery', $data);
     }
 
     /**
@@ -102,14 +105,14 @@ class UsersController extends BaseController
                                     GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
                                     GalleryCategoryImagesInnerTopInterface $galCatImg,
                                     FooterInterface $footerRepo
-                                    )
+    )
 
     {
         $categoryImagee = $galleryCategoryImagesRepo->getOne($id);
         $allCategoryImages = $galleryCategoryImagesRepo->getAll();
         $firstId = $galleryCategoryImagesRepo->getFirstRow()->id;
         $lastId = $galleryCategoryImagesRepo->getLastRow()->id;
-        if(count($categoryImagee) ==  ""){
+        if (count($categoryImagee) == "") {
             abort(404);
         }
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
@@ -125,10 +128,19 @@ class UsersController extends BaseController
             'footer' => $footer,
             'allCategoryImages' => $allCategoryImages
         ];
-        return view('users.pages.gallery.gallery-inner',$data);
+        return view('users.pages.gallery.gallery-inner', $data);
     }
 
+    public function getImagesInnerFrame($id,
+                                        GalleryCategoryFrameInterface $galFrameRepo,
+                                        GalleryCategoryImagesInnerInterface $innerRepo
+                                        )
+    {
+        $frames = $galFrameRepo->getAllFramesInId($id);
+        $inner = $innerRepo->getOne($id);
 
+        return response()->json(['frames' => $frames,'inners' => $inner]);
+    }
 
     /**
      * @param WorkShopInterface $workShopRepo

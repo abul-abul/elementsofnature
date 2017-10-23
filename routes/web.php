@@ -2,10 +2,13 @@
 
 //User
 Route::get('/','UsersController@getHome');
+
+//Gallery
 Route::get('gallery-images-category','UsersController@getGalleryCategory');
 Route::get('gallery-images/{id}','UsersController@getGalleryCategoryImages');
 Route::get('gallery-images-inner/{id}','UsersController@getGalleryInner');
-
+Route::get('images-inner-frame/{id}','UsersController@getImagesInnerFrame');
+//End gallery
 
 Route::get('work-shop','UsersController@getWorkShop');
 

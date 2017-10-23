@@ -47,7 +47,6 @@
         </p>
 
         <div class="zoom_soc_place">
-
             <a onclick="shareFbPage()" href="#" class="event_soc_link">
                 <img src="/assets/users/plugins/images/face_link.png" />
             </a>
@@ -72,7 +71,6 @@
 
             <button class="z_next_last_btn">
                 @if($lastId == $id)
-
                     <a href="#" class="next_last_link">
                         next picture
                     </a>
@@ -103,10 +101,11 @@
 <div class="product_place">
     @if(count($imageFrames) != '')
         <div class="product_place_center">
+
             @foreach($imageFrames as $imageFrame)
                 <div class="product_images_place">
                     <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    <div class="product_img_child">
+                    <div class="product_img_child" data-id="{{$imageFrame->id}}">
                         <img src="/assets/gallery-category-images/{{$imageFrame->images}}" class="product_image" alt="{{$imageFrame->alt}}" />
                         <div class="product_img_abs"></div>
                     </div>
@@ -139,43 +138,43 @@
             <div class="select_product_parent">
                 <p class="select_title">choose size:</p>
                 <div class="product_size">
-                    <span class="select_text">196/86 sm</span>
+                    <span class="select_text"></span>
                     <img src="/assets/users/plugins/images/select_down.png" class="select_down" />
                     <img src="/assets/users/plugins/images/select_up.png" class="select_up" />
-                    <div class="select_size_place">
-                        <p class="select_size">196/86 sm</p>
-                        <p class="select_size">180/90 sm</p>
-                        <p class="select_size">176/86 sm</p>
-                        <p class="select_size">200/100 sm</p>
+                    <div class="select_size_place frame_size_ajax">
+                        {{--<p class="select_size">196/86 sm</p>--}}
+                        {{--<p class="select_size">180/90 sm</p>--}}
+                        {{--<p class="select_size">176/86 sm</p>--}}
+                        {{--<p class="select_size">200/100 sm</p>--}}
                     </div>
                 </div>
             </div>
             <div class="select_product_parent">
                 <p class="select_title">choose frame:</p>
                 <div class="product_frame">
-                    <span class="frame_text">ash</span>
+                    <span class="frame_text"></span>
                     <img src="/assets/users/plugins/images/select_down.png" class="select_down" />
                     <img src="/assets/users/plugins/images/select_up.png" class="select_up" />
-                    <div class="select_size_place">
-                        <p class="select_frame">
-                            <img src="/assets/users/plugins/images/select_img1.jpg" class="select_img"/>
-                            ash
-                        </p>
-                        <p class="select_frame">
-                            <img src="/assets/users/plugins/images/select_img2.jpg" class="select_img"/>
-                            noca
-                        </p>
-                        <p class="select_frame">
-                            <img src="/assets/users/plugins/images/select_img3.jpg" class="select_img"/>
-                            tobaco
-                        </p>
+                    <div class="select_size_place frame_place_ajax">
+                        {{--<p class="select_frame">--}}
+                            {{--<img src="/assets/users/plugins/images/select_img1.jpg" class="select_img"/>--}}
+                            {{--ash--}}
+                        {{--</p>--}}
+                        {{--<p class="select_frame">--}}
+                            {{--<img src="/assets/users/plugins/images/select_img2.jpg" class="select_img"/>--}}
+                            {{--noca--}}
+                        {{--</p>--}}
+                        {{--<p class="select_frame">--}}
+                            {{--<img src="/assets/users/plugins/images/select_img3.jpg" class="select_img"/>--}}
+                            {{--tobaco--}}
+                        {{--</p>--}}
                     </div>
                 </div>
             </div>
             <div class="select_product_parent">
                 <p class="select_title">price:</p>
                 <div class="product_price">
-                    800 usd
+                    {{--800 usd--}}
                 </div>
                 <a href="{{action('PaymentController@getPayPal')}}" class="price_btn_text">
                     <button class="price_btn">

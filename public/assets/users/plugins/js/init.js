@@ -278,6 +278,28 @@ $(document).ready(function(){
 
 	$(".product_img_child").click(function(e){
 		e.stopPropagation();
+		var id = $(this).attr('data-id');
+		$('.frame_place_ajax').empty();
+		$('.frame_size_ajax').empty();
+		$('.product_price').empty();
+		html_frame = "";
+		html_size = "";
+		$.ajax({
+			url: '/index.php/images-inner-frame/'+id,
+			type: 'get',
+			success: function(data)
+			{
+				$.each(data.frames, function(i, item) {
+					html_frame += '<p class="select_size">'+item.frame+'</p>'
+					html_size +=  '<p class="select_frame">'+item.size+' sm</p>'
+				});
+				$('.frame_place_ajax').append(html_frame);
+				$('.frame_size_ajax').append(html_size);
+				price_html = data.inners.price+"<span style='margin-left: 5px'>usd</span>";
+				$('.product_price').append(price_html)
+			}
+		});
+
 
 		window.src = $(this).children(":first").attr("src");
 		window.text = $(this).parent().children(".product_text").html();

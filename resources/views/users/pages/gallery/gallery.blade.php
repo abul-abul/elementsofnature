@@ -109,33 +109,19 @@
 <!-- yellow place 3 photos-->
 <div class="footer_top_place">
     <div class="footer_top_place_center">
-        <div class="footer_top_images">
-            <div class="footer_top_abs">
-                <h2 class="footer_top_title">
-                    Kenya photographic safari
-                    <span class="follow_us_title_underline"></span>
-                </h2>
+        @foreach($news as $new)
+            <a href="{{action('UsersController@getNewsInner',$new->id)}}">
+            <div class="footer_top_images">
+                <div class="footer_top_abs">
+                    <h2 class="footer_top_title">
+                        {{$new->title}}
+                        <span class="follow_us_title_underline"></span>
+                    </h2>
+                </div>
+                <img src="/assets/news-images/{{$new->images}}" class="footer_top_img" />
             </div>
-            <img src="/assets/users/plugins/images/news1.jpg" class="footer_top_img" />
-        </div>
-        <div class="footer_top_images">
-            <div class="footer_top_abs">
-                <h2 class="footer_top_title">
-                    world through the  eyes of scott dere
-                    <span class="follow_us_title_underline"></span>
-                </h2>
-            </div>
-            <img src="/assets/users/plugins/images/news2.jpg" class="footer_top_img" />
-        </div>
-        <div class="footer_top_images">
-            <div class="footer_top_abs">
-                <h2 class="footer_top_title">
-                    Color magazine about  scott
-                    <span class="follow_us_title_underline"></span>
-                </h2>
-            </div>
-            <img src="/assets/users/plugins/images/news3.jpg" class="footer_top_img" />
-        </div>
+            </a>
+        @endforeach
     </div>
 </div>
 <!-- yellow place 3 photos-->
