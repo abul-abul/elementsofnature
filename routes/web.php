@@ -31,6 +31,7 @@ Route::get('user/news-inner/{id}','UsersController@getNewsInner');
 Route::get('paypal','PaymentController@getPayPal');
 Route::get('paypal-cancel','PaymentController@getPaypalCancelResponse');
 Route::get('paypal-response','PaymentController@getPaypalReturnResponse');
+Route::get('pay-page/{id}','PaymentController@getPayPage');
 //endpayments
 
 

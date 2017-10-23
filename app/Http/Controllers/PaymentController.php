@@ -21,12 +21,23 @@ use PayPal\Api\Refund;
 //use App\Contracts\OrderInterface;
 //use App\Contracts\ShippingAddressInterface;
 //use App\Contracts\MailInterface;
+use App\Contracts\GalleryCategoryImagesInnerInterface;
+use App\Contracts\GalleryCategoryFrameInterface;
 
 
 class PaymentController extends Controller
 {
 
 
+    public function getPayPage($id,
+                                GalleryCategoryImagesInnerInterface $innerRepo,
+                                GalleryCategoryFrameInterface $frameRepo
+                                )
+    {
+        $inner = $innerRepo->getOne($id);
+
+        dd($inner);
+    }
 
     public function getPayPal()
     {
