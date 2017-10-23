@@ -131,6 +131,12 @@ class UsersController extends BaseController
         return view('users.pages.gallery.gallery-inner', $data);
     }
 
+    /**
+     * @param $id
+     * @param GalleryCategoryFrameInterface $galFrameRepo
+     * @param GalleryCategoryImagesInnerInterface $innerRepo
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getImagesInnerFrame($id,
                                         GalleryCategoryFrameInterface $galFrameRepo,
                                         GalleryCategoryImagesInnerInterface $innerRepo
