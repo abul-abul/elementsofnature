@@ -156,6 +156,7 @@
                     <img src="/assets/users/plugins/images/select_down.png" class="select_down" />
                     <img src="/assets/users/plugins/images/select_up.png" class="select_up" />
                     <div class="select_size_place frame_place_ajax">
+
                         {{--<p class="select_frame">--}}
                             {{--<img src="/assets/users/plugins/images/select_img1.jpg" class="select_img"/>--}}
                             {{--ash--}}
@@ -176,12 +177,19 @@
                 <div class="product_price">
                     {{--800 usd--}}
                 </div>
-                <a href="{{action('PaymentController@getPayPage',$id)}}" class="price_btn_text">
+                {!! Form::open(['action' => ['PaymentController@getPayPage',$id],'files' => 'true', 'method' => 'GET' ]) !!}
+
+                <input type="hidden" name="size" class="paySize">
+                <input type="hidden" name="frame" class="payFrame">
+                <input type="hidden" name="price" class="payPrice">
+                {{--<a href="{{action('PaymentController@getPayPage',$id)}}" class="price_btn_text">--}}
                 {{--<a href="{{action('PaymentController@getPayPal')}}" class="price_btn_text">--}}
-                    <button class="price_btn">
+                    <button type="submit" class="price_btn">
                         buy now
                     </button>
-                </a>
+                {{--</a>--}}
+                {!! Form::close() !!}
+
             </div>
         </div>
     </div>

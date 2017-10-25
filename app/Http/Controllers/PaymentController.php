@@ -29,14 +29,15 @@ class PaymentController extends Controller
 {
 
 
-    public function getPayPage($id,
+    public function getPayPage($id,request $request,
                                 GalleryCategoryImagesInnerInterface $innerRepo,
                                 GalleryCategoryFrameInterface $frameRepo
                                 )
     {
-        $inner = $innerRepo->getOne($id);
+        $result = $request->all();
+        $inner = $frameRepo->getOne($id);
 
-        dd($inner);
+        dd($id);
     }
 
     public function getPayPal()
