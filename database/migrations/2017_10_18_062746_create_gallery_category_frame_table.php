@@ -19,6 +19,7 @@ class CreateGalleryCategoryFrameTable extends Migration
             $table->string('gallery_category_images_inner_id')->nullable();
             $table->string('size')->nullable();
             $table->string('frame')->nullable();
+            $table->string('price')->nullable();
             $table->timestamps();
         });
     }

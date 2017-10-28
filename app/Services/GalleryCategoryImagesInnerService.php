@@ -97,4 +97,6 @@ class GalleryCategoryImagesInnerService implements GalleryCategoryImagesInnerInt
         return $this->gallerycategoryimagesinner->where('gallery_category_images_id',$id)->where('title',null)->where('description',null)->delete();
     }
 
+    
+
 }

@@ -11,7 +11,10 @@ class GalleryCategoryFrame extends Model
     protected $fillable = ['gallery_category_images_id',
                             'gallery_category_images_inner_id',
                             'size',
-                            'frame'
+                            'frame',
+                            'price'
                             ];
+
+   
 
 }

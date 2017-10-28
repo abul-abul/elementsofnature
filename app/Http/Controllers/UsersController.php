@@ -51,6 +51,7 @@ class UsersController extends BaseController
             'news' => $newsFavourite,
             'hoveNavigator' => 1
         ];
+    
         return view('users.home', $data);
     }
 

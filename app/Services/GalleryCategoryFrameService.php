@@ -97,7 +97,6 @@ class GalleryCategoryFrameService implements GalleryCategoryFrameInterface
     public function getAllFramesInId($id)
     {
         return $this->frame->where('gallery_category_images_inner_id',$id)->get();
-
     }
 
 }

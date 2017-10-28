@@ -940,9 +940,9 @@ class AdminController extends BaseController
      * @return mixed
      */
     public function postAddGalleryCategoryImages(request $request,
-                                                 GalleryCategoryImagesInterface $GalleryCategoryImagesRepo,
-                                                 GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
-                                                 GalleryCategoryFrameInterface $galleryCanvasRepo
+                                                 GalleryCategoryImagesInterface $GalleryCategoryImagesRepo
+                                                 //GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                                 //GalleryCategoryFrameInterface $galleryCanvasRepo
                                                  )
     {
 
@@ -950,9 +950,9 @@ class AdminController extends BaseController
 
         $validator = Validator::make($result, [
             'images' => 'required',
-            'images_inner' => 'required',
-            'size' => 'required',
-            'price' => 'required'
+//            'images_inner' => 'required',
+//            'size' => 'required',
+//            'price' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -972,24 +972,26 @@ class AdminController extends BaseController
             ];
 
             $gallery_images_create = $GalleryCategoryImagesRepo->createData($data_images);
+            return redirect()->back()->with('message', 'You have Added Gallery Category Images');
 
-            $logoFile1 = $result['images_inner']->getClientOriginalExtension();
-            $name1 = str_random(12);
-            $path1 = public_path() . '/assets/gallery-category-images';
-            $result_move1 = $result['images_inner']->move($path1, $name1 . '.' . $logoFile1);
-            $gallery_images1 = $name1 . '.' . $logoFile1;
+//
+//            $logoFile1 = $result['images_inner']->getClientOriginalExtension();
+//            $name1 = str_random(12);
+//            $path1 = public_path() . '/assets/gallery-category-images';
+//            $result_move1 = $result['images_inner']->move($path1, $name1 . '.' . $logoFile1);
+//            $gallery_images1 = $name1 . '.' . $logoFile1;
+//
+//            $data_images_inner = [
+//                'gallery_category_images_id' => $gallery_images_create['id'],
+//                'title' => $result['title_1'],
+//                'description' => $result['description_1'],
+//                'alt' => $result['alt_1'],
+//                'images' => $gallery_images1,
+//                'price' => $result['price']
+//            ];
 
-            $data_images_inner = [
-                'gallery_category_images_id' => $gallery_images_create['id'],
-                'title' => $result['title_1'],
-                'description' => $result['description_1'],
-                'alt' => $result['alt_1'],
-                'images' => $gallery_images1,
-                'price' => $result['price']
-            ];
 
-
-            $catImagesInner = $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
+         //   $catImagesInner = $GalleryCategoryImagesInnerRepo->createData($data_images_inner);
 
 
 //            $img_inner_key_array = [];
@@ -1068,52 +1070,52 @@ class AdminController extends BaseController
 //            }
 
 
+//
+//            $img_frame_key_array = [];
+//            foreach ($result as $key => $value) {
+//                if (count(explode('size_', $key)) > 1) {
+//                    array_push($img_frame_key_array, $key);
+//                }
+//                if (explode('frame_', $key) != '') {
+//                    if (count(explode('frame_', $key)) > 1) {
+//                        array_push($img_frame_key_array, $key);
+//                    }
+//                }
+//            }
+//
+//            $array_images_value = [];
+//            foreach ($img_frame_key_array as $key => $value) {
+//                array_push($array_images_value, $result[$value]);
+//            }
+//            $dataFrame = [
+//                'frame' => $result['frame'],
+//                'size' => $result['size'],
+//                'gallery_category_images_id' => $gallery_images_create['id'],
+//                'gallery_category_images_inner_id' => $catImagesInner->id
+//            ];
+//
+//            $galleryCanvasRepo->createData($dataFrame);
+//
+//            for ($i = 1; $i <= count(array_combine($array_images_value, $img_frame_key_array)); $i++) {
+//
+//                $dataChild = [];
+//
+//                if (isset($result['size_' . $i]) && $result['size_' . $i] != null) {
+//                    $dataChild['size'] = $result['size_' . $i];
+//                }
+//
+//                if (explode('frame_', $i) != '') {
+//                    if (isset($result['frame_' . $i]) && $result['frame_' . $i] != null) {
+//                        $dataChild['frame'] = $result['frame_' . $i];
+//                    }
+//                }
+//
+//                $dataChild['gallery_category_images_inner_id'] = $catImagesInner->id;
+//                $dataChild['gallery_category_images_id'] = $gallery_images_create['id'];
+//                $galleryCanvasRepo->createData($dataChild);
+//                $galleryCanvasRepo->getDeleteNullFids($catImagesInner->id);
+//            }
 
-            $img_frame_key_array = [];
-            foreach ($result as $key => $value) {
-                if (count(explode('size_', $key)) > 1) {
-                    array_push($img_frame_key_array, $key);
-                }
-                if (explode('frame_', $key) != '') {
-                    if (count(explode('frame_', $key)) > 1) {
-                        array_push($img_frame_key_array, $key);
-                    }
-                }
-            }
-
-            $array_images_value = [];
-            foreach ($img_frame_key_array as $key => $value) {
-                array_push($array_images_value, $result[$value]);
-            }
-            $dataFrame = [
-                'frame' => $result['frame'],
-                'size' => $result['size'],
-                'gallery_category_images_id' => $gallery_images_create['id'],
-                'gallery_category_images_inner_id' => $catImagesInner->id
-            ];
-
-            $galleryCanvasRepo->createData($dataFrame);
-
-            for ($i = 1; $i <= count(array_combine($array_images_value, $img_frame_key_array)); $i++) {
-
-                $dataChild = [];
-
-                if (isset($result['size_' . $i]) && $result['size_' . $i] != null) {
-                    $dataChild['size'] = $result['size_' . $i];
-                }
-
-                if (explode('frame_', $i) != '') {
-                    if (isset($result['frame_' . $i]) && $result['frame_' . $i] != null) {
-                        $dataChild['frame'] = $result['frame_' . $i];
-                    }
-                }
-
-                $dataChild['gallery_category_images_inner_id'] = $catImagesInner->id;
-                $dataChild['gallery_category_images_id'] = $gallery_images_create['id'];
-                $galleryCanvasRepo->createData($dataChild);
-                $galleryCanvasRepo->getDeleteNullFids($catImagesInner->id);
-            }
-            return redirect()->back()->with('message', 'You have Added Gallery Category Images');
         }
     }
 
@@ -1180,7 +1182,8 @@ class AdminController extends BaseController
             //'frame' => $result['frame'],
             'size' => $result['size'],
             'gallery_category_images_id' => $result['id'],
-            'gallery_category_images_inner_id' => $dataInnerObj->id
+            'gallery_category_images_inner_id' => $dataInnerObj->id,
+            'price' => $result['price']
         ];
 
 
@@ -1206,6 +1209,8 @@ class AdminController extends BaseController
 
             $dataChild['gallery_category_images_id'] = $result['id'];
             $dataChild['gallery_category_images_inner_id'] = $dataInnerObj->id;
+            $dataChild['price'] = $result['price'];
+
             $galleryCanvasRepo->createData($dataChild);
             $galleryCanvasRepo->getDeleteNullFids($result['id']);
 
