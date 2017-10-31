@@ -1,7 +1,5 @@
 @extends('app-admin')
-@section('admin-content')
 
-    @extends('app-admin')
 @section('admin-content')
     <h1>Edit Yor Gallery Category</h1>
     <div class="portlet-body form">
@@ -45,8 +43,3 @@
     </div>
 @endsection
 
-
-
-
-
-@endsection

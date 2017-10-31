@@ -120,7 +120,8 @@ $(document).ready(function () {
             count_size++;
             content = "";
             content += "<div>"
-            content += "<input placeholder='Size' class='form-control tt-input' style='margin-top:15px;width:80%' type='text' name='size_"+count_size+"'>"
+            content += "<input placeholder='Size' class='form-control tt-input' style='margin-top:15px;width:50%' type='text' name='size_"+count_size+"'>";
+            content += "<input placeholder='Price' class='form-control tt-input' style='margin:15px 0 0 15px;width:29%' type='text' name='price_"+count_size+"'>";
             content += "<div class='col-md-2'><i style='color: red;cursor: pointer;margin-left: 46px;font-size: 21px;margin-top:24px' class='glyphicon glyphicon-remove del_size'></i></div>"
             content += "</div>"
             $('.size_added').append(content);
@@ -136,68 +137,68 @@ $(document).ready(function () {
 
 
         //change Frame
-        $('.edit_inner_frame').click(function () {
-            var id = $(this).attr('data-id');
-            $('.frame_modal').empty();
+        // $('.edit_inner_frame').click(function () {
+        //     var id = $(this).attr('data-id');
+        //     $('.frame_modal').empty();
+        //
+        //     var content = "";
+        //     $.ajax({
+        //         url: '/index.php/admin/all-frames/'+id,
+        //         type: 'get',
+        //         success: function(data)
+        //         {
+        //             $.each(data.resource, function( index, value ) {
+        //                 if (value.frame != null || value.size != null){
+        //                     content += '<div class="col-md-12" style="border-bottom: 1px solid #2f343b;">';
+        //                     content += '<div class="col-md-12">';
+        //                     content += '<div class="col-md-12" style="margin-top: 12px;">';
+        //                     content += '<b class="col-md-12">Frame</b>';
+        //                     content += '<div class="col-md-10">';
+        //                     content += '<input class="form-control tt-input" type="text" value="' + value.frame + '">';
+        //                     content += '</div>';
+        //                     content += '<div class="col-md-2">';
+        //                     content += '<button data-name="frame" data-id="' + value.id + '" class="btn green edit_frame">Edit</button>';
+        //                     content += '</div>';
+        //                     content += '</div>';
+        //                     content += '</div>';
+        //
+        //                     content += '<div class="col-md-12">';
+        //                     content += '<div class="col-md-12" style="    margin-bottom: 12px;">';
+        //                     content += '<b class="col-md-12">Size</b>';
+        //                     content += '<div class="col-md-10">';
+        //                     content += '<input class="form-control tt-input" type="text" value="' + value.size + '">';
+        //                     content += '</div>';
+        //                     content += '<div class="col-md-2">';
+        //                     content += '<button data-name="size" data-id="' + value.id + '" class="btn green edit_frame">Edit</button>';
+        //                     content += '</div>';
+        //                     content += '</div>';
+        //                     content += '</div>';
+        //                     content += '</div>';
+        //                 }
+        //             });
+        //             $('.frame_modal').append(content);
+        //
+        //         }
+        //     });
+        // });
 
-            var content = "";
-            $.ajax({
-                url: '/index.php/admin/all-frames/'+id,
-                type: 'get',
-                success: function(data)
-                {
-                    $.each(data.resource, function( index, value ) {
-                        if (value.frame != null || value.size != null){
-                            content += '<div class="col-md-12" style="border-bottom: 1px solid #2f343b;">';
-                            content += '<div class="col-md-12">';
-                            content += '<div class="col-md-12" style="margin-top: 12px;">';
-                            content += '<b class="col-md-12">Frame</b>';
-                            content += '<div class="col-md-10">';
-                            content += '<input class="form-control tt-input" type="text" value="' + value.frame + '">';
-                            content += '</div>';
-                            content += '<div class="col-md-2">';
-                            content += '<button data-name="frame" data-id="' + value.id + '" class="btn green edit_frame">Edit</button>';
-                            content += '</div>';
-                            content += '</div>';
-                            content += '</div>';
-
-                            content += '<div class="col-md-12">';
-                            content += '<div class="col-md-12" style="    margin-bottom: 12px;">';
-                            content += '<b class="col-md-12">Size</b>';
-                            content += '<div class="col-md-10">';
-                            content += '<input class="form-control tt-input" type="text" value="' + value.size + '">';
-                            content += '</div>';
-                            content += '<div class="col-md-2">';
-                            content += '<button data-name="size" data-id="' + value.id + '" class="btn green edit_frame">Edit</button>';
-                            content += '</div>';
-                            content += '</div>';
-                            content += '</div>';
-                            content += '</div>';
-                        }
-                    });
-                    $('.frame_modal').append(content);
-
-                }
-            });
-        });
-
-        $(document).on('click','.edit_frame',function () {
-            var frame_id = $(this).attr('data-id');
-            var frame_name = $(this).attr('data-name');
-            var token = $('.token').attr('content');
-            var val = $(this).parent().prev().children().val();
-            $.ajax({
-                url: '/index.php/admin/delete-gallery-category-images-inner',
-                type: 'post',
-                data: {_token:token,frame_id:frame_id,frame_name:frame_name,val:val},
-                success: function(data)
-                {
-                    $('#myModal1').modal('hide');
-                    $('.frame_modal').empty();
-
-                }
-            });
-
-        })
+        // $(document).on('click','.edit_frame',function () {
+        //     var frame_id = $(this).attr('data-id');
+        //     var frame_name = $(this).attr('data-name');
+        //     var token = $('.token').attr('content');
+        //     var val = $(this).parent().prev().children().val();
+        //     $.ajax({
+        //         url: '/index.php/admin/delete-gallery-category-images-inner',
+        //         type: 'post',
+        //         data: {_token:token,frame_id:frame_id,frame_name:frame_name,val:val},
+        //         success: function(data)
+        //         {
+        //             $('#myModal1').modal('hide');
+        //             $('.frame_modal').empty();
+        //
+        //         }
+        //     });
+        //
+        // })
 
 });

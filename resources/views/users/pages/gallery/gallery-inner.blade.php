@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-            <div class="select_product_parent">
+            <div class="select_product_parent product_frame_product_parent">
                 <p class="select_title">choose frame:</p>
                 <div class="product_frame">
                     <span class="frame_text"></span>

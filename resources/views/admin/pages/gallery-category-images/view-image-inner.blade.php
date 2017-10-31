@@ -53,8 +53,8 @@
                                             {{--<th>Size</th>--}}
                                             {{--<th>Frame or canvas</th>--}}
                                             {{--<th>Frame</th>--}}
-                                            <th>Price</th>
-                                            <th>Edit Frame/Edit/Delete</th>
+                                            {{--<th>Price</th>--}}
+                                            <th>Edit Frame /Edit/ Delete</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -69,12 +69,15 @@
                                                 {{--<td>{{$imageFrame->size}}</td>--}}
                                                 {{--<td>{{$imageFrame->frame_canvas}}</td>--}}
                                                 {{--<td>{{$imageFrame->frame}}</td>--}}
-                                                <td>{{$imageFrame->price}}</td>
+                                                {{--<td>{{$imageFrame->price}}</td>--}}
 
                                                 <td>
-                                                    <button  data-toggle="modal" data-target="#myModal1" type="button" data-id="{{$imageFrame->id}}" class="btn btn-warning edit_inner_frame">
-                                                        <i class="glyphicon glyphicon-edit"></i>
-                                                    </button>
+                                                    <a href="{{action('AdminController@getAllFrames',$imageFrame->id)}}">
+                                                        <button  type="button"  class="btn btn-warning edit_inner_frame">
+                                                            <i class="glyphicon glyphicon-edit"></i>
+                                                        </button>
+                                                    </a>
+
                                                     <a href="{{action('AdminController@getEditGalleryCategoryImagesInner',[$imageFrame->id,$id])}}">
                                                         <button class="btn green">
                                                             <i class="glyphicon glyphicon-pencil"></i>
@@ -309,17 +312,17 @@
 
     {{-- frame modal --}}
 
-    <div class="modal fade" id="myModal1" role="dialog">
-        <div class="modal-dialog">
+    {{--<div class="modal fade" id="myModal1" role="dialog">--}}
+        {{--<div class="modal-dialog">--}}
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <center>Change Frame</center>
-                </div>
-                <input type="hidden" content="{{ csrf_token() }}" class="token">
-                <div class="modal-body frame_modal">
+            {{--<!-- Modal content-->--}}
+            {{--<div class="modal-content">--}}
+                {{--<div class="modal-header">--}}
+                    {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                    {{--<center>Change Frame</center>--}}
+                {{--</div>--}}
+                {{--<input type="hidden" content="{{ csrf_token() }}" class="token">--}}
+                {{--<div class="modal-body frame_modal">--}}
                     {{--@foreach($frames as $frame)--}}
                         {{--<div class="col-md-12">--}}
                             {{--<div class="col-md-12">--}}
@@ -346,14 +349,14 @@
                             {{--</div>--}}
                         {{--</div>--}}
                     {{--@endforeach--}}
-                </div>
-                <div class="modal-footer">
+                {{--</div>--}}
+                {{--<div class="modal-footer">--}}
                     {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-                </div>
-            </div>
+                {{--</div>--}}
+            {{--</div>--}}
 
-        </div>
-    </div>
+        {{--</div>--}}
+    {{--</div>--}}
 
 
     {{-- end frame modal --}}

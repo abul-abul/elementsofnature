@@ -1153,7 +1153,7 @@ class AdminController extends BaseController
         $dataInner = [
             'title' => $result['title'],
             'description' => $result['description'],
-            'price' => $result['price'],
+          //  'price' => $result['price'],
             'images' => $gallery_images,
             'gallery_category_images_id' => $result['id']
         ];
@@ -1173,6 +1173,12 @@ class AdminController extends BaseController
                 }
             }
 
+            if(explode('price_',$key) != ''){
+                if(count(explode('frame_',$key)) > 1){
+                    array_push($img_frame_key_array,$key);
+                }
+            }
+
         }
 
         $array_images_value = [];
@@ -1182,10 +1188,11 @@ class AdminController extends BaseController
 
         $dataFrame = [
             //'frame' => $result['frame'],
+            'price' => $result['price'],
             'size' => $result['size'],
             'gallery_category_images_id' => $result['id'],
             'gallery_category_images_inner_id' => $dataInnerObj->id,
-            'price' => $result['price']
+
         ];
 
 
@@ -1209,9 +1216,13 @@ class AdminController extends BaseController
                 }
             }
 
+            if(isset($result['price_' . $i]) && $result['price_' . $i] != null){
+                $dataChild['price'] = $result['price_' . $i];
+            }
+
             $dataChild['gallery_category_images_id'] = $result['id'];
             $dataChild['gallery_category_images_inner_id'] = $dataInnerObj->id;
-            $dataChild['price'] = $result['price'];
+            //$dataChild['price'] = $result['price'];
 
             $galleryCanvasRepo->createData($dataChild);
             $galleryCanvasRepo->getDeleteNullFids($result['id']);
@@ -1222,10 +1233,19 @@ class AdminController extends BaseController
 
     }
 
+    /**
+     * @param $id
+     * @param GalleryCategoryFrameInterface $galleryCanvasRepo
+     * @return View
+     */
     public function getAllFrames($id,GalleryCategoryFrameInterface $galleryCanvasRepo)
     {
         $result = $galleryCanvasRepo->getAllFramesInId($id);
-        return response()->json(["status"=>"success","resource"=>$result]);
+        $data = [
+            'gallery_category_actiove' => 1,
+            'frames' => $result
+        ];
+        return view('admin.pages.gallery-category-images.edit-frame-size',$data);
     }
 
     /**
@@ -1248,6 +1268,8 @@ class AdminController extends BaseController
 
         return response()->json(["status"=>"success","resource"=>$response]);
     }
+
+
 //    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)
 //    {
 //        $result =$request->all();

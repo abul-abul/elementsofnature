@@ -109,7 +109,7 @@ Route::get('admin/delete-gallery-category-images-inner/{id}','AdminController@ge
 
 Route::get('admin/all-frames/{id}','AdminController@getAllFrames');
 
-Route::post('admin/delete-gallery-category-images-inner','AdminController@postEditImgFrame');
+Route::post('admin/edit-img-frame','AdminController@postEditImgFrame');
 
 Route::get('admin/delete-gallery-category-images/{id}','AdminController@getDeleteGalleryCategoryImages');
 Route::post('admin/add-gallery-category-images-background','AdminController@postAddGalleryCategoryImagesBackground');

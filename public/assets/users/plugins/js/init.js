@@ -290,22 +290,27 @@ $(document).ready(function(){
 			success: function(data)
 			{
 				$.each(data.frames, function(i, item) {
-					html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame">'+item.frame+'</p>'
-					html_size +=  '<p id="'+item.size+'" onclick="selectSize(this.id)" class="select_size">'+item.size+' sm</p>'
+
+					if(item.frame != null){
+						html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame">'+item.frame+'</p>'
+					}else{
+						$('.product_frame_product_parent').remove();
+					}
+					if(item.size != null){
+						html_size +=  '<p  id="'+item.size+'" onclick="selectSize(this.id)" class="select_size">'+item.size+' sm</p>'
+					}
 				});
 				$('.frame_place_ajax').append(html_frame);
 				$('.frame_size_ajax').append(html_size);
-				price_html = data.inners.price+"<span style='margin-left: 5px'>usd</span>";
-				$('.product_price').append(price_html);
-				$('.payPrice').val(data.inners.price);
+				// price_html = data.inners.price+"<span style='margin-left: 5px'>usd</span>";
+				// $('.product_price').append(price_html);
+				// $('.payPrice').val(data.inners.price);
 			}
 		});
 
-
-
-		window.src = $(this).children(":first").attr("src");
-		window.text = $(this).parent().children(".product_text").html();
-		window.longText = $(this).parent().children(".product_text_hide").html();
+		var src = $(this).children(":first").attr("src");
+		var text = $(this).parent().children(".product_text").html();
+		var longText = $(this).parent().children(".product_text_hide").html();
 
 		$(".product_img_abs").css({
 			"display":"block",
@@ -334,6 +339,8 @@ $(document).ready(function(){
 		$(".product_big_title").text(text);
 		$(".product_big_text").text(longText);
 	});
+
+
 
 	$(".product_big_place_center").click(function(e){
 		e.stopPropagation();
@@ -483,7 +490,13 @@ $(document).ready(function(){
 	// product open size & frame
 
 
+
+
 });
+
+
+
+
 
 function selectSize(item) {
     $('.paySize').val(item);
@@ -494,6 +507,9 @@ function selectFrame(item) {
 	$('.frame_text').text(item);
 	$('.payFrame').val(item);
 }
+
+
+
 
 shareFbPage = function(){
 

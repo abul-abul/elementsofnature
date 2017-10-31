@@ -62,13 +62,14 @@
                                                                         <button style="margin: 14px 0 0 35px" type="button" class="btn green add_frame">Add</button>
                                                                     </div>
                                                                     <div class="col-md-11 size_added">
-                                                                        {!! Form::text('size', null, ['placeholder'=>'Size','class' => 'form-control tt-input','style'=>'margin-top:15px;width:80%']) !!}
+                                                                        {!! Form::text('size', null, ['placeholder'=>'Size','class' => 'form-control tt-input','style'=>'margin-top:15px;width:50%']) !!}
+                                                                        {!! Form::number('price', null, ['placeholder'=>'Price','class' => 'form-control tt-input','style'=>'margin:15px 0 0 15px;width:29%']) !!}
+
                                                                         <button style="margin: 14px 0 0 35px" type="button" class="btn green add_size_gal_inner">Add</button>
 
                                                                     </div>
-                                                                    <div class="col-md-5">
-                                                                        {!! Form::number('price', null, ['placeholder'=>'Price','class' => 'form-control tt-input','style'=>'margin-top:15px']) !!}
-                                                                    </div>
+                                                                    {{--<div class="col-md-5">--}}
+                                                                    {{--</div>--}}
                                                                     <div class="col-md-5">
                                                                         {!! Form::text('alt', null, ['placeholder'=>'Alt','class' => 'form-control tt-input','style'=>'margin-top:15px']) !!}
                                                                     </div>
