@@ -16,6 +16,7 @@ class CreateWorkshopTable extends Migration
         Schema::create('workshop', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
+            $table->string('price')->nullable();
             $table->longText('description')->nullable();
             $table->string('location')->nullable();
             $table->string('images')->nullable();

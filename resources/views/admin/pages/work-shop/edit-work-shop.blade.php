@@ -13,7 +13,12 @@
                     {!! Form::text('title', null, ['placeholder' => 'Title' , 'class' => 'form-control']) !!}
                 </div>
             </div>
-
+            <div class="col-md-12 form-group">
+                <label style="margin-left: 15px">Price</label>
+                <div class="col-md-12">
+                    {!! Form::text('price', null, ['placeholder' => 'Title' , 'class' => 'form-control']) !!}
+                </div>
+            </div>
             <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Description</label>
                 <div class="col-md-12">

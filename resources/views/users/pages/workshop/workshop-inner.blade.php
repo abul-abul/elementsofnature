@@ -43,6 +43,10 @@
                 {{$workshops->location}}
             </p>
             <p class="event_p">
+                <span>Price:</span>
+                {{$workshops->price}}
+            </p>
+            <p class="event_p">
                 <span>Start:</span>
                 {{date('d M Y', strtotime($workshops->created_at))}}
             </p>

@@ -8,5 +8,5 @@ class WorkShop extends Model
 {
     protected $table = 'workshop';
 
-    protected $fillable = ['title', 'description','location','images'];
+    protected $fillable = ['title', 'description','location','images','price'];
 }

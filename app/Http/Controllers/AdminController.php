@@ -842,7 +842,9 @@ class AdminController extends BaseController
         $logoFile = $result['images']->getClientOriginalExtension();
         $name = str_random(12);
         $path = public_path() . '/assets/gallery-category-images';
+
         $result_move = $result['images']->move($path, $name.'.'.$logoFile);
+
         $gallery_images = $name.'.'.$logoFile;
         $result['images'] = $gallery_images;
         $galleryCategoryRepo->createData($result);
@@ -1687,7 +1689,8 @@ class AdminController extends BaseController
         $validator = Validator::make($result, [
             'title' => 'required',
             'description' => 'required',
-            'images' => 'required'
+            'images' => 'required',
+            'price' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -1700,7 +1703,8 @@ class AdminController extends BaseController
             $data = [
                 'title' => $result['title'],
                 'description' => $result['description'],
-                'location' => $result['location']
+                'location' => $result['location'],
+                'price' => $result['price'],
             ];
             $data['images'] = $gallery_images;
             $created_workshop = $workShopRepo->createData($data);

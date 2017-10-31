@@ -47,6 +47,17 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-3 control-label">Price</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;width: 337px">
+                        {!! Form::text('price', null, ['class' => 'form-control tt-input','id' => 'typeahead_example_1']) !!}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-3 control-label">Topics Covered</label>
             <div class="col-sm-7">
                 <div class="input-group" style="width: 100%">

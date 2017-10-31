@@ -50,6 +50,7 @@
                                                     <th>Title</th>
                                                     <th>Description</th>
                                                     <th>location</th>
+                                                    <th>Price</th>
                                                     <th>Images</th>
                                                     <th>Edit/Delete</th>
                                                 </tr>
@@ -60,6 +61,7 @@
                                                     <td>{{$workshop->title}}</td>
                                                     <td>{{$workshop->description}}</td>
                                                     <td>{{$workshop->location}}</td>
+                                                    <td>{{$workshop->price}}</td>
                                                     <td>
                                                         <img style="width: 114px;height: 56px" src="/assets/work-shop-images/{{$workshop->images}}" alt="">
                                                     </td>
