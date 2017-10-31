@@ -293,8 +293,9 @@ $(document).ready(function(){
 
 					if(item.frame != null){
 						html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame">'+item.frame+'</p>'
+						$('.product_frame_product_parent').css('display','block');
 					}else{
-						$('.product_frame_product_parent').remove();
+						$('.product_frame_product_parent').css('display','none');
 					}
 					if(item.size != null){
 						html_size +=  '<p  id="'+item.size+'" onclick="selectSize(this.id)" class="select_size">'+item.size+' sm</p>'
