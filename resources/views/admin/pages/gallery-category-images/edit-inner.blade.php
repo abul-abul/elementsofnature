@@ -41,12 +41,7 @@
                 {{--</div>--}}
             {{--</div>--}}
             {{--@endif--}}
-            <div class="col-md-12 form-group">
-                <label style="margin-left: 15px">Price</label>
-                <div class="col-md-12">
-                    {!! Form::text('price', null, ['placeholder' => 'Price' , 'class' => 'form-control']) !!}
-                </div>
-            </div>
+
 
             <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Alt</label>

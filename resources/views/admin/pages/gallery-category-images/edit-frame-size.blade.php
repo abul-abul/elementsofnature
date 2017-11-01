@@ -1,42 +1,41 @@
 @extends('app-admin')
 @section('admin-content')
-    <h1>Edit Frame Size</h1>
-
-
     @include('message')
+    <h1>Edit Yor Gallery Category</h1>
     <div class="portlet-body form">
         <div class="col-md-12">
-            @foreach($frames as $key => $frame)
-                {!! Form::open(['action' => ['AdminController@postEditImgFrame'],'files' => 'true',  ]) !!}
-                <input type="hidden" name="id" value="{{$frame->id}}">
 
-                <div class="col-md-10">
-                    <div class="col-md-12">
-                        <div class="col-md-12" style="margin-top: 12px;">
-                        @if($frame->frame != null)
-                        <b class="col-md-12">Frame</b>
-                        <div class="col-md-10">
-                            {!! Form::text('frame', $frame->frame, [ 'class' => 'form-control tt-input']) !!}
-                        </div>
-                        @endif
-                        <div class="col-md-10">
-                            <b class="col-md-12">Size</b>
-                            {!! Form::text('size', $frame->size, [ 'class' => 'form-control tt-input']) !!}
-                        </div>
-                        <div style="margin-bottom: 50px" class="col-md-10">
-                            <b class="col-md-12">Price</b>
-                            {!! Form::text('price', $frame->price, [ 'class' => 'form-control tt-input']) !!}
-                        </div>
-                        </div>
-                    </div>
+            {!! Form::model($frames,['action' => ['AdminController@postEditFrames'] ,'files' =>true ] ) !!}
+            <input name="id" type="hidden" value='{{$id}}'>
+            <div class="col-md-12 form-group">
+                <label style="margin-left: 15px">Frame</label>
+                <div class="col-md-12">
+                    {!! Form::text('frame', null, ['placeholder' => 'frame' , 'class' => 'form-control']) !!}
                 </div>
-                <div style="float: right;width: 70%">
-                    <button type="submit" class="btn green">Submit</button>
-                </div>
-                {!! Form::close() !!}
-            @endforeach
+            </div>
 
+            <div class="col-md-12 form-group">
+                <label style="margin-left: 15px">Size</label>
+                <div class="col-md-12">
+                    {!! Form::text('size', null, ['placeholder' => 'Size' , 'class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="col-md-12 form-group">
+                <label style="margin-left: 15px">Price</label>
+                <div class="col-md-12">
+                    {!! Form::text('price', null, ['placeholder' => 'Price' , 'class' => 'form-control']) !!}
+                </div>
+            </div>
+
+
+            <div style="float: right;margin-right: 31px;">
+                <button type="submit" class="btn green">Submit</button>
+            </div>
+            {!! Form::close() !!}
         </div>
     </div>
 @endsection
+
+
+
 

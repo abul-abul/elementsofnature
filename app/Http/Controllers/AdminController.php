@@ -1233,14 +1233,29 @@ class AdminController extends BaseController
 
     }
 
+
+
+    /**
+     * @param Request $request
+     * @param GalleryCategoryFrameInterface $galleryCategoryFrame
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postEditFrames(request $request,GalleryCategoryFrameInterface $galleryCategoryFrame)
+    {
+        $result = $request->all();
+        $galleryCategoryFrame->getUpdateData($result['id'],$result);
+        return redirect()->back()->with('message','You have updated frame');
+    }
+
+
     /**
      * @param $id
      * @param GalleryCategoryFrameInterface $galleryCanvasRepo
      * @return View
      */
-    public function getAllFrames($id,GalleryCategoryFrameInterface $galleryCanvasRepo)
+    public function getEditFrames($id,GalleryCategoryFrameInterface $galleryCanvasRepo)
     {
-        $result = $galleryCanvasRepo->getAllFramesInId($id);
+        $result = $galleryCanvasRepo->getOne($id);
         $data = [
             'id' => $id,
             'gallery_category_actiove' => 1,
@@ -1254,11 +1269,13 @@ class AdminController extends BaseController
      * @param $frame_id
      * @return View
      */
-    public function getAddFramePage($image_id,$frame_id)
+    public function getAddFramePage($image_id,$frame_id,GalleryCategoryFrameInterface $galleryCanvasRepo)
     {
+        $result = $galleryCanvasRepo->getAllFramesInId($frame_id);
         $data = [
             'image_id' => $image_id,
             'frame_id' => $frame_id,
+            'frames' => $result,
             'gallery_category_actiove' => 1
         ];
         return view('admin.pages.gallery-category-images.add-frame-page',$data);
@@ -1275,6 +1292,17 @@ class AdminController extends BaseController
         $result = $request->all();
         $galleryCanvasRepo->createData($result);
         return redirect()->back()->with('message','You have add Frame');
+    }
+
+    /**
+     * @param $id
+     * @param GalleryCategoryFrameInterface $galleryCanvasRepo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getDeleteImgFrame($id,GalleryCategoryFrameInterface $galleryCanvasRepo)
+    {
+        $galleryCanvasRepo->deleteData($id);
+        return redirect()->back()->with('message','You have delete Frame');
     }
 
     /**

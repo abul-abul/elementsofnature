@@ -50,11 +50,7 @@
                                             <th>Description</th>
                                             <th>alt</th>
                                             <th>Images</th>
-                                            {{--<th>Size</th>--}}
-                                            {{--<th>Frame or canvas</th>--}}
-                                            {{--<th>Frame</th>--}}
-                                            {{--<th>Price</th>--}}
-                                            <th>Add Frmae / Edit Frame /Edit/ Delete</th>
+                                            <th>Add Frmae / Edit / Delete</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -66,10 +62,7 @@
                                                 <td>
                                                     <img style="width: 114px;height: 56px" src="/assets/gallery-category-images/{{$imageFrame->images}}" alt="">
                                                 </td>
-                                                {{--<td>{{$imageFrame->size}}</td>--}}
-                                                {{--<td>{{$imageFrame->frame_canvas}}</td>--}}
-                                                {{--<td>{{$imageFrame->frame}}</td>--}}
-                                                {{--<td>{{$imageFrame->price}}</td>--}}
+
 
                                                 <td>
                                                     <a href="{{action('AdminController@getAddFramePage',[$id,$imageFrame->id])}}">
@@ -77,11 +70,7 @@
                                                             <i class="glyphicon glyphicon-check	Try it"></i>
                                                         </button>
                                                     </a>
-                                                    <a href="{{action('AdminController@getAllFrames',$imageFrame->id)}}">
-                                                        <button  type="button"  class="btn btn-warning edit_inner_frame">
-                                                            <i class="glyphicon glyphicon-edit"></i>
-                                                        </button>
-                                                    </a>
+
 
                                                     <a href="{{action('AdminController@getEditGalleryCategoryImagesInner',[$imageFrame->id,$id])}}">
                                                         <button class="btn green">
