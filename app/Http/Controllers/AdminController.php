@@ -1242,10 +1242,39 @@ class AdminController extends BaseController
     {
         $result = $galleryCanvasRepo->getAllFramesInId($id);
         $data = [
+            'id' => $id,
             'gallery_category_actiove' => 1,
             'frames' => $result
         ];
         return view('admin.pages.gallery-category-images.edit-frame-size',$data);
+    }
+
+    /**
+     * @param $image_id
+     * @param $frame_id
+     * @return View
+     */
+    public function getAddFramePage($image_id,$frame_id)
+    {
+        $data = [
+            'image_id' => $image_id,
+            'frame_id' => $frame_id,
+            'gallery_category_actiove' => 1
+        ];
+        return view('admin.pages.gallery-category-images.add-frame-page',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param $
+     * @param GalleryCategoryFrameInterface $galleryCanvasRepo
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postAddImgFrame(request $request,GalleryCategoryFrameInterface $galleryCanvasRepo)
+    {
+        $result = $request->all();
+        $galleryCanvasRepo->createData($result);
+        return redirect()->back()->with('message','You have add Frame');
     }
 
     /**
@@ -1256,18 +1285,11 @@ class AdminController extends BaseController
     public function postEditImgFrame(request $request,GalleryCategoryFrameInterface $galleryCategoryFrame)
     {
         $result = $request->all();
-        unset($result['_token']);
-        $name = $result['frame_name'];
-
-        if($name == 'size'){
-            $data['size'] = $result['val'];
-        }else{
-            $data['frame'] = $result['val'];
-        }
-       $response =  $galleryCategoryFrame->getUpdateData($result['frame_id'],$data);
-
-        return response()->json(["status"=>"success","resource"=>$response]);
+        $galleryCategoryFrame->getUpdateData($result['id'],$result);
+        return redirect()->back()->with('message','You have updated frame');
     }
+
+
 
 
 //    public function postAddGalleryCategoryInner(request $request,GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo)

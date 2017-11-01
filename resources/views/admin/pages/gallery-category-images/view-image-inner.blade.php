@@ -54,7 +54,7 @@
                                             {{--<th>Frame or canvas</th>--}}
                                             {{--<th>Frame</th>--}}
                                             {{--<th>Price</th>--}}
-                                            <th>Edit Frame /Edit/ Delete</th>
+                                            <th>Add Frmae / Edit Frame /Edit/ Delete</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -72,6 +72,11 @@
                                                 {{--<td>{{$imageFrame->price}}</td>--}}
 
                                                 <td>
+                                                    <a href="{{action('AdminController@getAddFramePage',[$id,$imageFrame->id])}}">
+                                                        <button type="button" class="btn btn-info">
+                                                            <i class="glyphicon glyphicon-check	Try it"></i>
+                                                        </button>
+                                                    </a>
                                                     <a href="{{action('AdminController@getAllFrames',$imageFrame->id)}}">
                                                         <button  type="button"  class="btn btn-warning edit_inner_frame">
                                                             <i class="glyphicon glyphicon-edit"></i>

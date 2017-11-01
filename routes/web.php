@@ -102,6 +102,8 @@ Route::get('admin/view-gallery-category-img-inner/{id}','AdminController@getView
 
 Route::get('admin/add-gallery-category-img-inner-page/{id}','AdminController@getAddGalleryImgInnerPage');
 Route::post('admin/add-gallery-category-img-inner-page/','AdminController@postAddCatImgInner');
+Route::get('admin/add-frame-page/{id}/{frame_id}','AdminController@getAddFramePage');
+Route::post('admin/add-img-frame','AdminController@postAddImgFrame');
 
 Route::get('admin/edit-gallery-category-images-inner/{id}/{id1}','AdminController@getEditGalleryCategoryImagesInner');
 Route::post('admin/edit-gallery-category-images-inner','AdminController@postEditGalleryCategoryImagesInner');
