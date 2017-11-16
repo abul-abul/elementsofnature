@@ -48,20 +48,22 @@
     <h2 class="remainig_title">
         remainings part will be done after you sen the ather part
     </h2>
+    <div class="footer_news_place">
+        @foreach($news as $new)
+            <div class="footer_news_2">
+                <img src="/assets/news-images/{{$new->images}}" class="news_image" />
+                <h4 class="news_title">
+                    {{$new->title}}
+                </h4>
+                <p class="news_text">
+                    {{substr($new->description,0,50)}}...
+                </p>
 
-    @foreach($news as $new)
-        <div class="footer_news">
-            <img src="/assets/news-images/{{$new->images}}" class="news_image" />
-            <h4 class="news_title">
-                {{$new->title}}
-            </h4>
-            <p class="news_text">
-                {{$new->description}}
-            </p>
+                <a href="{{action('UsersController@getNewsInner',$new->id)}}" class="news_details">details</a>
+            </div>
 
-            <a href="{{action('UsersController@getNewsInner',$new->id)}}" class="news_details">details</a>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
 </div>
 <!-- remainig place -->
 

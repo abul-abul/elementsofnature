@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+    {!! HTML::style( asset('assets/users/plugins/css/lightgallery.css')) !!}
+    {!! HTML::style( asset('assets/users/plugins/css/scroll_slide.css')) !!}
+
     {!! HTML::style( asset('assets/users/plugins/font-awesome/css/font-awesome.css')) !!}
     {!! HTML::style( asset('assets/users/plugins/css/font-face.css')) !!}
     {!! HTML::style( asset('assets/users/plugins/css/style.css')) !!}
