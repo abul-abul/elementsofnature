@@ -276,38 +276,11 @@ $(document).ready(function(){
 		e.stopPropagation();
 	});
 
+
+
 	$(".product_img_child").click(function(e){
 		e.stopPropagation();
-		var id = $(this).attr('data-id');
-		$('.frame_place_ajax').empty();
-		$('.frame_size_ajax').empty();
-		$('.product_price').empty();
-		html_frame = "";
-		html_size = "";
-		$.ajax({
-			url: '/index.php/images-inner-frame/'+id,
-			type: 'get',
-			success: function(data)
-			{
-				$.each(data.frames, function(i, item) {
 
-					if(item.frame != null){
-						html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame">'+item.frame+'</p>'
-						$('.product_frame_product_parent').css('display','block');
-					}else{
-						$('.product_frame_product_parent').css('display','none');
-					}
-					if(item.size != null){
-						html_size +=  '<p  id="'+item.size+'" onclick="selectSize(this.id)" class="select_size">'+item.size+' sm</p>'
-					}
-				});
-				$('.frame_place_ajax').append(html_frame);
-				$('.frame_size_ajax').append(html_size);
-				// price_html = data.inners.price+"<span style='margin-left: 5px'>usd</span>";
-				// $('.product_price').append(price_html);
-				// $('.payPrice').val(data.inners.price);
-			}
-		});
 
 		var src = $(this).children(":first").attr("src");
 		var text = $(this).parent().children(".product_text").html();
@@ -491,6 +464,40 @@ $(document).ready(function(){
 	// product open size & frame
 
 
+	$('.product_img_child').click(function () {
+		var id = $(this).attr('data-id');
+		$('.frame_place_ajax').empty();
+		$('.frame_size_ajax').empty();
+		$('.product_price').empty();
+		html_frame = "";
+		html_size = "";
+		$.ajax({
+			url: '/index.php/images-inner-frame/'+id,
+			type: 'get',
+			success: function(data)
+			{
+				$.each(data.frames, function(i, item) {
+
+					if(item.frame != null){
+						html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame">'+item.frame+'</p>'
+						$('.product_frame_product_parent').css('display','block');
+					}else{
+						$('.product_frame_product_parent').css('display','none');
+					}
+					if(item.size != null){
+
+						html_size +=  '<p  id="'+item.size+'" data-id="'+item.id+'" onclick="selectSize(this.id,this)" class="select_size">'+item.size+' sm</p>'
+
+					}
+				});
+				$('.frame_place_ajax').append(html_frame);
+				$('.frame_size_ajax').append(html_size);
+				// price_html = data.inners.price+"<span style='margin-left: 5px'>usd</span>";
+				// $('.product_price').append(price_html);
+				// $('.payPrice').val(data.inners.price);
+			}
+		});
+	});
 
 
 });
@@ -499,8 +506,20 @@ $(document).ready(function(){
 
 
 
-function selectSize(item) {
-    $('.paySize').val(item);
+function selectSize(item,d) {
+	var id = d.getAttribute("data-id");
+	$('.payId').val(id);
+	$.ajax({
+		type: 'GET',
+		url: '/gallery-frame-id-price-ajax/'+id,
+		success: function(data)
+		{
+			$('.product_price').html(data.data.price);
+			$('.payPrice').val(data.data.price);
+		}
+	});
+	
+	$('.paySize').val(item);
 	$('.select_text').text(item);
 }
 

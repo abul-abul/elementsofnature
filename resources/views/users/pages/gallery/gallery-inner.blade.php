@@ -177,11 +177,11 @@
                 <div class="product_price">
                     {{--800 usd--}}
                 </div>
-                {!! Form::open(['action' => ['PaymentController@getPayPage',$id],'files' => 'true', 'method' => 'GET' ]) !!}
-
-                <input type="hidden" name="size" class="paySize">
-                <input type="hidden" name="frame" class="payFrame">
-                <input type="hidden" name="price" class="payPrice">
+                {!! Form::open(['action' => ['PaymentController@getPayPage'],'files' => 'true', 'method' => 'GET' ]) !!}
+                    <input type="hidden" name="id" class="payId">
+                    <input type="hidden" name="size" class="paySize">
+                    <input type="hidden" name="frame" class="payFrame">
+                    <input type="hidden" name="price" class="payPrice">
                 {{--<a href="{{action('PaymentController@getPayPage',$id)}}" class="price_btn_text">--}}
                 {{--<a href="{{action('PaymentController@getPayPal')}}" class="price_btn_text">--}}
                     <button type="submit" class="price_btn">

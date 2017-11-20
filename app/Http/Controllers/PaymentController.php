@@ -23,20 +23,31 @@ use PayPal\Api\Refund;
 //use App\Contracts\MailInterface;
 use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
+use App\Contracts\PartnersInterface;
 
 
 class PaymentController extends Controller
 {
 
 
-    public function getPayPage($id,request $request,
-                                GalleryCategoryImagesInnerInterface $innerRepo
+    public function getPayPage(request $request,
+                                GalleryCategoryImagesInnerInterface $innerRepo,
+                                GalleryCategoryFrameInterface $frameRepo,
+                                PartnersInterface $partnerRepo
                                 )
     {
         $result = $request->all();
-        $inner = $innerRepo->catImgAndImgInner($id);
+        $patners = $partnerRepo->getAll();
+        $data = [
+           'id' => $result['id'],
+           'size' => $result['size'],
+           'frame' => $result['frame'],
+           'price' => $result['price'],
+           'partners' => $patners
+        ];
+        $inner = $frameRepo->getOne($result['id']);
+        return view('users.paypal.paypal-page',$data);
 
-        dd($inner);
     }
 
     public function getPayPal()

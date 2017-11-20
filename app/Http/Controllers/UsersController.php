@@ -23,6 +23,7 @@ use App\Contracts\GalleryCategoryFrameInterface;
 
 use Illuminate\Http\Request;
 use Validator;
+use Mail;
 
 class UsersController extends BaseController
 {
@@ -149,6 +150,16 @@ class UsersController extends BaseController
         return response()->json(['frames' => $frames,'inners' => $inner]);
     }
 
+    /**
+     * @param $id
+     * @param GalleryCategoryFrameInterface $innerRepo
+     * @return mixed
+     */
+    public function getGalleryFrameIdPriceAjax($id,GalleryCategoryFrameInterface $innerRepo)
+    {
+        $result = $innerRepo->getOne($id);
+        return response()->json(['data'=>$result]);
+    }
     /**
      * @param WorkShopInterface $workShopRepo
      * @param FooterInterface $footerRepo
@@ -295,6 +306,16 @@ class UsersController extends BaseController
             return redirect()->back()->withErrors($validator);
         }else{
             unset($result['_token']);
+            $email = $result['email'];
+            $dataEmail = $result['message'];
+            $data = [
+                'message' => $dataEmail
+            ];
+            Mail::send('users.mail.send-email-connect', $data, function($message) use ($email)
+            {
+                $message->from('abul-abul90@mail.ru');
+                $message->to($email)->subject("Welcome!");
+            });
             $connectRepo->createData($result);
             return redirect()->back()->with('message','Thanks for your message');
         }
@@ -336,5 +357,7 @@ class UsersController extends BaseController
         ];
         return view('users.pages.news.news-inner',$data);
     }
+
+
 
 }
