@@ -103,5 +103,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\NewsGalleryInterface',
             'App\Services\NewsGalleryService'
         );
+        $this->app->bind(
+            'App\Contracts\PaymentInterface',
+            'App\Services\PaymentService'
+        );
     }
 }

@@ -34,6 +34,7 @@ Route::get('paypal','PaymentController@getPayPal');
 Route::get('paypal-cancel','PaymentController@getPaypalCancelResponse');
 Route::get('paypal-response','PaymentController@getPaypalReturnResponse');
 Route::get('pay-page','PaymentController@getPayPage');
+Route::post('payment','PaymentController@postPayment');
 //endpayments
 
 

@@ -39,6 +39,7 @@
         <img id="img_02" src="/assets/gallery-category-images/{{$categoryImagee->images}}" />
     </div>
     <div class="zoom_img_desc_place">
+        @include('message')
         <h1 class="zoom_desc_title">
             {{$categoryImagee->title}}
         </h1>
@@ -135,6 +136,7 @@
             <p class="product_big_text"></p>
         </div>
         <div class="select_place">
+
             <div class="select_product_parent">
                 <p class="select_title">choose size:</p>
                 <div class="product_size">

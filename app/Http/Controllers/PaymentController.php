@@ -24,7 +24,8 @@ use PayPal\Api\Refund;
 use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
 use App\Contracts\PartnersInterface;
-
+use App\Contracts\PaymentInterface;
+use Validator;
 
 class PaymentController extends Controller
 {
@@ -45,10 +46,15 @@ class PaymentController extends Controller
            'price' => $result['price'],
            'partners' => $patners
         ];
+        if($data['size'] == '' || $data['price'] == ''){
+            return redirect()->back()->with('message','Please choose the size');
+        }
         $inner = $frameRepo->getOne($result['id']);
         return view('users.paypal.paypal-page',$data);
 
     }
+    
+
 
     public function getPayPal()
     {
@@ -86,6 +92,29 @@ class PaymentController extends Controller
         $redirectUrl = $payment->getApprovalLink();
 
         return redirect()->to($redirectUrl);
+    }
+
+    public function postPayment(request $request,PaymentInterface $payRepo)
+    {
+        $result = $request->all();
+        $validator = Validator::make($result, [
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'country' => 'required',
+            'address' => 'required',
+            'city_town' => 'required',
+            'postalcode' => 'required',
+            'pay_checkbox' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }else{
+            $result['status'] = 0;
+            $payRepo->createData($result);
+            return redirect()->back();
+        }
     }
 
 

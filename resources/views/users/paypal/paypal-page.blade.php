@@ -1,20 +1,23 @@
 @extends('app-users')
 @section('users-content')
 
-    <form accept="" method="post">
         <div class="payment_place">
             <div class="payment">
                 <div>
-                    <input type="text" name="name" class="pay_inp" placeholder="FIRST NAME *" />
-                    <input type="text" name="name" class="pay_inp" placeholder="LAST NAME *" />
-                    <input type="text" name="email" class="pay_inp" placeholder="EMAIL ADDRESS *" />
-                    <input type="text" name="phone" class="pay_inp" placeholder="PHONE *" />
-                    <input type="text" name="contry" class="pay_inp" placeholder="COUNTRY *" />
-                    <input type="text" name="address" class="pay_inp" placeholder="ADDRESS *" />
-                    <input type="text" name="town_city" class="pay_inp" placeholder="TOWN / CITY *" />
-                    <input type="text" name="zip_code" class="pay_inp" placeholder="POSTCODE / ZIP *" />
+                    @include('message')
+                    {!! Form::open(['action' => ['PaymentController@postPayment'],'files' => 'true' ]) !!}
+                    <input type="hidden" value="{{$id}}" name="p">
+                    {!! Form::text('firstname', null, ['placeholder' => 'FIRST NAME *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('lastname', null, ['placeholder' => 'LAST NAME *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('email', null, ['placeholder' => 'EMAIL ADDRESS *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('phone', null, ['placeholder' => 'PHONE *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('country', null, ['placeholder' => 'COUNTRY *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('address', null, ['placeholder' => 'ADDRESS *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('city_town', null, ['placeholder' => 'TOWN / CITY *' , 'class' => 'pay_inp']) !!}
+                    {!! Form::text('postalcode', null, ['placeholder' => 'POSTCODE / ZIP *' , 'class' => 'pay_inp']) !!}
                     <label class="pay_text_title">Additional Information</label>
-                    <textarea class="pay_text" name="pay_text" placeholder="ORDER NOTES"></textarea>
+                    {!! Form::textarea('info', null, ['placeholder' => 'ORDER NOTES' , 'class' => 'pay_text']) !!}
+
                 </div>
                 {{--<p class="error_text">error</p>--}}
             </div>
@@ -59,57 +62,23 @@
                     </div>
                 </div>
                 <div class="order_pay_place">
+
                     <div class="pay_child_rel">
                         <div class="pay_child">
-                            <input type="radio" name="pay_btn" class="pay_radio" />
-                            <h3 class="pay_title">cash on delivery</h3>
-                        </div>
-                        <div class="pay_child_abs">
-                            <p class="pay_child_text">
-                                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.Make your payment directly into our bank account. Please use your Order ID as the
-                            </p>
-                        </div>
-                    </div>
-                    <div class="pay_child_rel">
-                        <div class="pay_child">
-                            <input type="radio" name="pay_btn" class="pay_radio" />
-                            <h3 class="pay_title">direct bank transfer</h3>
-                        </div>
-                        <div class="pay_child_abs">
-                            <p class="pay_child_text">
-                                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.Make your payment directly into our bank account. Please use your Order ID as the
-                            </p>
-                        </div>
-                    </div>
-                    <div class="pay_child_rel">
-                        <div class="pay_child">
-                            <input type="radio" name="pay_btn" class="pay_radio" />
+                            <input type="radio" name="pay_checkbox" class="pay_radio" />
                             <h3 class="pay_title">paypal</h3>
                         </div>
-                        <div class="pay_child_abs">
-                            <p class="pay_child_text">
-                                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.Make your payment directly into our bank account. Please use your Order ID as the
-                            </p>
-                        </div>
+
                     </div>
-                    <div class="pay_child_rel">
-                        <div class="pay_child">
-                            <input type="radio" name="pay_btn" class="pay_radio" />
-                            <h3 class="pay_title">send request</h3>
-                        </div>
-                        <div class="pay_child_abs">
-                            <p class="pay_child_text">
-                                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.Make your payment directly into our bank account. Please use your Order ID as the
-                            </p>
-                        </div>
-                    </div>
+
                     <div class="place_order">
                         <button type="submit" class="place_order_btn">place order</button>
                     </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
-    </form>
+
     <!-- order place -->
 
     <!-- footer place -->
