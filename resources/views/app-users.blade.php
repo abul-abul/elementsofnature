@@ -66,17 +66,17 @@
             <div class="bg_hide_soc_place">
                 <ul class="bg_hide_soc">
                     <li class="bg_hide_soc_li">
-                        <a href="#" class="hide_soc_a">
+                        <a href="https://facebook.com/theelementsofnature/" class="hide_soc_a">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="bg_hide_soc_li">
-                        <a href="#" class="hide_soc_a">
+                        <a href="https://twitter.com/scotty607" class="hide_soc_a">
                             <i class="fa fa-twitter" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="bg_hide_soc_li">
-                        <a href="#" class="hide_soc_a">
+                        <a href="https://www.instagram.com/theelementofnature/" class="hide_soc_a">
                             <i class="fa fa-instagram" aria-hidden="true"></i>
                         </a>
                     </li>
@@ -115,17 +115,17 @@
     </div>
     <ul class="bg_soc_menu_abs">
         <li class="bg_soc_menu_links">
-            <a href="#" class="soc_menu_a">
+            <a target="_blank" href="https://facebook.com/theelementsofnature/" class="soc_menu_a">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
             </a>
         </li>
         <li class="bg_soc_menu_links">
-            <a href="#" class="soc_menu_a">
+            <a target="_blank" href="https://twitter.com/scotty607" class="soc_menu_a">
                 <i class="fa fa-twitter" aria-hidden="true"></i>
             </a>
         </li>
         <li class="bg_soc_menu_links">
-            <a href="#" class="soc_menu_a">
+            <a target="_blank" href="https://www.instagram.com/theelementofnature/" class="soc_menu_a">
                 <i class="fa fa-instagram" aria-hidden="true"></i>
             </a>
         </li>
