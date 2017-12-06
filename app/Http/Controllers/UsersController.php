@@ -24,6 +24,7 @@ use App\Contracts\GalleryCategoryFrameInterface;
 use Illuminate\Http\Request;
 use Validator;
 use Mail;
+use PDF;
 
 class UsersController extends BaseController
 {
@@ -266,6 +267,26 @@ class UsersController extends BaseController
             'activephototour' => 1,
         ];
         return view('users.pages.phototour.phototour',$data);
+    }
+
+    /**
+     * @param $id
+     * @param SkillInterface $skillRepo
+     * @param PhotoTourInterface $photoRepo
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getPhototourDownloade($id,SkillInterface $skillRepo,PhotoTourInterface $photoRepo)
+    {
+        $photoRow = $photoRepo->getOne($id);
+        $scillRow = $skillRepo->getPhotoTourSkiils($id);
+        $data = [
+            'phototour' => $photoRow,
+            'skill' => $scillRow
+        ];
+        view()->share('items',$data);
+        $pdf = PDF::loadView('pdfview');
+        return $pdf->download('users.pages.phototour.phototour-downloade');
+     //   return view('users.pages.phototour.phototour-downloade',$data);
     }
 
     /**
