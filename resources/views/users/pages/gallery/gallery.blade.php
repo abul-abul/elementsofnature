@@ -67,7 +67,7 @@
                 </span>
 
                 <span class="art_fav_text">
-                    artist favorit
+                    artist favorite
                 </span>
             @endif
         </div>

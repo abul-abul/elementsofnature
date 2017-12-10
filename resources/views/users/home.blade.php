@@ -142,13 +142,13 @@
                 <a href="https://www.instagram.com/theelementofnature/" target="_blank" class="follow_soc_link">
                     <i class="fa fa-instagram f_soc_in" aria-hidden="true"></i>
                 </a>
-                <a href="#" class="follow_soc_link">
+                <a href="https://www.flickr.com/photos/tripod607" target="_blank"  class="follow_soc_link">
                     <img src="/assets/users/plugins/images/flickr_logo.png" />
                 </a>
-                <a href="#" class="follow_soc_link">
+                <a href="#"  class="follow_soc_link">
                     <img src="/assets/users/plugins/images/pixoto_logo.png" />
                 </a>
-                <a href="#" class="follow_soc_link">
+                <a target="_blank"  href="https://500px.com/scot" class="follow_soc_link">
                     <img src="/assets/users/plugins/images/logo500.png" />
                 </a>
             </div>

@@ -30,42 +30,42 @@
                 <span class="connect_underline_follow"></span>
             </h2>
             <div class="connect_soc_place">
-                <a href="#">
-                    <img src="/assets/users/plugins/images/connect_face.png" class="cont_soc_img" alt="" />
+                <a href="https://facebook.com/theelementsofnature/" target="_blank">
+                    <img src="/assets/users/plugins/images/connect_face.png"  class="cont_soc_img" alt="" />
                 </a>
                 <div class="connect_link_place">
-                    <a href="#" class="connect_link">
+                    <a href="https://facebook.com/theelementsofnature/" target="_blank" class="connect_link">
                         facebook.com/theelementsofnature
                     </a>
                 </div>
             </div>
             <div class="connect_soc_place">
-                <a href="#">
+                <a href="https://www.instagram.com/theelementofnature/" target="_blank">
                     <img src="/assets/users/plugins/images/connect_in.png" class="cont_soc_img" alt="" />
                 </a>
                 <div class="connect_link_place">
-                    <a href="#" class="connect_link">
-                        flickr.com/photos/tripod607
+                    <a href="https://www.instagram.com/theelementofnature/" target="_blank" class="connect_link">
+                        instagram.com/theelementofnature/
                     </a>
                 </div>
             </div>
             <div class="connect_soc_place">
-                <a href="#">
+                <a href="https://www.flickr.com/photos/tripod607" target="_blank">
                     <img src="/assets/users/plugins/images/connect_flic.png" class="cont_soc_img" alt="" />
                 </a>
                 <div class="connect_link_place">
-                    <a href="#" class="connect_link">
-                        facebook.com/theelementsofnature
+                    <a target="_blank" href="https://www.flickr.com/photos/tripod607" class="connect_link">
+                        flickr.com/photos/tripod607
                     </a>
                 </div>
             </div>
             <div class="connect_soc_place">
-                <a href="#">
+                <a href="https://500px.com/scot" target="_blank">
                     <img src="/assets/users/plugins/images/connect_500.png" class="cont_soc_img" alt="" />
                 </a>
                 <div class="connect_link_place">
-                    <a href="#" class="connect_link">
-                        flickr.com/photos/tripod607
+                    <a href="https://500px.com/scot" target="_blank" class="connect_link">
+                        500px.com/scot
                     </a>
                 </div>
             </div>

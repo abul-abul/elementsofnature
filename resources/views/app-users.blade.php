@@ -66,27 +66,27 @@
             <div class="bg_hide_soc_place">
                 <ul class="bg_hide_soc">
                     <li class="bg_hide_soc_li">
-                        <a href="https://facebook.com/theelementsofnature/" class="hide_soc_a">
+                        <a target="_blank" href="https://facebook.com/theelementsofnature/" class="hide_soc_a">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="bg_hide_soc_li">
-                        <a href="https://twitter.com/scotty607" class="hide_soc_a">
+                        <a target="_blank" href="https://twitter.com/scotty607" class="hide_soc_a">
                             <i class="fa fa-twitter" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="bg_hide_soc_li">
-                        <a href="https://www.instagram.com/theelementofnature/" class="hide_soc_a">
+                        <a target="_blank" href="https://www.instagram.com/theelementofnature/" class="hide_soc_a">
                             <i class="fa fa-instagram" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li class="bg_hide_soc_li">
-                        <a href="#" class="hide_soc_a">
+                        <a target="_blank" href="https://www.flickr.com/photos/tripod607" class="hide_soc_a">
                             <img src="/assets/users/plugins/images/flickr_logo.png" class="soc_bg_flickr_icon"/>
                         </a>
                     </li>
                     <li class="bg_hide_soc_li">
-                        <a href="#" class="hide_soc_a">
+                        <a target="_blank" href="https://500px.com/scot" class="hide_soc_a">
                             <img src="/assets/users/plugins/images/logo500.png" class="soc_bg_500_icon"/>
                         </a>
                     </li>
@@ -130,13 +130,13 @@
             </a>
         </li>
         <li class="bg_soc_menu_links">
-            <a href="#" class="soc_menu_a">
+            <a href="https://www.flickr.com/photos/tripod607" target="_blank" class="soc_menu_a">
                 <img src="/assets/users/plugins/images/flickr_logo.png" class="soc_bg_flickr_icon"/>
                 <img src="/assets/users/plugins/images/flickr_logoyellow.png" class="soc_bg_flickr_yellow_icon"/>
             </a>
         </li>
         <li class="bg_soc_menu_links">
-            <a href="#" class="soc_menu_a">
+            <a href="https://500px.com/scot" target="_blank" class="soc_menu_a">
                 <img src="/assets/users/plugins/images/logo500.png" class="soc_bg_500_icon"/>
                 <img src="/assets/users/plugins/images/logo500yellow.png" class="soc_bg_500yellow_icon"/>
             </a>

@@ -30,7 +30,13 @@ use Validator;
 class PaymentController extends Controller
 {
 
-
+    /**
+     * @param Request $request
+     * @param GalleryCategoryImagesInnerInterface $innerRepo
+     * @param GalleryCategoryFrameInterface $frameRepo
+     * @param PartnersInterface $partnerRepo
+     * @return mixed
+     */
     public function getPayPage(request $request,
                                 GalleryCategoryImagesInnerInterface $innerRepo,
                                 GalleryCategoryFrameInterface $frameRepo,
@@ -56,14 +62,16 @@ class PaymentController extends Controller
     
 
 
-    public function getPayPal()
+    public function getPayPal($data)
     {
+
         $sdkConfig = array(
             "mode" => "sandbox"
         );
+
         $apiContext = new ApiContext(new OAuthTokenCredential(config("app.paypal_client_id"), config("app.paypal_client_secret")));
 
-
+        $price = (int)$data['price'];
         $apiContext->setConfig($sdkConfig);
 
         $payer = new Payer();
@@ -71,7 +79,7 @@ class PaymentController extends Controller
         $transactionArr = [];
         $amount = new Amount();
         $amount->setCurrency('USD');
-        $amount->setTotal(2000);
+        $amount->setTotal($price);
         $transaction = new Transaction();
         $transaction->setAmount($amount);
 
@@ -94,8 +102,17 @@ class PaymentController extends Controller
         return redirect()->to($redirectUrl);
     }
 
-    public function postPayment(request $request,PaymentInterface $payRepo)
+    /**
+     * @param Request $request
+     * @param PaymentInterface $payRepo
+     * @return mixed
+     */
+    public function postPayment(request $request,
+                                PaymentInterface $payRepo,
+                                GalleryCategoryFrameInterface $frameRepo
+                                )
     {
+
         $result = $request->all();
         $validator = Validator::make($result, [
             'firstname' => 'required',
@@ -111,9 +128,13 @@ class PaymentController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }else{
+            $inner = $frameRepo->getOne($result['p']);
+
+            $result['price'] = $inner['price'];
             $result['status'] = 0;
             $payRepo->createData($result);
-            return redirect()->back();
+            //return redirect()->back();
+           return $this->getPayPal($result);
         }
     }
 
