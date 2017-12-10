@@ -17,7 +17,7 @@ Route::get('work-shop-inner/{id}','UsersController@getWorkShopInner');
 
 Route::get('in-your-space','UsersController@getInYourSpace');
 Route::get('photo-tour','UsersController@gerPhotoTour');
-Route::get('photo-tour-downolade/{id}','UsersController@getPhototourDownloade');
+
 Route::get('about-artist','UsersController@getAboutArtist');
 Route::get('connect','UsersController@getConnect');
 Route::post('user/connect','UsersController@postConnect');

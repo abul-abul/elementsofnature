@@ -76,7 +76,7 @@
                 <p class="event_inner_img_desc3">
                     {{$phototour->description}}
                 </p>
-                <a href="{{action('UsersController@getPhototourDownloade',$phototour->id)}}" class="topics_covered_link2">
+                <a href="#" class="topics_covered_link2">
                     <button class="topics_covered_send_btn2">
                         send request
                     </button>
