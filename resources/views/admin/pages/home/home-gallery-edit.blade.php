@@ -17,6 +17,12 @@
             </div>
         </div>
         <div class="col-md-12 form-group">
+            <label style="margin-left: 15px">Name</label>
+            <div class="col-md-12">
+                {!! Form::text('name', null, ['placeholder' => 'Name' , 'class' => 'form-control']) !!}
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
             <label style="margin-left: 15px">Link</label>
             <div class="col-md-12">
                 {!! Form::text('link', null, ['placeholder' => 'Link' , 'class' => 'form-control']) !!}

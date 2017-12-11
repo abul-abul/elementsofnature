@@ -110,17 +110,20 @@
 <div class="footer_top_place">
     <div class="footer_top_place_center">
         @foreach($news as $new)
-            <a href="{{action('UsersController@getNewsInner',$new->id)}}">
+
             <div class="footer_top_images">
+                <a href="{{action('UsersController@getNewsInner',$new->id)}}">
                 <div class="footer_top_abs">
                     <h2 class="footer_top_title">
                         {{$new->title}}
                         <span class="follow_us_title_underline"></span>
                     </h2>
                 </div>
-                <img src="/assets/news-images/{{$new->images}}" class="footer_top_img" />
+
+                    <img src="/assets/news-images/{{$new->images}}" class="footer_top_img" />
+                </a>
             </div>
-            </a>
+
         @endforeach
     </div>
 </div>
