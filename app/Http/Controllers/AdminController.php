@@ -1446,6 +1446,54 @@ class AdminController extends BaseController
 
     /**
      * @param $id
+     * @param GalleryCategoryImagesInnerTopInterface $galCatImg
+     * @return View
+     */
+    public function getEditViewGalleryCategoryImgInner($id,GalleryCategoryImagesInnerTopInterface $galCatImg)
+    {
+        $result = $galCatImg->getOne($id);
+        $data = [
+            'gallery_category_actiove' => 1,
+            'galCatImg' => $result
+        ];
+        return view('admin.pages.gallery-category-images.edit-gal-cat-inner-top-bg',$data);
+    }
+    
+    public function postEditGalleryCategoryImagestopBg(request $request,GalleryCategoryImagesInnerTopInterface $galCatImg)
+    {
+        $result = $request->all();
+        if(isset($result['images1'])){
+            $row = $galCatImg->getOne($result['id']);
+            $path = public_path() . '/assets/gallery-category-images/' . $row['images1'];
+            File::delete($path);
+            $logoFile = $result['images1']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/gallery-category-images';
+            $result_move = $result['images1']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images1'] = $gallery_images;
+            $galCatImg->getUpdateData($result['id'],$result);
+        }
+        if(isset($result['images2'])){
+            $row = $galCatImg->getOne($result['id']);
+            $path = public_path() . '/assets/gallery-category-images/' . $row['images2'];
+            File::delete($path);
+            $logoFile = $result['images2']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/gallery-category-images';
+            $result_move = $result['images2']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['images2'] = $gallery_images;
+            $galCatImg->getUpdateData($result['id'],$result);
+        }
+        $galCatImg->getUpdateData($result['id'],$result);
+        return redirect()->back()->with('message','Update successfully');
+
+
+    }
+
+    /**
+     * @param $id
      * @return View
      */
     public function getAddGalleryImgInnerPage($id)
