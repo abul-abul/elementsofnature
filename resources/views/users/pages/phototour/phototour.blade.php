@@ -7,6 +7,7 @@
     <meta property="og:image" content="http://theelementsofnature.com/assets/photo-tour-images/{{$phototours['photo'][0]->images}}" />
 @endsection
 @section('users-content')
+
         <!-- small bg place -->
 @if(count($backgrounds) != '')
 <section class="small_bg_place">
@@ -76,7 +77,7 @@
                 <p class="event_inner_img_desc3">
                     {{$phototour->description}}
                 </p>
-                <a href="#" class="topics_covered_link2">
+                <a href="#"   data-id="{{$phototour->id}}" class="topics_covered_link2">
                     <button class="topics_covered_send_btn2">
                         send request
                     </button>
@@ -84,6 +85,41 @@
 
             </div>
         </div>
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Modal Header</h2>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="phototoure_hidden">
+                    <p>
+                        <input placeholder="Name" name="name" type="text">
+                    </p>
+                    <p>
+                        <input placeholder="Lastname" name="name" type="text">
+                    </p>
+                    <p>
+                        <input placeholder="Email" name="name" type="text">
+                    </p>
+                    <p>
+                        <textarea placeholder="message" name="message" cols="50" rows="10"></textarea>
+                    </p>
+                    <p>
+                        <input class="phototoure_request" style="margin-top: -15px;" type="submit" value="send">
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <h3>Modal Footer</h3>
+                </div>
+            </div>
+
+        </div>
+
+
 
 @endforeach
 
@@ -156,3 +192,5 @@
 <!-- footer place -->
 
 @endsection
+
+

@@ -500,6 +500,27 @@ $(document).ready(function(){
 	});
 
 
+
+
+
+
+	//photo tour
+
+	$('.topics_covered_link2').click(function () {
+		$('.phototoure_hidden').val($(this).attr('data-id'));
+		$('#myModal').css('display','block')
+	})
+	// When the user clicks on <span> (x), close the modal
+	$('.close').click(function () {
+		$('#myModal').css('display','none')
+	})
+
+	$(document).on('click','.phototoure_request',function () {
+		var id = $('.phototoure_hidden').val();
+		alert(id)
+	})
+
+
 });
 
 
