@@ -92,21 +92,21 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="close">&times;</span>
-                    <h2>Modal Header</h2>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" content="{{ csrf_token() }}" class="photo_request_token">
                     <input type="hidden" class="phototoure_hidden">
                     <p>
-                        <input placeholder="Name" name="name" type="text">
+                        <input placeholder="Name"  type="text" class="phototoure_name">
                     </p>
                     <p>
-                        <input placeholder="Lastname" name="name" type="text">
+                        <input placeholder="Lastname" type="text" class="phototoure_lastname">
                     </p>
                     <p>
-                        <input placeholder="Email" name="name" type="text">
+                        <input placeholder="Email" type="text" class="phototoure_email">
                     </p>
                     <p>
-                        <textarea placeholder="message" name="message" cols="50" rows="10"></textarea>
+                        <textarea placeholder="message" cols="50" rows="10" class="phototoure_message"></textarea>
                     </p>
                     <p>
                         <input class="phototoure_request" style="margin-top: -15px;" type="submit" value="send">
