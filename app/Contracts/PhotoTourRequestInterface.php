@@ -40,5 +40,11 @@ interface PhotoTourRequestInterface
      */
     public function deleteData($id);
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getAllPhotoToureRequest($id);
+
 
 }

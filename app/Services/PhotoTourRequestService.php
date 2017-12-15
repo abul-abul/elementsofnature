@@ -71,4 +71,13 @@ class PhotoTourRequestService implements PhotoTourRequestInterface
         return $this->getOne($id)->delete();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getAllPhotoToureRequest($id)
+    {
+        return $this->phototourrequest->where('phototoure_id',$id)->get();
+    }
+
 }
