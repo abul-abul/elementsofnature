@@ -25,6 +25,7 @@ use App\Contracts\ConnectInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
 use App\Contracts\NewsInterface;
 use App\Contracts\NewsGalleryInterface;
+use App\Contracts\PhotoTourRequestInterface;
 use View;
 use Session;
 use Validator;
@@ -2018,6 +2019,41 @@ class AdminController extends BaseController
     }
 
     /**
+     * @param PhotoTourRequestInterface $photoTourRequestRepo
+     * @return View
+     */
+    public function getPhotoTourRequest(PhotoTourRequestInterface $photoTourRequestRepo)
+    {
+        $result = $photoTourRequestRepo->getAll();
+        $data = [
+            'activephototourrequest' => 1,
+            'photoRequests' => $result
+        ];
+        return view('admin.pages.photo-tour.photo-tour-request',$data);
+    }
+
+    /**
+     * @param $id
+     * @param PhotoTourRequestInterface $photoTourRequestRepo
+     * @return mixed
+     */
+    public function getDeletePhotoToureRequest($id,PhotoTourRequestInterface $photoTourRequestRepo)
+    {
+        $photoTourRequestRepo->deleteData($id);
+        return redirect()->back()->with('message','You have delete photo ture request');
+    }
+
+    public function getPhotoToureView($id,PhotoTourInterface $photoTourRepo)
+    {
+        $result = $photoTourRepo->getOne($id);
+        $data = [
+            'activephototourrequest' => 1,
+            'photoToure' => $result
+        ];
+        return view('admin.pages.photo-tour.view-photo-tour',$data);
+    }
+    
+    /**
      * @return View
      */
     public function getAddPhotoTour()
@@ -2152,14 +2188,21 @@ class AdminController extends BaseController
      * @param PhotoTourInterface $photoTourRepo
      * @return mixed
      */
-    public function getDeletePhotoTour($id,SkillInterface $skillRepo,PhotoTourInterface $photoTourRepo)
+    public function getDeletePhotoTour($id,SkillInterface $skillRepo,PhotoTourInterface $photoTourRepo,PhotoTourRequestInterface $photoTourRequestRepo)
     {
         $rowWorkShop = $photoTourRepo->getOne($id);
         $rowsSkills = $skillRepo->getPhotoTourSkiils($id);
+        $pohotoToureRequests = $photoTourRequestRepo->getAllPhotoToureRequest($id);
         foreach ($rowsSkills as $rowsSkill)
         {
             $skillRepo->deleteData($rowsSkill['id']);
         }
+
+        foreach ($pohotoToureRequests as $pohotoToureRequest)
+        {
+            $photoTourRequestRepo->deleteData($pohotoToureRequest['id']);
+        }
+
         $path = public_path() . '/assets/photo-tour-images/' . $rowWorkShop['images'];
         File::delete($path);
         $photoTourRepo->deleteData($id);

@@ -20,6 +20,7 @@ use App\Contracts\InYourSpaceTextInterface;
 use App\Contracts\PhotoTourInterface;
 use App\Contracts\ConnectInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
+use App\Contracts\PhotoTourRequestInterface;
 
 use Illuminate\Http\Request;
 use Validator;
@@ -267,6 +268,18 @@ class UsersController extends BaseController
             'activephototour' => 1,
         ];
         return view('users.pages.phototour.phototour',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param PhotoTourRequestInterface $photoToureRepo
+     * @return mixed
+     */
+    public function postPhotoTourRequest(request $request,PhotoTourRequestInterface $photoToureRepo)
+    {
+        $result = $request->all();
+        $photoToureRepo->createData($result);
+        return response()->json();
     }
 
 

@@ -84,6 +84,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\PhotoTourService'
         );
         $this->app->bind(
+            'App\Contracts\PhotoTourRequestInterface',
+            'App\Services\PhotoTourRequestService'
+        );
+        $this->app->bind(
             'App\Contracts\ConnectInterface',
             'App\Services\ConnectService'
         );
@@ -107,5 +111,6 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\PaymentInterface',
             'App\Services\PaymentService'
         );
+
     }
 }

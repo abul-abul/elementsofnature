@@ -174,7 +174,7 @@
                                     </ul>
                                 </li>
 
-                                @if(isset($activephototour))
+                                @if(isset($activephototour) || isset($activephototourrequest))
                                     <li class="start active open">
                                 @else
                                     <li class="start">
@@ -195,6 +195,15 @@
                                                         Photo Tour
                                                     </a>
                                                 </li>
+                                            @if(isset($activephototourrequest))
+                                                <li class="active">
+                                            @else
+                                                <li>
+                                            @endif
+                                                <a href="{{action('AdminController@getPhotoTourRequest')}}">
+                                                    Photo Tour Request
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
 

@@ -17,6 +17,7 @@ Route::get('work-shop-inner/{id}','UsersController@getWorkShopInner');
 
 Route::get('in-your-space','UsersController@getInYourSpace');
 Route::get('photo-tour','UsersController@gerPhotoTour');
+Route::post('photo-tour-request','UsersController@postPhotoTourRequest');
 
 Route::get('about-artist','UsersController@getAboutArtist');
 Route::get('connect','UsersController@getConnect');
@@ -53,6 +54,9 @@ Route::get('admin/dashboard','AdminController@getDashboard');
 Route::get('admin/work-shop','AdminController@getWorkShop');
 Route::get('admin/in-your-space','AdminController@getInYourSpace');
 Route::get('admin/photo-tour','AdminController@getPhotoTour');
+Route::get('admin/photo-tour-request','AdminController@getPhotoTourRequest');
+Route::get('admin/delete-photo-tour-request/{id}','AdminController@getDeletePhotoToureRequest');
+Route::get('admin/view-photo-tour/{id}','AdminController@getPhotoToureView');
 Route::get('admin/connect','AdminController@getConnect');
 Route::get('admin/add-gallery-images-page','AdminController@getAddGalleryPage');
 Route::post('admin/add-gallery-images','AdminController@postAddGallery');

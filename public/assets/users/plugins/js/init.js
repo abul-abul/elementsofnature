@@ -472,7 +472,7 @@ $(document).ready(function(){
 		html_frame = "";
 		html_size = "";
 		$.ajax({
-			url: '/index.php/images-inner-frame/'+id,
+			url: '/images-inner-frame/'+id,
 			type: 'get',
 			success: function(data)
 			{
@@ -517,7 +517,29 @@ $(document).ready(function(){
 
 	$(document).on('click','.phototoure_request',function () {
 		var id = $('.phototoure_hidden').val();
-		alert(id)
+		var name = $('.phototoure_name').val();
+		var phototoure_lastname = $('.phototoure_lastname').val();
+		var phototoure_email = $('.phototoure_email').val();
+		var message = $('.phototoure_message').val();
+		var token = $('.photo_request_token').attr('content');
+		if(name == "" || phototoure_lastname == '' || $('.phototoure_email').val() == '' || message == ''){
+			alert("Please fill in all fields")
+		}else{
+			$.ajax({
+				url: '/photo-tour-request',
+				data:{_token:token,phototoure_id:id,name:name,lastname:phototoure_lastname,email:phototoure_email,message:message},
+				type: 'post',
+				success: function(data)
+				{
+					$('.phototoure_email').val("");
+					$('.phototoure_name').val("");
+					$('.phototoure_lastname').val("");
+					$('.phototoure_message').val("");
+					$('#myModal').css('display','none');
+					alert('Your message send')
+				}
+			});
+		}
 	})
 
 
