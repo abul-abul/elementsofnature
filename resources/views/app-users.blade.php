@@ -190,35 +190,35 @@
         <div class="header_soc_center">
             <ul class="header_soc_menu">
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="https://500px.com/scot" target="_blank" class="h_soc_link">
                         <img src="/assets/users/plugins/images/logo500gray.png" class="h_soc_px500" />
                         <img src="/assets/users/plugins/images/logo500yellow.png" class="h_soc_px500y"/>
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="#" target="_blank" class="h_soc_link">
                         <img src="/assets/users/plugins/images/pixoto_logogray.png" class="h_soc_pixoto" />
                         <img src="/assets/users/plugins/images/pixoto_logoyellow.png" class="h_soc_pixotoy"/>
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a target="_blank" href="https://twitter.com/scotty607" class="h_soc_link">
                         <i class="fa fa-twitter h_soc_twi" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="https://www.flickr.com/photos/tripod607" target="_blank" class="h_soc_link">
                         <span class="h_soc_flickr_span"></span>
                         <span class="h_soc_flickr_span"></span>
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="https://www.instagram.com/theelementofnature/" target="_blank" class="h_soc_link">
                         <i class="fa fa-instagram h_soc_in" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="h_soc_menu_child">
-                    <a href="#" class="h_soc_link">
+                    <a href="https://facebook.com/theelementsofnature/" target="_blank" class="h_soc_link">
                         <i class="fa fa-facebook h_soc_face" aria-hidden="true"></i>
                     </a>
                 </li>
