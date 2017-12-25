@@ -104,4 +104,22 @@ class GalleryCategoryImagesService implements GalleryCategoryImagesInterface
         return $this->gallerycategoryimages->latest()->first();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function lastPic($id)
+    {
+        return $this->gallerycategoryimages->where('id','<',$id)->orderby('ID', 'ASC')->limit(1)->get();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function nextPic($id)
+    {
+        return $this->gallerycategoryimages->where('id','>',$id)->orderby('ID', 'ASC')->limit(1)->get();
+    }
+
 }

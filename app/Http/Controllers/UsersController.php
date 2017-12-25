@@ -135,6 +135,44 @@ class UsersController extends BaseController
         return view('users.pages.gallery.gallery-inner', $data);
     }
 
+    public function getGalleryInnerLastFirst($id,$page,
+                                    GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
+                                    GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
+                                    GalleryCategoryImagesInnerTopInterface $galCatImg,
+                                    FooterInterface $footerRepo
+    )
+    {
+
+        if($page == 'next'){
+            $categoryImagees =  $galleryCategoryImagesRepo->nextPic($id);
+            $categoryImagee = $categoryImagees[0];
+        }
+        if($page == 'last'){
+            $categoryImagees =  $galleryCategoryImagesRepo->lastPic($id);
+            $categoryImagee = $categoryImagees[0];
+        }
+
+        $allCategoryImages = $galleryCategoryImagesRepo->getAll();
+        $firstId = $galleryCategoryImagesRepo->getFirstRow()->id;
+
+        $lastId = $galleryCategoryImagesRepo->getLastRow()->id;
+
+        $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
+        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
+        $data = [
+            'id' => $id,
+            'firstId' => $firstId,
+            'lastId' => $lastId,
+            'categoryImagee' => $categoryImagee,
+            'imageFrames' => $result,
+            'imgTop' => $imgTop,
+            'footer' => $footer,
+            'allCategoryImages' => $allCategoryImages
+        ];
+        return view('users.pages.gallery.gallery-inner', $data);
+    }
+
     /**
      * @param $id
      * @param GalleryCategoryFrameInterface $galFrameRepo

@@ -60,4 +60,16 @@ interface GalleryCategoryImagesInterface
      * @return mixed
      */
     public function getLastRow();
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function lastPic($id);
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function nextPic($id);
 }

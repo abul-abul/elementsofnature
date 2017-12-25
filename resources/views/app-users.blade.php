@@ -351,7 +351,11 @@
 {!! HTML::script( asset('assets/users/plugins/js/jquery.min.js') ) !!}
 
 {!! HTML::script( asset('assets/users/plugins/js/init.js') ) !!}
-
+        <script
+                type="text/javascript"
+                async defer
+                src="//assets.pinterest.com/js/pinit.js"
+        ></script>
     @yield('script')
 
         <script>

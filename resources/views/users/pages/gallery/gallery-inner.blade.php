@@ -62,7 +62,7 @@
             <button class="z_next_last_btn">
                 <i class="fa fa-angle-double-left" aria-hidden="true"></i>
                 @if($id != $firstId)
-                <a href="{{action('UsersController@getGalleryInner',$id-1)}}" class="next_last_link">
+                <a href="{{action('UsersController@getGalleryInnerLastFirst',[$id-1,'last'])}}" class="next_last_link">
                     last picture
                 </a>
                 @else
@@ -76,7 +76,7 @@
                         next picture
                     </a>
                 @else
-                    <a href="{{action('UsersController@getGalleryInner',$id+1)}}" class="next_last_link">
+                    <a href="{{action('UsersController@getGalleryInnerLastFirst',[$id+1,'next'])}}" class="next_last_link">
                         next picture
                     </a>
                 @endif
