@@ -19,7 +19,11 @@
                                     {!! Form::text('frame', null, [ 'class' => 'form-control tt-input']) !!}
                                 </div>
                                 <div class="col-md-10">
-                                    <b class="col-md-12">Size</b>
+                                    <b style="margin: 6px 0 6px 0;padding: 0" class="col-md-12">Frame image</b>
+                                    {!! Form::file('frame_img', null, [ 'class' => 'form-control']) !!}
+                                </div>
+                                <div class="col-md-10">
+                                    <b style="margin-top: 6px;padding:0" class="col-md-12">Size</b>
                                     {!! Form::text('size', null, [ 'class' => 'form-control tt-input']) !!}
                                 </div>
                                 <div style="margin-bottom: 50px" class="col-md-10">
@@ -44,9 +48,9 @@
                 <thead>
                 <tr>
                     <th>Frame</th>
+                    <th>Frame images</th>
                     <th>Size</th>
                     <th>Price</th>
-
                     <th>Delete</th>
                 </tr>
                 </thead>
@@ -54,6 +58,7 @@
                 @foreach($frames as $frame)
                     <tr>
                         <td>{{$frame->frame}}</td>
+                        <td><img style="width: 50px" src="/assets/gallery-category-images/{{$frame->frame_img}}" alt=""></td>
                         <td>{{$frame->size}}</td>
                         <td>{{$frame->price}}</td>
                         <td>
