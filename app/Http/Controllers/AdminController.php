@@ -1195,13 +1195,14 @@ class AdminController extends BaseController
             'gallery_category_images_inner_id' => $dataInnerObj->id,
             //'frame_img' => $result['frame_img']
         ];
-
-        $logoFile1 = $result['frame_img']->getClientOriginalExtension();
-        $name1 = str_random(12);
-        $path1 = public_path() . '/assets/gallery-category-images';
-        $result_move = $result['frame_img']->move($path1, $name1.'.'.$logoFile1);
-        $gallery_images1 = $name1.'.'.$logoFile1;
-        $dataFrame['frame_img'] = $gallery_images1;
+        if(isset($result['frame_img'])) {
+            $logoFile1 = $result['frame_img']->getClientOriginalExtension();
+            $name1 = str_random(12);
+            $path1 = public_path() . '/assets/gallery-category-images';
+            $result_move = $result['frame_img']->move($path1, $name1 . '.' . $logoFile1);
+            $gallery_images1 = $name1 . '.' . $logoFile1;
+            $dataFrame['frame_img'] = $gallery_images1;
+        }
 
         if(isset($result['frame'])){
             $dataFrame['frame'] = $result['frame'];
