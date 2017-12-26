@@ -120,7 +120,7 @@ class UsersController extends BaseController
             abort(404);
         }
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
-        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $imgTop = $galCatImg->getFirstRow();
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
         $data = [
             'id' => $id,

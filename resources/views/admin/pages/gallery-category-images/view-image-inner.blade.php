@@ -95,10 +95,10 @@
 
                     <div class="tab-pane" id="tab_1">
                         <div class="col-md-12">
+                            @if(count($imgTop) == "")
                             <div class="portlet-body form">
                                 <div class="col-md-12">
                                     {!! Form::open(['action' => ['AdminController@postAddCatImagesInnerTop'],'files' => 'true',  ]) !!}
-                                    <input type="hidden" name="gallery_category_images_inner_id" value="{{$id}}">
 
                                     <div class="col-md-12 form-group">
                                         <label style="margin-left: 15px">Description</label>
@@ -148,7 +148,7 @@
                                     {!! Form::close() !!}
                                 </div>
                             </div>
-
+                            @endif
                             @if(count($imgTop) != "")
                             <h1>Gallery Category Inner Top Background</h1>
                             <div class="table-scrollable">

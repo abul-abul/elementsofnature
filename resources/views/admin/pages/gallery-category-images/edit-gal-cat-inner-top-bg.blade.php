@@ -7,7 +7,7 @@
         @include('message')
         <div class="col-md-12">
             {!! Form::model($galCatImg,['action' => ['AdminController@postEditGalleryCategoryImagestopBg'] ,'files' =>true ] ) !!}
-            <input name="id" type="hidden" value='{{$galCatImg->id}}'>
+
 
             <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Description</label>

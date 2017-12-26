@@ -1430,7 +1430,7 @@ class AdminController extends BaseController
                                                     )
     {
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
-        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $imgTop = $galCatImg->getFirstRow();
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
         $frame = $galleryFrameRepo->getAllCanvas($id);
 
@@ -1463,8 +1463,10 @@ class AdminController extends BaseController
     public function postEditGalleryCategoryImagestopBg(request $request,GalleryCategoryImagesInnerTopInterface $galCatImg)
     {
         $result = $request->all();
+        $row = $galCatImg->getFirstRow();
         if(isset($result['images1'])){
-            $row = $galCatImg->getOne($result['id']);
+
+
             $path = public_path() . '/assets/gallery-category-images/' . $row['images1'];
             File::delete($path);
             $logoFile = $result['images1']->getClientOriginalExtension();
@@ -1473,10 +1475,9 @@ class AdminController extends BaseController
             $result_move = $result['images1']->move($path, $name.'.'.$logoFile);
             $gallery_images = $name.'.'.$logoFile;
             $result['images1'] = $gallery_images;
-            $galCatImg->getUpdateData($result['id'],$result);
+            $galCatImg->getUpdateData($row['id'],$result);
         }
         if(isset($result['images2'])){
-            $row = $galCatImg->getOne($result['id']);
             $path = public_path() . '/assets/gallery-category-images/' . $row['images2'];
             File::delete($path);
             $logoFile = $result['images2']->getClientOriginalExtension();
@@ -1485,9 +1486,9 @@ class AdminController extends BaseController
             $result_move = $result['images2']->move($path, $name.'.'.$logoFile);
             $gallery_images = $name.'.'.$logoFile;
             $result['images2'] = $gallery_images;
-            $galCatImg->getUpdateData($result['id'],$result);
+            $galCatImg->getUpdateData($row['id'],$result);
         }
-        $galCatImg->getUpdateData($result['id'],$result);
+        $galCatImg->getUpdateData($row['id'],$result);
         return redirect()->back()->with('message','Update successfully');
 
 
@@ -1725,7 +1726,7 @@ class AdminController extends BaseController
             return redirect()->back()->withErrors($validator);
         }else{
             unset($result['_token']);
-            $row = $galCatImg->getOneGalleryCatInnerTopBg($result['gallery_category_images_inner_id']);
+            $row = $galCatImg->getFirstRow();
             if(count($row) == ''){
                 $path = public_path() . '/assets/gallery-category-images';
                 $logoFile = $result['images1']->getClientOriginalExtension();
