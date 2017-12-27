@@ -114,8 +114,9 @@ class UsersController extends BaseController
     {
         $categoryImagee = $galleryCategoryImagesRepo->getOne($id);
         $allCategoryImages = $galleryCategoryImagesRepo->getAll();
-        $firstId = $galleryCategoryImagesRepo->getFirstRow()->id;
-        $lastId = $galleryCategoryImagesRepo->getLastRow()->id;
+        $nextId = $galleryCategoryImagesRepo->nextPic($id);
+        //dd($firstId);
+        $lastId = $galleryCategoryImagesRepo->lastPic($id);
         if (count($categoryImagee) == "") {
             abort(404);
         }
@@ -124,45 +125,7 @@ class UsersController extends BaseController
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
         $data = [
             'id' => $id,
-            'firstId' => $firstId,
-            'lastId' => $lastId,
-            'categoryImagee' => $categoryImagee,
-            'imageFrames' => $result,
-            'imgTop' => $imgTop,
-            'footer' => $footer,
-            'allCategoryImages' => $allCategoryImages
-        ];
-        return view('users.pages.gallery.gallery-inner', $data);
-    }
-
-    public function getGalleryInnerLastFirst($id,$page,
-                                    GalleryCategoryImagesInterface $galleryCategoryImagesRepo,
-                                    GalleryCategoryImagesInnerInterface $GalleryCategoryImagesInnerRepo,
-                                    GalleryCategoryImagesInnerTopInterface $galCatImg,
-                                    FooterInterface $footerRepo
-    )
-    {
-
-        if($page == 'next'){
-            $categoryImagees =  $galleryCategoryImagesRepo->nextPic($id);
-            $categoryImagee = $categoryImagees[0];
-        }
-        if($page == 'last'){
-            $categoryImagees =  $galleryCategoryImagesRepo->lastPic($id);
-            $categoryImagee = $categoryImagees[0];
-        }
-
-        $allCategoryImages = $galleryCategoryImagesRepo->getAll();
-        $firstId = $galleryCategoryImagesRepo->getFirstRow()->id;
-
-        $lastId = $galleryCategoryImagesRepo->getLastRow()->id;
-
-        $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
-        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
-        $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
-        $data = [
-            'id' => $id,
-            'firstId' => $firstId,
+            'nextId' => $nextId,
             'lastId' => $lastId,
             'categoryImagee' => $categoryImagee,
             'imageFrames' => $result,
@@ -200,6 +163,7 @@ class UsersController extends BaseController
         $result = $innerRepo->getOne($id);
         return response()->json(['data'=>$result]);
     }
+
     /**
      * @param WorkShopInterface $workShopRepo
      * @param FooterInterface $footerRepo

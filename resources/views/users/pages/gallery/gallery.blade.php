@@ -135,24 +135,25 @@
     <img src="/assets/footer-images/{{$footer->images}}" class="footer_img" />
     <div class="category_footer_footer2">
         <div class="cfooter_menu_place">
+
             <ul class="cfooter_menu">
                 <li class="cfoter_menu_li">
-                    <a href="Gallery-Category.html" class="cfooter_link">gallery</a>
+                    <a href="{{action('UsersController@getGalleryCategory')}}" class="cfooter_link">gallery</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="Workshop.html" class="cfooter_link">workshop</a>
+                    <a href="{{action('UsersController@getWorkShop')}}" class="cfooter_link">workshop</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="In-Your-Space.html" class="cfooter_link">in your space</a>
+                    <a href="{{action('UsersController@getInYourSpace')}}" class="cfooter_link">in your space</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="Photo-Tour-Inner.html" class="cfooter_link">photo tour</a>
+                    <a href="{{action('UsersController@gerPhotoTour')}}" class="cfooter_link">photo tour</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="About.html" class="cfooter_link">about artist</a>
+                    <a href="{{action('UsersController@getAboutArtist')}}" class="cfooter_link">about artist</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="Contact.html" class="cfooter_link">connect</a>
+                    <a href="{{action('UsersController@getConnect')}}" class="cfooter_link">connect</a>
                 </li>
             </ul>
             <p class="cfooter_copyright">
@@ -192,12 +193,12 @@
                             </a>
 						</span>
 					</span>
-            <div class="footer_rb_logo_place2">
-                <span class="made_by_white">made by</span>
-                <a href="http://rbpartners.co/" target="_blank">
-                    <img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />
-                </a>
-            </div>
+            {{--<div class="footer_rb_logo_place2">--}}
+                {{--<span class="made_by_white">made by</span>--}}
+                {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                    {{--<img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
 </footer>

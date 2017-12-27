@@ -58,27 +58,22 @@
                 <img src="/assets/users/plugins/images/pin_link.png" />
             </a>
         </div>
+
         <div class="zoom_next_last_place">
             <button class="z_next_last_btn">
                 <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                @if($id != $firstId)
-                <a href="{{action('UsersController@getGalleryInnerLastFirst',[$id-1,'last'])}}" class="next_last_link">
-                    last picture
-                </a>
-                @else
-                    <a href="#" class="next_last_link"> last picture</a>
-                @endif
+                    @if($nextId)
+                    <a href="{{action('UsersController@getGalleryInner',$nextId)}}" class="next_last_link">last picture</a>
+                    @else
+                    <a href="#" class="next_last_link">last picture</a>
+                    @endif
             </button>
 
             <button class="z_next_last_btn">
-                @if($lastId == $id)
-                    <a href="#" class="next_last_link">
-                        next picture
-                    </a>
+                @if($lastId)
+                    <a href="{{action('UsersController@getGalleryInner',$lastId)}}" class="next_last_link">next picture</a>
                 @else
-                    <a href="{{action('UsersController@getGalleryInnerLastFirst',[$id+1,'next'])}}" class="next_last_link">
-                        next picture
-                    </a>
+                    <a href="#" class="next_last_link">next picture</a>
                 @endif
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
             </button>
@@ -206,22 +201,22 @@
         <div class="cfooter_menu_place">
             <ul class="cfooter_menu">
                 <li class="cfoter_menu_li">
-                    <a href="Gallery-Category.html" class="cfooter_link">gallery</a>
+                    <a href="{{action('UsersController@getGalleryCategory')}}" class="cfooter_link">gallery</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="Workshop.html" class="cfooter_link">workshop</a>
+                    <a href="{{action('UsersController@getWorkShop')}}" class="cfooter_link">workshop</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="In-Your-Space.html" class="cfooter_link">in your space</a>
+                    <a href="{{action('UsersController@getInYourSpace')}}" class="cfooter_link">in your space</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="Photo-Tour-Inner.html" class="cfooter_link">photo tour</a>
+                    <a href="{{action('UsersController@gerPhotoTour')}}" class="cfooter_link">photo tour</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="About.html" class="cfooter_link">about artist</a>
+                    <a href="{{action('UsersController@getAboutArtist')}}" class="cfooter_link">about artist</a>
                 </li>
                 <li class="cfoter_menu_li">
-                    <a href="Contact.html" class="cfooter_link">connect</a>
+                    <a href="{{action('UsersController@getConnect')}}" class="cfooter_link">connect</a>
                 </li>
             </ul>
             <p class="cfooter_copyright">
@@ -261,12 +256,12 @@
                             </a>
 						</span>
 					</span>
-            <div class="footer_rb_logo_place2">
-                <span class="made_by_white">made by</span>
-                <a href="http://rbpartners.co/" target="_blank">
-                    <img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />
-                </a>
-            </div>
+            {{--<div class="footer_rb_logo_place2">--}}
+                {{--<span class="made_by_white">made by</span>--}}
+                {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                    {{--<img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
 </footer>

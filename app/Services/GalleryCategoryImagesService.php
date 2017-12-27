@@ -110,7 +110,7 @@ class GalleryCategoryImagesService implements GalleryCategoryImagesInterface
      */
     public function lastPic($id)
     {
-        return $this->gallerycategoryimages->where('id','<',$id)->orderby('ID', 'ASC')->limit(1)->get();
+        return $this->gallerycategoryimages->where('id', '>', $id)->min('id');
     }
 
     /**
@@ -119,7 +119,7 @@ class GalleryCategoryImagesService implements GalleryCategoryImagesInterface
      */
     public function nextPic($id)
     {
-        return $this->gallerycategoryimages->where('id','>',$id)->orderby('ID', 'ASC')->limit(1)->get();
+        return $this->gallerycategoryimages->where('id', '<', $id)->max('id');
     }
 
 }
