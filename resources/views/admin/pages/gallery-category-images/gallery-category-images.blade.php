@@ -135,10 +135,11 @@
                         </div>
 
                      <div class="tab-pane" id="tab_1">
-
+                         @if(count($backgrounds) == "")
                              <div class="col-md-12">
                                  {!! Form::open(['action' => ['AdminController@postAddGalleryCategoryImagesBackground'],'files' => 'true',  ]) !!}
                                  <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
+                                     <input type="hidden" name="page_id" value="{{ $id }}">
                                      <label class="input-group-btn">
                                     <span class="btn btn-primary">
                                         Browse Top Backgount Image… <input name="images" type="file" style="display: none;" multiple="">
@@ -168,7 +169,7 @@
                                  </div>
                                  {!! Form::close() !!}
                              </div>
-
+                            @endif
                              <div class="col-md-12">
 
                                  @if(isset($backgrounds) && count($backgrounds) != "")
@@ -215,10 +216,11 @@
 
                       </div>
                     <div class="tab-pane" id="tab_2">
-
+                        @if(count($footer) == "")
                             <div class="col-md-12">
                                 {!! Form::open(['action' => ['AdminController@postAddFooterBackground'],'files' => 'true',  ]) !!}
                                 <input type="hidden" name="role" value="gallery_category_images">
+                                <input type="hidden" name="page_id" value="{{ $id }}">
                                 <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
                                     <label class="input-group-btn">
                                     <span class="btn btn-primary">
@@ -243,7 +245,7 @@
                                 </div>
                                 {!! Form::close() !!}
                             </div>
-
+                        @endif
                             <div class="col-md-12">
                                 @if(count($footer) != "")
                                     <h1>Footer Backgound</h1>

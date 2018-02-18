@@ -39,6 +39,27 @@
                     </div>
                     <div class="order_product_text_place">
                         <div class="order_product_text_rows">
+                            @if(isset($workshop_session))
+                                <div class="text_rows_left">
+                                    <p class="order_text">
+                                        <b>Produc Name</b>
+                                    </p>
+                                    <p class="order_text">
+                                        {{$workshops->title}}
+                                    </p>
+                                    <p class="order_text">
+                                        <b>Frame Location</b>
+                                    </p>
+                                    <p class="order_text">
+                                        {{$workshops->location}}
+                                    </p>
+
+                                </div>
+
+                                <div class="many">
+                                    {{$price}} USD
+                                </div>
+                            @else
                             <div class="text_rows_left">
                                 <p class="order_text">
                                     <b>SIZE</b>
@@ -54,9 +75,11 @@
                                 </p>
 
                             </div>
+
                             <div class="many">
                                 {{$price}} USD
                             </div>
+                            @endif
                         </div>
 
                     </div>

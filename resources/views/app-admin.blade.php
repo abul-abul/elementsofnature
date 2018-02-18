@@ -101,7 +101,7 @@
                         </ul>
                     </li>
 
-                        @if(isset($activeworkshop))
+                        @if(isset($activeworkshop) || isset($workshoprequestactive))
                             <li class="start active open">
                         @else
                             <li class="start">
@@ -122,6 +122,17 @@
                                                 Work Shop
                                             </a>
                                         </li>
+
+                                    @if(isset($workshoprequestactive))
+                                        <li class="active">
+                                            @else
+                                         <li>
+                                             @endif
+                                             <a href="{{action('AdminController@getWorkshopRequest')}}">
+                                                 Work Shop Request
+                                             </a>
+                                        </li>
+
                                 </ul>
                             </li>
 

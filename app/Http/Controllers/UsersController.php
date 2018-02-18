@@ -21,6 +21,7 @@ use App\Contracts\PhotoTourInterface;
 use App\Contracts\ConnectInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
 use App\Contracts\PhotoTourRequestInterface;
+use App\Contracts\WorkShopRequestInterface;
 
 use Illuminate\Http\Request;
 use Validator;
@@ -83,8 +84,8 @@ class UsersController extends BaseController
     )
     {
         $galleryCategoryImages = $galleryCategoryImagesRepo->getSelectGalleryCatImages($id);
-        $background = $backgroundRepo->getGalleryCategoryImages();
-        $footer = $footerRepo->getOneRowGalleryCategoryImages();
+        $background = $backgroundRepo->getCurrenBg($id,'gallery_category_images');
+        $footer = $footerRepo->getFotterBg($id,'gallery_category_images');
         $news = $newsRepo->getAllNewsFavourite();
         $data = [
             'id' => $id,
@@ -120,7 +121,7 @@ class UsersController extends BaseController
             abort(404);
         }
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
-        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $imgTop = $galCatImg->getFirstRow();
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
         $data = [
             'id' => $id,
@@ -248,6 +249,20 @@ class UsersController extends BaseController
             'skills' => $skills
         ];
         return view('users.pages.workshop.workshop-inner',$data);
+    }
+
+    /**
+     * @param Request $request
+     * @param WorkShopRequestInterface $workshopRepo
+     * @return mixed
+     */
+    public function postWorshopRequest(request $request,WorkShopRequestInterface $workshopRepo)
+    {
+        $result = $request->all();
+      
+        $workshopRepo->createData($result);
+        return response()->json();
+
     }
 
     /**

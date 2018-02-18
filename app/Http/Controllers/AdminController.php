@@ -26,6 +26,7 @@ use App\Contracts\GalleryCategoryFrameInterface;
 use App\Contracts\NewsInterface;
 use App\Contracts\NewsGalleryInterface;
 use App\Contracts\PhotoTourRequestInterface;
+use App\Contracts\WorkShopRequestInterface;
 use View;
 use Session;
 use Validator;
@@ -908,8 +909,9 @@ class AdminController extends BaseController
                                             )
     {
         $galleryCategoryImages = $galleryCategoryImagesRepo->getSelectGalleryCatImages($id);
-        $background = $backgroundRepo->getGalleryCategoryImages();
-        $footer = $footerRepo->getOneRowGalleryCategoryImages();
+        $background = $backgroundRepo->getCurrenBg($id,'gallery_category_images');
+
+        $footer = $footerRepo->getFotterBg($id,'gallery_category_images');
         $data = [
             'gallery_category_actiove' => 1,
             'id' => $id,
@@ -1430,7 +1432,7 @@ class AdminController extends BaseController
                                                     )
     {
         $result = $GalleryCategoryImagesInnerRepo->getImageFrame($id);
-        $imgTop = $galCatImg->getOneGalleryCatInnerTopBg($id);
+        $imgTop = $galCatImg->getFirstRow();
         $footer = $footerRepo->getOneRowGalleryCategoryImagesInner();
         $frame = $galleryFrameRepo->getAllCanvas($id);
 
@@ -1678,6 +1680,7 @@ class AdminController extends BaseController
         $validator = Validator::make($result, [
             'images' => 'required',
         ]);
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }else{
@@ -1704,7 +1707,7 @@ class AdminController extends BaseController
                 $result['images'] = $gallery_images;
                 $bgRepo->getUpdateData($row['id'],$result);
             }
-            return redirect()->intended('/admin/gallery-category#tab_1')->with('message','You added In Your space Background');
+            return redirect()->back()->with('message','You added In Your space Background');
         }
     }
 
@@ -1719,7 +1722,6 @@ class AdminController extends BaseController
         $validator = Validator::make($result, [
             'images1' => 'required',
             'description' => 'required',
-            'images2' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -1734,12 +1736,7 @@ class AdminController extends BaseController
                 $gallery_images = $name.'.'.$logoFile;
                 $result['images1'] = $gallery_images;
 
-                $path1 = public_path() . '/assets/gallery-category-images';
-                $logoFile1 = $result['images2']->getClientOriginalExtension();
-                $name1 = str_random(12);
-                $result_move1 = $result['images2']->move($path1, $name1.'.'.$logoFile1);
-                $gallery_images1 = $name1.'.'.$logoFile1;
-                $result['images2'] = $gallery_images1;
+
                 $galCatImg->createData($result);
                 return redirect()->back()->with('message','Gallery Top Images Added');
             }else{
@@ -1944,6 +1941,37 @@ class AdminController extends BaseController
         return redirect()->back()->with('message','Deleted Work Shop');
 
     }
+
+    /**
+     * @param WorkShopRequestInterface $worshopRequestRepo
+     * @return View
+     */
+    public function getWorkshopRequest(WorkShopRequestInterface $worshopRequestRepo)
+    {
+        $result = $worshopRequestRepo->getAll();
+        $data = [
+            'workshoprequestactive' => 1,
+            'workshoprequests' => $result
+        ];
+        return view('admin.pages.work-shop.workshop-request',$data);
+    }
+
+    public function getWorkshopRequestView($id)
+    {
+        dd($id);
+    }
+
+    /**
+     * @param $id
+     * @param WorkShopRequestInterface $worhsopRequestRepo
+     * @return mixed
+     */
+    public function getDeleteWorkshopRequest($id,WorkShopRequestInterface $worhsopRequestRepo)
+    {
+        $worhsopRequestRepo->deleteData($id);
+        return redirect()->back()->with('message','Worshop Request deleted');
+    }
+
 
     public function postAddWorkShopBackgroundTop(request $request,BackgroundInterface $bgRepo)
     {

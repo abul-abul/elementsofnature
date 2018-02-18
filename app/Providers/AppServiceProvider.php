@@ -76,6 +76,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Services\WorkShopService'
         );
         $this->app->bind(
+            'App\Contracts\WorkShopRequestInterface',
+            'App\Services\WorkShopRequestService'
+        );
+        $this->app->bind(
             'App\Contracts\SkillInterface',
             'App\Services\SkillService'
         );

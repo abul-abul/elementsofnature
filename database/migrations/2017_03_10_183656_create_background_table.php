@@ -20,6 +20,7 @@ class CreateBackgroundTable extends Migration
             $table->string('alt')->nullable();
             $table->longText('description')->nullable();
             $table->string('role')->nullable();
+            $table->string('page_id')->nullable();
             $table->timestamps();
         });
     }

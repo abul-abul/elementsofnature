@@ -64,7 +64,7 @@
             </div>
         </div>
         <a href="#" class="topics_covered_link">
-            <button class="topics_covered_send_btn">
+            <button class="topics_covered_send_btn topics_covered_link2">
                 send request
             </button>
         </a>
@@ -141,4 +141,40 @@
     @endif
 <!-- footer place -->
 
+
+    {{--modal --}}
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+
+                <input type="hidden" content="{{ csrf_token() }}" class="workshop_request_token">
+
+                <p>
+                    <input placeholder="Name"  type="text" class="workshop_request_name">
+                </p>
+                <p>
+                    <input placeholder="Lastname" type="text" class="workshop_request_lastname">
+                </p>
+                <p>
+                    <input placeholder="Email" type="text" class="workshop_requeste_email">
+                </p>
+                <p>
+                    <textarea placeholder="message" cols="50" rows="10" class="workshop_request_message"></textarea>
+                </p>
+                <p>
+                    <input data-id="{{ $workshops->id }}" class="workshop_request_request" style="margin-top: -15px;" type="submit" value="send">
+                </p>
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+
+    </div>
+    {{--end modal--}}
 @endsection

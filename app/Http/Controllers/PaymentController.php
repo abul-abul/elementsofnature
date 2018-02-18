@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\WorkShopRequestInterface;
 use Illuminate\Http\Request;
 
 use PayPal\Api\Plan;
@@ -25,6 +26,7 @@ use App\Contracts\GalleryCategoryImagesInnerInterface;
 use App\Contracts\GalleryCategoryFrameInterface;
 use App\Contracts\PartnersInterface;
 use App\Contracts\PaymentInterface;
+use App\Contracts\WorkShopInterface;
 use Validator;
 
 class PaymentController extends Controller
@@ -34,28 +36,43 @@ class PaymentController extends Controller
      * @param Request $request
      * @param GalleryCategoryImagesInnerInterface $innerRepo
      * @param GalleryCategoryFrameInterface $frameRepo
+     * @param WorkShopInterface $workshopRepo
      * @param PartnersInterface $partnerRepo
      * @return mixed
      */
     public function getPayPage(request $request,
                                 GalleryCategoryImagesInnerInterface $innerRepo,
                                 GalleryCategoryFrameInterface $frameRepo,
+                                WorkShopInterface $workshopRepo,
                                 PartnersInterface $partnerRepo
                                 )
     {
         $result = $request->all();
         $patners = $partnerRepo->getAll();
-        $data = [
-           'id' => $result['id'],
-           'size' => $result['size'],
-           'frame' => $result['frame'],
-           'price' => $result['price'],
-           'partners' => $patners
-        ];
-        if($data['size'] == '' || $data['price'] == ''){
-            return redirect()->back()->with('message','Please choose the size');
+        if(isset($result['workshop_session'])){
+            $workshops = $workshopRepo->getOne($result['id']);
+           
+            $data = [
+                'workshops' => $workshops,
+                'id' => $result['id'],
+                'workshop_session' => 1,
+                'price' => $result['price'],
+                'partners' => $patners
+            ];
+        }else{
+            $data = [
+                'id' => $result['id'],
+                'size' => $result['size'],
+                'frame' => $result['frame'],
+                'price' => $result['price'],
+                'partners' => $patners
+            ];
+            if($data['size'] == '' || $data['price'] == ''){
+                return redirect()->back()->with('message','Please choose the size');
+            }
+            $inner = $frameRepo->getOne($result['id']);
         }
-        $inner = $frameRepo->getOne($result['id']);
+
         return view('users.paypal.paypal-page',$data);
 
     }

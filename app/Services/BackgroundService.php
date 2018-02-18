@@ -127,4 +127,14 @@ class BackgroundService implements BackgroundInterface
         return $this->background->where('role','connect')->first();
     }
 
+    /**
+     * @param $id
+     * @param $role
+     * @return mixed
+     */
+    public function getCurrenBg($id,$role)
+    {
+        return $this->background->where('role',$role)->where('page_id',$id)->first();
+    }
+
 }

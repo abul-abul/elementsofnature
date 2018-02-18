@@ -75,4 +75,10 @@ interface BackgroundInterface
      */
     public function getConnectBackgroundImages();
 
+    /**
+     * @param $id
+     * @param $role
+     * @return mixed
+     */
+    public function getCurrenBg($id,$role);
 }

@@ -47,9 +47,18 @@
                 </button>
             </a>
             <a href="#" class="event_buy_link">
-                <button class="event_buy_btn">
+                {!! Form::open(['action' => ['PaymentController@getPayPage'],'files' => 'true', 'method' => 'GET' ]) !!}
+                <input type="hidden" name="id" value="{{ $workshop->id }}">
+                <input type="hidden" name="workshop_session" value="1">
+                <input type="hidden" name="price" class="workshopPayPrice" value="{{ $workshop->price }}">
+                {{--<a href="{{action('PaymentController@getPayPage',$id)}}" class="price_btn_text">--}}
+                {{--<a href="{{action('PaymentController@getPayPal')}}" class="price_btn_text">--}}
+                <button type="submit" class="event_buy_btn">
                     buy now
                 </button>
+                {{--</a>--}}
+                {!! Form::close() !!}
+
             </a>
         </div>
     </div>

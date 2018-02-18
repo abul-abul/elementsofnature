@@ -124,21 +124,21 @@
                                         </div>
                                     </div>
 
-                                    <div style="width: 94%;margin-left: 32px;" class="input-group form-group">
-                                        <label class="input-group-btn">
-                                            <span class="btn btn-primary">
-                                                Browse Gallery Image 2… <input name="images2" type="file" style="display: none;" multiple="">
-                                            </span>
-                                        </label>
-                                        <input type="text" class="form-control" readonly="">
-                                    </div>
+                                    {{--<div style="width: 94%;margin-left: 32px;" class="input-group form-group">--}}
+                                        {{--<label class="input-group-btn">--}}
+                                            {{--<span class="btn btn-primary">--}}
+                                                {{--Browse Gallery Image 2… <input name="images2" type="file" style="display: none;" multiple="">--}}
+                                            {{--</span>--}}
+                                        {{--</label>--}}
+                                        {{--<input type="text" class="form-control" readonly="">--}}
+                                    {{--</div>--}}
 
-                                    <div class="col-md-12 form-group">
-                                        <label style="margin-left: 15px">Alt 1</label>
-                                        <div class="col-md-12">
-                                            {!! Form::text('alt2', null, ['placeholder' => 'Alt 2' , 'class' => 'form-control']) !!}
-                                        </div>
-                                    </div>
+                                    {{--<div class="col-md-12 form-group">--}}
+                                        {{--<label style="margin-left: 15px">Alt 1</label>--}}
+                                        {{--<div class="col-md-12">--}}
+                                            {{--{!! Form::text('alt2', null, ['placeholder' => 'Alt 2' , 'class' => 'form-control']) !!}--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
 
 
@@ -158,8 +158,6 @@
                                         <th>Description</th>
                                         <th>Alt 1</th>
                                         <th>Images 1</th>
-                                        <th>Alt 2</th>
-                                        <th>Image 2</th>
                                         <th>
                                             Edit/Delete
                                         </th>
@@ -174,8 +172,7 @@
                                         </td>
                                         <td>{{$imgTop->alt1}}</td>
                                         <td><img style="width: 100px;height: 56px;" src="/assets/gallery-category-images/{{$imgTop->images1}}"></td>
-                                        <td>{{$imgTop->alt2}}</td>
-                                        <td><img style="width: 100px;height: 56px;" src="/assets/gallery-category-images/{{$imgTop->images2}}"></td>
+
 
                                         <td>
                                             <a href="{{action('AdminController@getEditViewGalleryCategoryImgInner',$imgTop->id)}}">

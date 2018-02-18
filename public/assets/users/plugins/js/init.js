@@ -543,6 +543,39 @@ $(document).ready(function(){
 	})
 
 
+
+
+
+	// workshop send request
+	$(document).on('click','.workshop_request_request',function () {
+		var id = $(this).attr('data-id');
+		var name = $('.workshop_request_name').val();
+		var lastname = $('.workshop_request_lastname').val();
+		var email = $('.workshop_requeste_email').val();
+		var messsge = $('.workshop_request_message').val();
+		var token = $('.workshop_request_token').attr('content');
+		if(name == "" || lastname == '' || email == '' || messsge == ''){
+			alert("Please fill in all fields")
+		}else{
+			$.ajax({
+				url: '/workshop-request',
+				data:{_token:token,	workshop_id:id,name:name,lastname:lastname,email:email,messsge:messsge},
+				type: 'post',
+				success: function(data)
+				{
+					$('.workshop_request_name').val("");
+					$('.workshop_request_lastname').val("");
+					$('.workshop_requeste_email').val("");
+					$('.workshop_request_message').val("");
+					$('#myModal').css('display','none');
+					alert('Your message send')
+				}
+			});
+		}
+	});
+
+
+	//end workshop send request
 });
 
 

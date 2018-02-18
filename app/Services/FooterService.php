@@ -143,4 +143,14 @@ class FooterService implements FooterInterface
         return $this->footer->where('role','about')->first();
     }
 
+    /**
+     * @param $id
+     * @param $role
+     * @return mixed
+     */
+    public function getFotterBg($id,$role)
+    {
+        return $this->footer->where('role',$role)->where('page_id',$id)->first();
+    }
+
 }

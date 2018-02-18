@@ -85,4 +85,11 @@ interface FooterInterface
      */
     public function getOneRowAbout();
 
+    /**
+     * @param $id
+     * @param $role
+     * @return mixed
+     */
+    public function getFotterBg($id,$role);
+
 }

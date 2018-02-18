@@ -15,6 +15,7 @@ Route::get('images-inner-frame/{id}','UsersController@getImagesInnerFrame');
 Route::get('work-shop','UsersController@getWorkShop');
 
 Route::get('work-shop-inner/{id}','UsersController@getWorkShopInner');
+Route::post('workshop-request','UsersController@postWorshopRequest');
 
 Route::get('in-your-space','UsersController@getInYourSpace');
 Route::get('photo-tour','UsersController@gerPhotoTour');
@@ -141,6 +142,9 @@ Route::post('admin/edit-work-shop','AdminController@postEditWorkShop');
 Route::get('admin/delete-work-shop/{id}','AdminController@getDeleteWorkShop');
 Route::post('admin/add-work-shop-background-top','AdminController@postAddWorkShopBackgroundTop');
 Route::get('admin/edit-worl-shop-background/{id}','AdminController@getEditWorkShopBackgrount');
+Route::get('admin/work-shop-request','AdminController@getWorkshopRequest');
+Route::get('admin/work-shop-request-view/{id}','AdminController@getWorkshopRequestView');
+Route::get('admin/delete-workshop-request/{id}','AdminController@getDeleteWorkshopRequest');
 
 
 
