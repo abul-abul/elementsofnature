@@ -100,8 +100,9 @@ $(document).ready(function () {
         $(document).on('click','.add_frame',function () {
             count_frame++;
             content = "";
-            content += "<div>";
-                content += "<input placeholder='Type Frame' class='form-control tt-input coose_frame_block' style='margin-top:15px;width:80%' type='text' name='frame_"+count_frame+"'>"
+            content += "<div class='col-md-12'>";
+                content += "<input placeholder='Type Frame' class='form-control tt-input coose_frame_block' style='margin-top:15px;width:50%' type='text' name='frame_"+count_frame+"'>"
+                content += "<input type='file' name='frame_img_"+count_frame+"' style='width: 29%;float: left;margin: 21px 0 0 19px'>"
                 content += "<div class='col-md-2'><i style='color: red;cursor: pointer;margin-left: 46px;font-size: 21px;margin-top:24px' class='glyphicon glyphicon-remove del_frame'></i></div>"
             content += "</div>";
             $('.fremae_added').append(content);

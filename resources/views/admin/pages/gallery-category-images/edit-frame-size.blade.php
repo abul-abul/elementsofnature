@@ -15,6 +15,13 @@
             </div>
 
             <div class="col-md-12 form-group">
+                <label style="margin-left: 15px">Frame Images</label>
+                <div class="col-md-12">
+                    {!! Form::file('frame_img', null, ['placeholder' => 'frame' , 'class' => 'form-control']) !!}
+                </div>
+            </div>
+
+            <div class="col-md-12 form-group">
                 <label style="margin-left: 15px">Size</label>
                 <div class="col-md-12">
                     {!! Form::text('size', null, ['placeholder' => 'Size' , 'class' => 'form-control']) !!}

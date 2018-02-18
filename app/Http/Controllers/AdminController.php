@@ -1141,7 +1141,7 @@ class AdminController extends BaseController
         $validator = Validator::make($result, [
             'title' => 'required',
             'price' => 'required',
-            'images_inner' => 'required'
+           // 'images_inner' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -1195,9 +1195,16 @@ class AdminController extends BaseController
             'size' => $result['size'],
             'gallery_category_images_id' => $result['id'],
             'gallery_category_images_inner_id' => $dataInnerObj->id,
-
+            //'frame_img' => $result['frame_img']
         ];
-
+        if(isset($result['frame_img'])) {
+            $logoFile1 = $result['frame_img']->getClientOriginalExtension();
+            $name1 = str_random(12);
+            $path1 = public_path() . '/assets/gallery-category-images';
+            $result_move = $result['frame_img']->move($path1, $name1 . '.' . $logoFile1);
+            $gallery_images1 = $name1 . '.' . $logoFile1;
+            $dataFrame['frame_img'] = $gallery_images1;
+        }
 
         if(isset($result['frame'])){
             $dataFrame['frame'] = $result['frame'];
@@ -1211,6 +1218,17 @@ class AdminController extends BaseController
 
             if(isset($result['size_' . $i]) && $result['size_' . $i] != null){
                 $dataChild['size'] = $result['size_' . $i];
+            }
+
+            if(isset($result['frame_img_' . $i]) && $result['frame_img_' . $i] != null){
+                $logoFile2 = $result['frame_img_'. $i]->getClientOriginalExtension();
+                $name2 = str_random(12);
+                $path2 = public_path() . '/assets/gallery-category-images';
+                $result_move = $result['frame_img_'.$i]->move($path2, $name2.'.'.$logoFile2);
+                $gallery_images2 = $name2.'.'.$logoFile2;
+                $dataChild['frame_img'] = $gallery_images2;
+
+               // $dataChild['frame_img'] = $result['frame_img_' . $i];
             }
 
             if(explode('frame_',$i) != ''){
@@ -1246,6 +1264,19 @@ class AdminController extends BaseController
     public function postEditFrames(request $request,GalleryCategoryFrameInterface $galleryCategoryFrame)
     {
         $result = $request->all();
+
+        $row = $galleryCategoryFrame->getOne($result['id']);
+        $path = public_path() . '/assets/gallery-category-images/' . $row['frame_img'];
+        File::delete($path);
+
+        $logoFile = $result['frame_img']->getClientOriginalExtension();
+
+        $name = str_random(12);
+        $path = public_path() . '/assets/gallery-category-images';
+        $result_move = $result['frame_img']->move($path, $name.'.'.$logoFile);
+        $gallery_images = $name.'.'.$logoFile;
+        $result['frame_img'] = $gallery_images;
+
         $galleryCategoryFrame->getUpdateData($result['id'],$result);
         return redirect()->back()->with('message','You have updated frame');
     }
@@ -1293,7 +1324,17 @@ class AdminController extends BaseController
     public function postAddImgFrame(request $request,GalleryCategoryFrameInterface $galleryCanvasRepo)
     {
         $result = $request->all();
-        $galleryCanvasRepo->createData($result);
+        if(isset($result['frame_img'])){
+            $logoFile = $result['frame_img']->getClientOriginalExtension();
+            $name = str_random(12);
+            $path = public_path() . '/assets/gallery-category-images';
+            $result_move = $result['frame_img']->move($path, $name.'.'.$logoFile);
+            $gallery_images = $name.'.'.$logoFile;
+            $result['frame_img'] = $gallery_images;
+            $galleryCanvasRepo->createData($result);
+        }else{
+            $galleryCanvasRepo->createData($result);
+        }
         return redirect()->back()->with('message','You have add Frame');
     }
 
@@ -1304,6 +1345,9 @@ class AdminController extends BaseController
      */
     public function getDeleteImgFrame($id,GalleryCategoryFrameInterface $galleryCanvasRepo)
     {
+        $row = $galleryCanvasRepo->getOne($id);
+        $path = public_path() . '/assets/gallery-category-images/' . $row['frame_img'];
+        File::delete($path);
         $galleryCanvasRepo->deleteData($id);
         return redirect()->back()->with('message','You have delete Frame');
     }
@@ -1465,8 +1509,10 @@ class AdminController extends BaseController
     public function postEditGalleryCategoryImagestopBg(request $request,GalleryCategoryImagesInnerTopInterface $galCatImg)
     {
         $result = $request->all();
+        $row = $galCatImg->getFirstRow();
         if(isset($result['images1'])){
-            $row = $galCatImg->getOne($result['id']);
+
+
             $path = public_path() . '/assets/gallery-category-images/' . $row['images1'];
             File::delete($path);
             $logoFile = $result['images1']->getClientOriginalExtension();
@@ -1475,10 +1521,9 @@ class AdminController extends BaseController
             $result_move = $result['images1']->move($path, $name.'.'.$logoFile);
             $gallery_images = $name.'.'.$logoFile;
             $result['images1'] = $gallery_images;
-            $galCatImg->getUpdateData($result['id'],$result);
+            $galCatImg->getUpdateData($row['id'],$result);
         }
         if(isset($result['images2'])){
-            $row = $galCatImg->getOne($result['id']);
             $path = public_path() . '/assets/gallery-category-images/' . $row['images2'];
             File::delete($path);
             $logoFile = $result['images2']->getClientOriginalExtension();
@@ -1487,9 +1532,9 @@ class AdminController extends BaseController
             $result_move = $result['images2']->move($path, $name.'.'.$logoFile);
             $gallery_images = $name.'.'.$logoFile;
             $result['images2'] = $gallery_images;
-            $galCatImg->getUpdateData($result['id'],$result);
+            $galCatImg->getUpdateData($row['id'],$result);
         }
-        $galCatImg->getUpdateData($result['id'],$result);
+        $galCatImg->getUpdateData($row['id'],$result);
         return redirect()->back()->with('message','Update successfully');
 
 
@@ -1727,7 +1772,7 @@ class AdminController extends BaseController
             return redirect()->back()->withErrors($validator);
         }else{
             unset($result['_token']);
-            $row = $galCatImg->getOneGalleryCatInnerTopBg($result['gallery_category_images_inner_id']);
+            $row = $galCatImg->getFirstRow();
             if(count($row) == ''){
                 $path = public_path() . '/assets/gallery-category-images';
                 $logoFile = $result['images1']->getClientOriginalExtension();

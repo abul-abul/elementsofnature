@@ -53,12 +53,9 @@
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-md-11 fremae_added">
-                                                                        {{--<select style="margin-top:15px" name="frame" class="form-control input-lg coose_frame_block">--}}
-                                                                            {{--<option name="ash">Ash</option>--}}
-                                                                            {{--<option name="noca">Noca</option>--}}
-                                                                            {{--<option name="tobaco">Tobaco</option>--}}
-                                                                        {{--</select>--}}
-                                                                        {!! Form::text('frame', null, ['placeholder'=>'Type Frame','class' => 'form-control tt-input coose_frame_block','style'=>'margin-top:15px;width:80%']) !!}
+                                                                        {!! Form::text('frame', null, ['placeholder'=>'Type Frame','class' => 'form-control tt-input coose_frame_block','style'=>'margin-top:15px;width:50%']) !!}
+                                                                        {{--{!! Form::file('img_frame', null, ['class' => 'form-control tt-input']) !!}--}}
+                                                                        <input type="file" name="frame_img" style="width: 29%;float: left;margin: 21px 0 0 19px">
                                                                         <button style="margin: 14px 0 0 35px" type="button" class="btn green add_frame">Add</button>
                                                                     </div>
                                                                     <div class="col-md-11 size_added">

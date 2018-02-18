@@ -479,7 +479,7 @@ $(document).ready(function(){
 				$.each(data.frames, function(i, item) {
 
 					if(item.frame != null){
-						html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame">'+item.frame+'</p>'
+						html_frame += '<p id="'+item.frame+'" onclick="selectFrame(this.id)" class="select_frame"><img class="select_img" src="/assets/gallery-category-images/'+item.frame_img+'" alt="">'+item.frame+'</p>'
 						$('.product_frame_product_parent').css('display','block');
 					}else{
 						$('.product_frame_product_parent').css('display','none');

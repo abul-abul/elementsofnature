@@ -4,8 +4,8 @@
     <div class="news_place">
         <div class="news_center">
             <div class="news_child">
-                <h1 class="news_title">{{$news->title}}</h1>
-                <p class="news_text">
+                <h1 class="news_title color_black">{{$news->title}}</h1>
+                <p class="news_text color_black">
                     {{$news->description}}
                 </p>
             </div>

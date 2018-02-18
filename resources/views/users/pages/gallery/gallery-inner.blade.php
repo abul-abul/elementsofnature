@@ -11,23 +11,32 @@
 
         <!-- big small images place -->
 @if($imgTop != '')
-<div class="big_small_img_place">
-    <div class="bs_img_center">
-        <div class="bs_img_child">
-            <div class="bs_img_small_place">
-                <img src="/assets/gallery-category-images/{{$imgTop->images1}}" class="bs_img" alt="" />
-            </div>
-            <p class="bs_img_desc">
-                {{$imgTop->description}}
-            </p>
-        </div>
+{{--<div class="big_small_img_place">--}}
+    {{--<div class="bs_img_center">--}}
+        {{--<div class="bs_img_child">--}}
+            {{--<div class="bs_img_small_place">--}}
+                {{--<img src="/assets/gallery-category-images/{{$imgTop->images1}}" class="bs_img" alt="" />--}}
+            {{--</div>--}}
+            {{--<p class="bs_img_desc">--}}
+                {{--{{$imgTop->description}}--}}
+            {{--</p>--}}
+        {{--</div>--}}
         {{--<div class="bs_img_child">--}}
             {{--<div class="bs_img_big_place">--}}
                 {{--<img src="/assets/gallery-category-images/{{$imgTop->images2}}" class="bs_img" alt="" />--}}
             {{--</div>--}}
         {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
+<section class="small_bg_place">
+    <img src="/assets/gallery-category-images/{{$imgTop->images1}}" class="small_bg" alt="{{$imgTop->alt}}" />
+    <div class="small_bg_place_center">
+
+        <p class="small_bg_text">
+            {{$imgTop->description}}
+        </p>
     </div>
-</div>
+</section>
 @endif
 <!-- big small images place -->
 
@@ -58,27 +67,22 @@
                 <img src="/assets/users/plugins/images/pin_link.png" />
             </a>
         </div>
+
         <div class="zoom_next_last_place">
             <button class="z_next_last_btn">
                 <i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                @if($id != $firstId)
-                <a href="{{action('UsersController@getGalleryInnerLastFirst',[$id-1,'last'])}}" class="next_last_link">
-                    last picture
-                </a>
-                @else
-                    <a href="#" class="next_last_link"> last picture</a>
-                @endif
+                    @if($nextId)
+                    <a href="{{action('UsersController@getGalleryInner',$nextId)}}" class="next_last_link">last picture</a>
+                    @else
+                    <a href="#" class="next_last_link">last picture</a>
+                    @endif
             </button>
 
             <button class="z_next_last_btn">
-                @if($lastId == $id)
-                    <a href="#" class="next_last_link">
-                        next picture
-                    </a>
+                @if($lastId)
+                    <a href="{{action('UsersController@getGalleryInner',$lastId)}}" class="next_last_link">next picture</a>
                 @else
-                    <a href="{{action('UsersController@getGalleryInnerLastFirst',[$id+1,'next'])}}" class="next_last_link">
-                        next picture
-                    </a>
+                    <a href="#" class="next_last_link">next picture</a>
                 @endif
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
             </button>
@@ -261,12 +265,12 @@
                             </a>
 						</span>
 					</span>
-            <div class="footer_rb_logo_place2">
-                <span class="made_by_white">made by</span>
-                <a href="http://rbpartners.co/" target="_blank">
-                    <img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />
-                </a>
-            </div>
+            {{--<div class="footer_rb_logo_place2">--}}
+                {{--<span class="made_by_white">made by</span>--}}
+                {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                    {{--<img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
 </footer>

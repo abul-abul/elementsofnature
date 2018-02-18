@@ -52,10 +52,10 @@
         @foreach($news as $new)
             <div class="footer_news_2">
                 <img src="/assets/news-images/{{$new->images}}" class="news_image" />
-                <h4 class="news_title">
+                <h4 class="news_title color_black">
                     {{$new->title}}
                 </h4>
-                <p class="news_text">
+                <p class="news_text color_black">
                     {{substr($new->description,0,50)}}...
                 </p>
 
@@ -110,12 +110,12 @@
                     </span>
                 @endforeach
             </span>
-                <div class="footer_rb_logo_place2">
-                    <span class="made_by_white">made by</span>
-                    <a href="http://rbpartners.co/" target="_blank">
-                        <img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />
-                    </a>
-                </div>
+                {{--<div class="footer_rb_logo_place2">--}}
+                    {{--<span class="made_by_white">made by</span>--}}
+                    {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                        {{--<img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />--}}
+                    {{--</a>--}}
+                {{--</div>--}}
             </div>
         </div>
     </footer>

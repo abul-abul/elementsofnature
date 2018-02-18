@@ -176,12 +176,12 @@
             </ul>
         </div>
         <div class="footer_footer_place">
-            <div class="footer_rb_logo_place">
-                <span class="made_by">made by</span>
-                <a href="http://rbpartners.co/" target="_blank">
-                    <img src="/assets/users/plugins/images/r_b_logo.png" class="rblogo" />
-                </a>
-            </div>
+            {{--<div class="footer_rb_logo_place">--}}
+                {{--<span class="made_by">made by</span>--}}
+                {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                    {{--<img src="/assets/users/plugins/images/r_b_logo.png" class="rblogo" />--}}
+                {{--</a>--}}
+            {{--</div>--}}
             <div class="footer_partners_place">
 					<span class="partners_place_center">
                         @foreach($partners as $partner)

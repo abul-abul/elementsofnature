@@ -67,8 +67,11 @@
                                 <p class="order_text">
                                    {{$size}}
                                 </p>
+
                                 <p class="order_text">
+                                    @if($frame)
                                     <b>Frame Type</b>
+                                    @endif
                                 </p>
                                 <p class="order_text">
                                     {{$frame}}

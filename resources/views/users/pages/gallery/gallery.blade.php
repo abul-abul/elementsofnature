@@ -77,22 +77,23 @@
                     order
                 </button>
             </a>
-        </div>
-        <div class="mixed_img_desc_place">
-            <p class="mixed_img_title">{{$galleryCategoryImage->title}}</p>
-            <p class="mixed_img_date">
+            <div class="mixed_img_desc_place2">
+                <p class="mixed_img_title">{{$galleryCategoryImage->title}}</p>
+                <p class="mixed_img_date">
       					<span class="mix_img_desc_title">
       						date:
       					</span>
-                {{date('d/M/Y', strtotime($galleryCategoryImage->created_at))}}
-            </p>
-            <p class="mixed_img_desc">
+                    {{date('d/M/Y', strtotime($galleryCategoryImage->created_at))}}
+                </p>
+                <p class="mixed_img_desc">
       					<span class="mix_img_desc_title">
       						place:
       					</span>
-                {{substr($galleryCategoryImage->description, 0, 8)}}...
-            </p>
+                    {{substr($galleryCategoryImage->description, 0, 8)}}...
+                </p>
+            </div>
         </div>
+
     </div>
     @endforeach
 
@@ -135,6 +136,7 @@
     <img src="/assets/footer-images/{{$footer->images}}" class="footer_img" />
     <div class="category_footer_footer2">
         <div class="cfooter_menu_place">
+
             <ul class="cfooter_menu">
                 <li class="cfoter_menu_li">
                     <a href="{{action('UsersController@getGalleryCategory')}}" class="cfooter_link">gallery</a>
@@ -192,12 +194,12 @@
                             </a>
 						</span>
 					</span>
-            <div class="footer_rb_logo_place2">
-                <span class="made_by_white">made by</span>
-                <a href="http://rbpartners.co/" target="_blank">
-                    <img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />
-                </a>
-            </div>
+            {{--<div class="footer_rb_logo_place2">--}}
+                {{--<span class="made_by_white">made by</span>--}}
+                {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                    {{--<img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />--}}
+                {{--</a>--}}
+            {{--</div>--}}
         </div>
     </div>
 </footer>

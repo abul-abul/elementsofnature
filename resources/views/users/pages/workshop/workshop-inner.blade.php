@@ -129,12 +129,12 @@
                     </span>
                 @endforeach
             </span>
-                <div class="footer_rb_logo_place2">
-                    <span class="made_by_white">made by</span>
-                    <a href="http://rbpartners.co/" target="_blank">
-                        <img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />
-                    </a>
-                </div>
+                {{--<div class="footer_rb_logo_place2">--}}
+                    {{--<span class="made_by_white">made by</span>--}}
+                    {{--<a href="http://rbpartners.co/" target="_blank">--}}
+                        {{--<img src="/assets/users/plugins/images/r_b_logo_white.png" class="rblogo" />--}}
+                    {{--</a>--}}
+                {{--</div>--}}
             </div>
         </div>
     </footer>

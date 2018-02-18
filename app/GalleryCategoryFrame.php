@@ -12,7 +12,8 @@ class GalleryCategoryFrame extends Model
                             'gallery_category_images_inner_id',
                             'size',
                             'frame',
-                            'price'
+                            'price',
+                            'frame_img'
                             ];
 
    

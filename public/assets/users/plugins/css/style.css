@@ -1038,6 +1038,13 @@ header{
 	bottom: 13px;
 }
 
+.mixed_img_desc_place2 {
+	width: 90%;
+	text-align: center;
+	margin: 40px auto 0px;
+	word-wrap: break-word;
+}
+
 .mixed_img_title{
 	text-transform: uppercase;
 	font-size: 24px;
@@ -1212,6 +1219,10 @@ footer{
 
 .footer_news_2:nth-child(3n){
 	margin-right: 0px;
+}
+
+.color_black{
+	color: #000 !important;
 }
 
 /*footer news 2*/
@@ -2262,7 +2273,7 @@ footer{
 .product_text{
 	position: absolute;
 	left: 0px;
-	top: 87%;
+	top: 100%;
 	font-size: 18px;
 	font-family: 'FuturaBT-Book';
 	color: #000;
@@ -2736,7 +2747,7 @@ footer{
 	text-decoration: none;
 	width: 285px;
 	height: 40px;
-	margin: 170px auto;
+	margin: 170px auto 0px;
 }
 
 .standert_img{
@@ -2925,6 +2936,7 @@ footer{
 
 .artist_abs{
 	position: absolute;
+	display: none;
 	top: 0px;
 	left: 0px;
 	width: 100%;
@@ -2977,7 +2989,7 @@ footer{
 	float: left;
 	font-size: 20px;
 	font-family: 'FuturaBT-Medium';
-	color: #8a8a8a;
+	color: #000;
 	word-wrap: break-word;
 }
 
@@ -2995,7 +3007,7 @@ footer{
 	margin: 0px;
 	font-size: 20px;
 	font-family: 'FuturaBT-Medium';
-	color: #8a8a8a;
+	color: #000;
 }
 
 .artist_text:nth-child(2n){
@@ -3625,7 +3637,7 @@ input[type="text"].pay_inp::placeholder{
 
 .news_title{
 	height: 40px;
-	margin: 0px;
+	margin: 0px 0px 10px 0px;
 	padding: 0px 0px 0px 10px;
 	color: #fff;
 	font-size: 20px;

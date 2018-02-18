@@ -15,7 +15,6 @@ class CreateGalleryCategoryImagesInnerTopTable extends Migration
     {
         Schema::create('gallery_category_images_inner_top', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('gallery_category_images_inner_id')->nullable();
             $table->longText('description')->nullable();
             $table->string('images1')->nullable();
             $table->string('images2')->nullable();

@@ -8,7 +8,7 @@ Route::get('gallery-images-category','UsersController@getGalleryCategory');
 Route::get('gallery-images/{id}','UsersController@getGalleryCategoryImages');
 Route::get('gallery-frame-id-price-ajax/{id}','UsersController@getGalleryFrameIdPriceAjax');
 Route::get('gallery-images-inner/{id}','UsersController@getGalleryInner');
-Route::get('gallery-img-inner/{id}/{page}','UsersController@getGalleryInnerLastFirst');
+
 Route::get('images-inner-frame/{id}','UsersController@getImagesInnerFrame');
 //End gallery
 
